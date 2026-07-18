@@ -167,7 +167,11 @@
       radial-gradient(58% 52% at 28% 18%, rgba(122,22,6,.38), transparent 70%),
       radial-gradient(52% 60% at 78% 82%, rgba(92,16,5,.3), transparent 72%),
       #161010;}
-  .lo .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,90px);align-items:center;}
+  .lo .grid{display:grid;grid-template-columns:1.05fr .95fr;grid-template-areas:"intro arch" "feat arch";
+    column-gap:clamp(40px,6vw,90px);row-gap:38px;align-items:center;}
+  .intro-lo{grid-area:intro;align-self:end;}
+  .lo .arch{grid-area:arch;}
+  .lo .feat{grid-area:feat;align-self:start;}
   .lo .step{display:inline-block;font-family:var(--display);font-weight:400;letter-spacing:-.015em;
     font-size:clamp(28px,3.4vw,48px);line-height:1.1;
     background:linear-gradient(90deg,#FEFEF9 0%,#D9A79A 100%);
@@ -176,7 +180,7 @@
     font-size:clamp(30px,4.2vw,58px);letter-spacing:.14em;line-height:1.12;margin:10px 0 0;}
   .lo .big .sub{display:block;font-size:.6em;letter-spacing:.3em;margin-top:8px;color:#fff;}
   .lo .lead-lo{margin:24px 0 0;color:var(--fg-2);font-size:clamp(16px,1.5vw,18.5px);max-width:33em;text-wrap:pretty;}
-  .feat{margin-top:36px;display:flex;flex-direction:column;gap:14px;max-width:560px;}
+  .feat{display:flex;flex-direction:column;gap:14px;max-width:560px;}
   .frow{display:flex;gap:18px;align-items:flex-start;background:rgba(255,255,255,.045);
     border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:18px 20px;}
   .frow .fic{flex:none;width:46px;height:46px;border:1.5px solid var(--lo-red);border-radius:10px;
@@ -187,7 +191,7 @@
   .frow p{margin:3px 0 0;font-size:14.5px;line-height:1.5;color:var(--fg-3);}
   /* arched card */
   .arch{position:relative;max-width:470px;margin:0 auto;width:100%;}
-  .arch .aimg{border-radius:235px 235px 20px 20px;overflow:hidden;aspect-ratio:4/5;
+  .arch .aimg{position:relative;border-radius:235px 235px 20px 20px;overflow:hidden;aspect-ratio:4/5;
     border:1px solid rgba(255,255,255,.08);box-shadow:0 50px 100px rgba(0,0,0,.6);background:#0c0a0a;}
   .arch .aimg img{width:100%;height:100%;object-fit:cover;object-position:36% center;}
   .playpill{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);
@@ -202,10 +206,16 @@
     display:flex;align-items:center;justify-content:center;}
   .playpill .pp::after{content:'';width:0;height:0;border-style:solid;border-width:8px 0 8px 13px;
     border-color:transparent transparent transparent #fff;margin-left:3px;}
-  .hurry{margin-top:18px;text-align:center;font-size:12.5px;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--fg);}
-  .hurry b{color:var(--lo-red);font-weight:700;letter-spacing:.22em;margin:0 6px;}
-  @media (max-width:900px){.lo .grid{grid-template-columns:1fr;gap:52px;}}
+  .hurry{margin-top:18px;display:flex;justify-content:center;align-items:baseline;gap:10px;flex-wrap:wrap;
+    text-align:center;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg);}
+  .hurry b{color:var(--lo-red);font-weight:700;letter-spacing:.24em;}
+  @media (max-width:900px){
+    .lo .grid{grid-template-columns:1fr;grid-template-areas:"intro" "arch" "feat";row-gap:46px;}
+    .playpill{top:auto;bottom:6%;transform:translateX(-50%);}
+    .playpill:hover{transform:translateX(-50%) scale(1.05);}
+    .hurry{flex-direction:column;align-items:center;gap:5px;margin-top:22px;font-size:14px;}
+    .hurry b{font-size:21px;}
+  }
 
   /* ---------- story — the game engine, scroll-driven ---------- */
   .story{position:relative;height:300svh;padding:0;}
@@ -363,29 +373,30 @@
 <section class="lo obs" id="cluehunter">
   <div class="wrap">
     <div class="grid">
-      <div>
+      <div class="intro-lo">
         <span class="step r">Exclusively on Peacock</span>
         <h2 class="big r d1">Law &amp; Order<span class="sub">Clue Hunter</span></h2>
         <p class="lead-lo r d2">Step onto the case board. Search the scene, connect the suspects, and crack a new investigation in the Law &amp; Order universe — every day.</p>
-        <div class="feat r d3">
-          <div class="frow">
-            <div class="fic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-            <div><h4>New Mysteries Every Day</h4><p>Endless cases that always give you something to uncover.</p></div>
-          </div>
-          <div class="frow">
-            <div class="fic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
-            <div><h4>Built for the Compulsively Curious</h4><p>Dive into stories that keep you guessing.</p></div>
-          </div>
-          <div class="frow">
-            <div class="fic"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="7" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M7.8 7.4 10.6 16M16.2 8.6l-3 7.4M8.4 6.3l7.2.5"/></svg></div>
-            <div><h4>Build the Case Board</h4><p>Every clue you find connects suspects, evidence, and motive.</p></div>
-          </div>
-        </div>
       </div>
       <div class="arch r d2">
-        <div class="aimg"><img src="assets/lo-cluehunter-bg.jpg" alt="Law &amp; Order: Clue Hunter case board"></div>
-        <a class="playpill" href="https://www.peacocktv.com/" target="_blank" rel="noopener">Play<b>Clue Hunter</b><span class="pp"></span></a>
-        <div class="hurry">Hurry! Only <b id="lo-count">00:00:00</b> time left to solve the case of the day</div>
+        <div class="aimg"><img src="assets/lo-cluehunter-bg.jpg" alt="Law &amp; Order: Clue Hunter case board">
+          <a class="playpill" href="https://www.peacocktv.com/" target="_blank" rel="noopener">Play<b>Clue Hunter</b><span class="pp"></span></a>
+        </div>
+        <div class="hurry"><span>Hurry! Only</span><b id="lo-count">00:00:00</b><span>Time left to solve the case of the day</span></div>
+      </div>
+      <div class="feat r d3">
+        <div class="frow">
+          <div class="fic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div><h4>New Mysteries Every Day</h4><p>Endless cases that always give you something to uncover.</p></div>
+        </div>
+        <div class="frow">
+          <div class="fic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+          <div><h4>Built for the Compulsively Curious</h4><p>Dive into stories that keep you guessing.</p></div>
+        </div>
+        <div class="frow">
+          <div class="fic"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="7" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M7.8 7.4 10.6 16M16.2 8.6l-3 7.4M8.4 6.3l7.2.5"/></svg></div>
+          <div><h4>Build the Case Board</h4><p>Every clue you find connects suspects, evidence, and motive.</p></div>
+        </div>
       </div>
     </div>
   </div>
