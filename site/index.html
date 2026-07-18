@@ -160,6 +160,25 @@
   .tile span{font-size:13.5px;color:var(--fg-3);margin:0 6px;}
   .slate .after{margin-top:40px;font-size:15px;color:var(--fg-2);text-align:center;}
 
+  /* ---------- Law & Order: Clue Hunter · Peacock ---------- */
+  .lo{position:relative;overflow:hidden;text-align:center;padding:clamp(100px,16vh,170px) 0;}
+  .lo .bg{position:absolute;inset:0;}
+  .lo .bg img{width:100%;height:100%;object-fit:cover;object-position:center;}
+  .lo .bg::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(rgba(24,24,24,.94),rgba(24,24,24,.5) 45%,rgba(24,24,24,.94));}
+  .lo .wrap{position:relative;}
+  .lo .label{display:block;color:var(--fg);}
+  .lockup{display:inline-block;margin-top:30px;}
+  .lo-name{display:block;font-family:Georgia,'Times New Roman',serif;font-weight:700;
+    font-size:clamp(38px,6vw,78px);letter-spacing:.05em;text-transform:uppercase;color:#fff;
+    border-top:3px solid #fff;border-bottom:3px solid #fff;padding:8px 18px 10px;line-height:1.05;
+    text-shadow:0 2px 30px rgba(0,0,0,.7);}
+  .lo-sub{display:block;font-family:Georgia,'Times New Roman',serif;font-weight:600;
+    font-size:clamp(17px,2.3vw,30px);letter-spacing:.42em;text-indent:.42em;text-transform:uppercase;
+    color:#fff;margin-top:16px;text-shadow:0 2px 24px rgba(0,0,0,.7);}
+  .lo p{margin:28px auto 0;max-width:34em;font-size:clamp(16px,1.5vw,19px);color:var(--fg-2);text-wrap:pretty;}
+  .lo .cta{margin-top:38px;}
+
   /* ---------- story — the game engine, scroll-driven ---------- */
   .story{position:relative;height:300svh;padding:0;}
   .story-pin{position:sticky;top:0;height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
@@ -309,6 +328,20 @@
         <span class="lg adv">ADVANCE</span>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- Law & Order: Clue Hunter -->
+<section class="lo obs" id="cluehunter">
+  <div class="bg" aria-hidden="true"><img src="assets/lo-cluehunter-bg.jpg" alt=""></div>
+  <div class="wrap">
+    <span class="label r">Exclusively on Peacock</span>
+    <div class="lockup r d1">
+      <span class="lo-name">Law &amp; Order</span>
+      <span class="lo-sub">Clue Hunter</span>
+    </div>
+    <p class="r d2">Step onto the case board. Search the scene, connect the suspects, and crack a new investigation in the Law &amp; Order universe — every day.</p>
+    <div class="cta r d3"><a class="btn" href="https://www.peacocktv.com/" target="_blank" rel="noopener">Play on Peacock <span class="arrow">&rarr;</span></a></div>
   </div>
 </section>
 
