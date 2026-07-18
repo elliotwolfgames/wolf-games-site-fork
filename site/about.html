@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Wolf Games</title>
+<meta name="description" content="Wolf Games creates generative entertainment that transforms viewers into daily players.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#181818;
+    --fg:#FEFEF9;
+    --fg-2:#B9B9B4;
+    --fg-3:#7C7C76;
+    --line:rgba(255,255,255,.12);
+    --yellow:#FAFF00;
+    --glass:rgba(255,255,255,.05);
+    --glass-line:rgba(255,255,255,.14);
+    --display:'Inter Tight','Inter',sans-serif;
+    --body:'Inter',sans-serif;
+    --ease:cubic-bezier(0.16,1,0.3,1);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html,body{overflow-x:clip;}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--yellow);color:#000;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+
+  .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(24px,5vw,64px);}
+  .shimmer{background:linear-gradient(90deg,#AEAE92 0%,#FEFEF9 52%,#AEAE92 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;}
+
+  .r{opacity:0;transform:translateY(16px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+  .in .r{opacity:1;transform:none;}
+  .r.d1{transition-delay:.1s;} .r.d2{transition-delay:.2s;} .r.d3{transition-delay:.3s;}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--yellow);color:#000;
+    font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.05em;text-transform:uppercase;
+    text-decoration:none;padding:17px 28px;border-radius:10px;border:0;cursor:pointer;
+    box-shadow:0 4px 20px rgba(249,255,0,.3);
+    transition:transform .25s var(--ease),box-shadow .25s var(--ease),filter .25s;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(249,255,0,.42);filter:brightness(1.03);}
+  .btn.ghost{background:transparent;color:var(--yellow);border:1px solid var(--yellow);box-shadow:none;}
+  .btn.ghost:hover{box-shadow:0 8px 24px rgba(249,255,0,.2);}
+  .btn .arrow{font-size:17px;line-height:1;transform:translateY(-1px);}
+
+  /* ---------- header + hamburger ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:60;background:linear-gradient(rgba(24,24,24,.9) 40%,transparent);}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:26px;padding-bottom:26px;}
+  header .wm{height:33px;width:auto;display:block;}
+  .burger{position:relative;width:34px;height:20px;background:none;border:0;padding:0;cursor:pointer;}
+  .burger i{position:absolute;left:0;right:0;height:2.5px;border-radius:2px;background:var(--yellow);
+    transition:transform .35s var(--ease),opacity .25s,top .35s var(--ease);}
+  .burger i:nth-child(1){top:0;}
+  .burger i:nth-child(2){top:50%;transform:translateY(-50%);}
+  .burger i:nth-child(3){top:100%;transform:translateY(-100%);}
+  .burger.open i:nth-child(1){top:50%;transform:translateY(-50%) rotate(45deg);}
+  .burger.open i:nth-child(2){opacity:0;}
+  .burger.open i:nth-child(3){top:50%;transform:translateY(-50%) rotate(-45deg);}
+  .menu{position:fixed;inset:0;z-index:50;background:rgba(20,20,20,.96);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;
+    opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s;}
+  .menu.open{opacity:1;visibility:visible;}
+  .menu a{font-family:var(--display);font-weight:500;font-size:clamp(40px,7vw,64px);letter-spacing:-.035em;
+    line-height:1.2;text-decoration:none;padding:6px 18px;
+    background:linear-gradient(270deg,#FEFEF9 0%,#7d7d7d 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    opacity:0;transform:translateY(26px);transition:transform .55s var(--ease),opacity .55s var(--ease);}
+  .menu.open a{opacity:1;transform:none;}
+  .menu.open a:nth-child(1){transition-delay:.08s;}
+  .menu.open a:nth-child(2){transition-delay:.16s;}
+  .menu.open a:nth-child(3){transition-delay:.24s;}
+  .menu a:hover{background:linear-gradient(270deg,var(--yellow),var(--yellow));
+    -webkit-background-clip:text;background-clip:text;}
+  body.menu-open{overflow:hidden;}
+
+  /* ---------- hero orb ---------- */
+  .hero{position:relative;min-height:96svh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .orb{position:absolute;left:50%;top:50%;transform:translate(-50%,-54%);
+    width:min(760px,96vw);height:auto;pointer-events:none;
+    -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 58%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 50%,#000 58%,transparent 72%);
+    animation:orbpulse 5.5s ease-in-out infinite;}
+  @keyframes orbpulse{50%{opacity:.82;}}
+  .hero h1{position:relative;z-index:2;font-family:var(--display);font-weight:500;letter-spacing:-.04em;line-height:1.1;
+    font-size:clamp(34px,4.8vw,64px);margin:0;text-align:center;max-width:15em;text-wrap:balance;
+    text-shadow:0 2px 40px rgba(0,0,0,.55);}
+
+  section{padding:clamp(80px,13vh,150px) 0;}
+
+  /* ---------- intro ---------- */
+  .intro{text-align:center;}
+  .intro h2{font-family:var(--display);font-weight:500;letter-spacing:-.035em;line-height:1.08;
+    font-size:clamp(32px,4.2vw,56px);margin:0;}
+  .intro p{margin:26px auto 0;max-width:46em;font-size:clamp(16px,1.5vw,19px);color:var(--fg-2);text-wrap:pretty;}
+
+  /* ---------- feature cards ---------- */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .fcard{background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;
+    padding:clamp(28px,3.4vw,44px);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+  .fcard .ic{width:46px;height:46px;border:1px solid var(--yellow);border-radius:10px;
+    display:flex;align-items:center;justify-content:center;margin-bottom:26px;}
+  .fcard .ic svg{width:22px;height:22px;stroke:var(--yellow);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  .fcard h3{font-family:var(--display);font-weight:600;font-size:clamp(21px,2vw,26px);letter-spacing:-.02em;margin:0 0 14px;line-height:1.2;}
+  .fcard p{margin:0;color:var(--fg-2);font-size:16px;line-height:1.6;}
+  @media (max-width:809.98px){.cards{grid-template-columns:1fr;}}
+
+  /* ---------- location ---------- */
+  .loc h2{font-family:var(--display);font-weight:500;letter-spacing:-.035em;line-height:1.08;
+    font-size:clamp(40px,5.6vw,76px);margin:0;}
+  .loc p{margin:22px 0 0;color:var(--fg-2);font-size:clamp(16px,1.5vw,19px);}
+
+  /* ---------- join ---------- */
+  .join .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(40px,6vw,90px);align-items:center;}
+  .join h2{font-family:var(--display);font-weight:500;letter-spacing:-.035em;line-height:1.05;
+    font-size:clamp(40px,5.2vw,68px);margin:0;}
+  .join p{margin:22px 0 0;max-width:26em;color:var(--fg-2);font-size:clamp(16px,1.5vw,18px);}
+  .join .btns{display:flex;flex-direction:column;gap:14px;margin-top:36px;max-width:340px;}
+  .fan{position:relative;height:clamp(320px,34vw,480px);}
+  .fan img{position:absolute;width:44%;aspect-ratio:9/13;object-fit:cover;object-position:top;
+    border-radius:999px 999px 16px 16px;border:1px solid rgba(255,255,255,.1);
+    box-shadow:0 44px 80px rgba(0,0,0,.65);}
+  .fan .t1{left:0;top:14%;transform:rotate(-10deg);z-index:1;}
+  .fan .t2{left:28%;top:0;transform:rotate(-2deg);z-index:2;}
+  .fan .t3{right:0;top:10%;transform:rotate(9deg);z-index:3;}
+  @media (max-width:809.98px){.join .grid{grid-template-columns:1fr;}.join .art{order:-1;max-width:480px;margin:0 auto;width:100%;}}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding-top:clamp(56px,8vh,80px);}
+  .ftop{display:grid;grid-template-columns:1.2fr .6fr .6fr 1.3fr;gap:clamp(28px,4vw,56px);}
+  .ftop .fbrand img{height:26px;width:auto;margin-bottom:18px;}
+  .ftop .fbrand p{margin:0;color:var(--fg-3);font-size:14px;line-height:1.6;max-width:24em;}
+  .ftop h4{font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin:0 0 16px;}
+  .ftop ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
+  .ftop ul a{text-decoration:none;font-size:15px;color:var(--fg-2);transition:color .25s;}
+  .ftop ul a:hover{color:var(--yellow);}
+  .beta h4{color:var(--fg);font-size:15px;letter-spacing:.02em;text-transform:none;font-weight:600;}
+  .beta .field{margin-bottom:12px;}
+  .beta input{width:100%;background:transparent;border:1px solid rgba(208,213,219,.55);border-radius:8px;
+    color:var(--fg);padding:15px 16px;font-family:var(--body);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;}
+  .beta input::placeholder{color:var(--fg-3);}
+  .beta input:focus{outline:none;border-color:var(--yellow);}
+  .beta .btn{width:100%;padding:16px;font-size:12.5px;}
+  .fmark{margin-top:clamp(56px,9vh,90px);}
+  .fmark img{width:100%;height:auto;opacity:.5;filter:saturate(.65) brightness(.85);
+    -webkit-mask-image:linear-gradient(#000 30%,rgba(0,0,0,.15));mask-image:linear-gradient(#000 30%,rgba(0,0,0,.15));}
+  .fbottom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding:26px 0 32px;font-size:13px;color:var(--fg-3);}
+  @media (max-width:809.98px){.ftop{grid-template-columns:1fr 1fr;}.ftop .fbrand,.ftop .beta{grid-column:1/-1;}}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition-duration:.01ms !important;animation:none !important;}
+    html{scroll-behavior:auto;}
+    .r{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" aria-label="Wolf Games home"><img class="wm" src="assets/wordmark-yellow.svg" alt="Wolf Games"></a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Site menu">
+  <a href="#">Sign In</a>
+  <a href="vault.html">Play Games</a>
+  <a href="about.html">About Us</a>
+</nav>
+
+<!-- hero -->
+<section class="hero obs" style="padding:0;">
+  <img class="orb" src="assets/about-orb.png" alt="" aria-hidden="true">
+  <h1 class="r">We build games that move with the world.</h1>
+</section>
+
+<!-- intro -->
+<section class="intro obs">
+  <div class="wrap">
+    <h2 class="r"><span class="shimmer">The Next Generation of Play</span></h2>
+    <p class="r d1">Wolf Games creates generative entertainment that transforms viewers into daily players. From evolving storylines to daily drops, every moment deepens the connection between fans, characters, and the worlds they love.</p>
+  </div>
+</section>
+
+<!-- feature cards -->
+<section class="obs" style="padding-top:0;">
+  <div class="wrap">
+    <div class="cards">
+      <div class="fcard r d1">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/><path d="m8 6 4-4 4 4M8 18l4 4 4-4M6 8l-4 4 4 4M18 8l4 4-4 4"/></svg></div>
+        <h3>Always On</h3>
+        <p>Our proprietary AI engine is designed to do what traditional entertainment can&rsquo;t: create gaming worlds that think. Every player becomes part of something that feels alive. We&rsquo;re dissolving the wall between storytelling and play, transforming passive fandom into active participation. It&rsquo;s the future of engagement.</p>
+      </div>
+      <div class="fcard r d2">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg></div>
+        <h3>Built by storytellers.<br>Designed by Gamers.</h3>
+        <p>We&rsquo;re a team of over twenty world class writers, designers, and AI engineers all driven by one mission: to create a new generation of deeply fun entertainment. We move fast, we build beautifully, and we create experiences that move people.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- location -->
+<section class="loc obs">
+  <div class="wrap">
+    <h2 class="r">Based in<br>Los Angeles,<br>California</h2>
+    <p class="r d1">With players around the world.</p>
+  </div>
+</section>
+
+<!-- join -->
+<section class="join obs">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <h2 class="r">Join Us.</h2>
+        <p class="r d1">We&rsquo;re always looking for collaborators and co-conspirators who want to push storytelling forward.</p>
+        <div class="btns r d2">
+          <a class="btn" href="https://wolf-games.breezy.hr/" target="_blank" rel="noopener">Join the Wolf Games Team <span class="arrow">&rarr;</span></a>
+          <a class="btn ghost" href="mailto:partners@wolfgames.net">Partner With Us <span class="arrow">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="art r d2">
+        <div class="fan" aria-label="Wolf Games title cards">
+          <img class="t1" src="https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/on-the-wire-turns.png" alt="">
+          <img class="t2" src="assets/Piecework.png" alt="">
+          <img class="t3" src="https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/the-last-alibi.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- footer -->
+<footer class="obs in">
+  <div class="wrap">
+    <div class="ftop">
+      <div class="fbrand">
+        <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
+        <p>Wolf Games is a global team of creatives and technologists pioneering generative gaming and delivering players unprecedented control.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="https://discord.gg/YfG3sTYTxs" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://clue-hunter-static.vercel.app/" target="_blank" rel="noopener">Clue Hunter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="https://www.wolfgames.net/legal/terms-of-service" target="_blank" rel="noopener">Terms of Service</a></li>
+          <li><a href="https://www.wolfgames.net/legal/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="beta">
+        <h4>Join The Beta For Early Access</h4>
+        <div class="field"><input type="text" placeholder="Reserve Your Username" aria-label="Reserve your username"></div>
+        <div class="field"><input type="email" placeholder="Your Email" aria-label="Your email"></div>
+        <a class="btn" href="https://wolfgames.net" target="_blank" rel="noopener">Reserve Your Username Now <span class="arrow">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="fmark" aria-hidden="true"><img src="assets/wordmark-yellow.svg" alt=""></div>
+    <div class="fbottom">
+      <span>© 2026. All rights reserved. Wolf Games</span>
+      <span>@Wolfgames</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---- always fetch the latest build of internal pages ---- */
+(function(){
+  var t=Date.now();
+  document.querySelectorAll('a[href$="index.html"],a[href$="vault.html"],a[href$="about.html"]').forEach(function(a){
+    a.href=a.getAttribute('href')+'?t='+t;
+  });
+})();
+
+/* ---- reveal ---- */
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+    });
+  },{threshold:0.15});
+  document.querySelectorAll('.obs').forEach(function(s){io.observe(s);});
+})();
+
+/* ---- hamburger ---- */
+(function(){
+  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  function setOpen(open){
+    burger.classList.toggle('open',open);
+    menu.classList.toggle('open',open);
+    document.body.classList.toggle('menu-open',open);
+    burger.setAttribute('aria-expanded',open?'true':'false');
+  }
+  burger.addEventListener('click',function(){setOpen(!menu.classList.contains('open'));});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setOpen(false);});});
+  window.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
+})();
+</script>
+</body>
+</html>

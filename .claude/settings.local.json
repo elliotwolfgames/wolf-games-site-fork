@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:on-the-wire.qa.wolf.games)",
+      "mcp__visualize__read_me",
+      "mcp__visualize__show_widget",
+      "Read(//Users/elliotwolf/.claude/**)",
+      "Bash(python3 -c ' *)"
+    ]
+  }
+}

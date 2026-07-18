@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Local dev symlink (points into game-vault-example, which is its own repo)
+/data
+
+# The vault prototype repo is tracked separately at
+# github.com/elliotwolfgames/game-vault-example — don't embed it here
+/game-vault-example/
+
+# Node
+node_modules/

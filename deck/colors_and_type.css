@@ -1,0 +1,190 @@
+/* ============================================================
+   WOLF GAMES — Design System Foundations
+   colors_and_type.css
+   ------------------------------------------------------------
+   Black canvas, electric-yellow signal, white type, mono data.
+   Fonts are CDN-linked Google Fonts standing in for the brand's
+   production faces (the deck shipped subsetted/obfuscated faces
+   that could not be extracted). See README "Font substitution".
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  /* ---- Core brand ---- */
+  --wg-yellow:        #FFFF00;   /* the signal — sampled from the deck */
+  --wg-yellow-dim:    #C7C700;   /* pressed / hover-down state of yellow */
+  --wg-black:         #000000;   /* the canvas */
+
+  /* ---- Neutral scale (warm-free, true grayscale) ---- */
+  --wg-ink-0:   #000000;  /* page base */
+  --wg-ink-1:   #0C0C0C;  /* base, ever-so-slightly lifted */
+  --wg-ink-2:   #161616;  /* card / panel */
+  --wg-ink-3:   #1F1F1F;  /* raised card */
+  --wg-ink-4:   #2E2E2E;  /* panel fill measured from deck mockups */
+  --wg-line:    #2A2A2A;  /* hairline borders */
+  --wg-line-2:  #3A3A3A;  /* stronger borders */
+
+  --wg-fg:      #FFFFFF;  /* primary text */
+  --wg-fg-2:    #B5B5B5;  /* secondary text */
+  --wg-fg-3:    #7E7E7E;  /* tertiary / captions */
+  --wg-fg-4:    #565656;  /* disabled / faint */
+
+  /* On-yellow (yellow is so bright, text on it is always black) */
+  --wg-on-yellow: #000000;
+
+  /* ---- Status (used sparingly; brand is near-monochrome) ---- */
+  --wg-live:    #00E08A;  /* "LIVE" pulse / positive */
+  --wg-alert:   #FF5C39;  /* drop-off / negative */
+
+  /* ---- Type families ---- */
+  --font-display: 'Space Grotesk', 'Arial Narrow', sans-serif;
+  --font-body:    'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---- Type scale (1920-wide deck baseline; rem-friendly) ---- */
+  --fs-display:   clamp(48px, 7vw, 104px);
+  --fs-h1:        clamp(40px, 5vw, 72px);
+  --fs-h2:        clamp(30px, 3.4vw, 48px);
+  --fs-h3:        28px;
+  --fs-stat:      clamp(44px, 6vw, 88px);   /* the big data numbers */
+  --fs-body-lg:   20px;
+  --fs-body:      17px;
+  --fs-small:     14px;
+  --fs-kicker:    13px;   /* mono labels */
+  --fs-micro:     11px;
+
+  /* ---- Radius (the brand is hard-edged; radii are restrained) ---- */
+  --r-none: 0px;
+  --r-sm:   4px;
+  --r-md:   8px;
+  --r-lg:   14px;
+  --r-pill: 999px;
+
+  /* ---- Spacing ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+
+  /* ---- Elevation: brand uses borders + flat fills, not soft drop shadows ---- */
+  --shadow-card:  0 0 0 1px var(--wg-line);
+  --shadow-pop:   0 18px 40px -12px rgba(0,0,0,0.75), 0 0 0 1px var(--wg-line);
+  --glow-yellow:  0 0 0 1px var(--wg-yellow), 0 0 24px -4px rgba(255,255,0,0.45);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur: 220ms;
+  --dur-slow: 420ms;
+}
+
+/* ============================================================
+   SEMANTIC TYPOGRAPHY
+   ============================================================ */
+
+.wg-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-display);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  color: var(--wg-fg);
+  text-wrap: balance;
+}
+
+.wg-h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: var(--wg-fg);
+  text-wrap: balance;
+}
+
+.wg-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--wg-fg);
+  text-wrap: balance;
+}
+
+.wg-h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--wg-fg);
+}
+
+.wg-stat {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-stat);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--wg-yellow);
+  font-feature-settings: "tnum" 1;
+}
+
+.wg-lead {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body-lg);
+  line-height: 1.45;
+  color: var(--wg-fg-2);
+  text-wrap: pretty;
+}
+
+.wg-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--wg-fg-2);
+  text-wrap: pretty;
+}
+
+.wg-small {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--wg-fg-3);
+}
+
+/* Mono kicker / label — the signature forensic, case-file label.
+   Always uppercase, wide-tracked. Often yellow. */
+.wg-kicker {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--fs-kicker);
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wg-yellow);
+}
+
+.wg-kicker--muted { color: var(--wg-fg-3); }
+
+.wg-micro {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--wg-fg-3);
+}
+
+/* Underline-rule accent often sits under headlines as a yellow bar */
+.wg-rule {
+  display: block;
+  width: 56px;
+  height: 3px;
+  background: var(--wg-yellow);
+  border: 0;
+}

@@ -1,0 +1,109 @@
+{
+  "syncedAt": "2026-07-18T02:08:18.566Z",
+  "tiers": {
+    "1": {
+      "label": "Tier 1 \u00b7 Character / Tone Hypercasual",
+      "blurb": "Voice-driven casual. Retention via level progression & difficulty ramp."
+    },
+    "2": {
+      "label": "Tier 2 \u00b7 Competitive Hypercasual",
+      "blurb": "Leaderboards, standings, prestige. Retention via skill + competition."
+    },
+    "3": {
+      "label": "Tier 3 \u00b7 Narrative Episodic Micro-Drama",
+      "blurb": "Serial story, PE-style. Retention via the daily serial hook."
+    }
+  },
+  "games": [
+    {
+      "slug": "game-amino-merge",
+      "tier": 1,
+      "title": "Amino Merge",
+      "note": "seed pick \u2014 verify tier",
+      "status": "deployed",
+      "url": "https://game-amino-merge.qa.wolf.games/",
+      "available": true,
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/game-amino-merge.png"
+    },
+    {
+      "slug": "the-stacks",
+      "tier": 1,
+      "title": "The Stacks",
+      "note": "sort puzzle",
+      "status": "deployed",
+      "url": "https://the-stacks.qa.wolf.games/",
+      "available": true,
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/the-stacks.png"
+    },
+    {
+      "slug": "game-amino-solitaire",
+      "tier": 1,
+      "title": "Amino Solitaire",
+      "note": "seed pick",
+      "status": "deployed",
+      "url": "https://game-amino-solitaire.qa.wolf.games/",
+      "available": true,
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/game-amino-solitaire.png"
+    },
+    {
+      "slug": "soccer-cup-final-shot",
+      "tier": 2,
+      "title": "Soccer Cup \u2014 Final Shot",
+      "note": "seed pick",
+      "status": "deployed",
+      "url": "https://soccer-cup-final-shot.qa.wolf.games/",
+      "available": true,
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/soccer-cup-final-shot.png"
+    },
+    {
+      "slug": "hootwise-soccer",
+      "tier": 2,
+      "title": "Hootwise Soccer",
+      "note": "seed pick",
+      "status": "deployed",
+      "url": "https://hootwise-soccer.qa.wolf.games/",
+      "available": true,
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/hootwise-soccer.png"
+    },
+    {
+      "slug": "game-diablo3-trivia",
+      "tier": 2,
+      "title": "Diablo 3 Trivia",
+      "note": "trivia/competitive",
+      "status": "deployed",
+      "url": "https://game-diablo3-trivia.qa.wolf.games/",
+      "available": true,
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/game-diablo3-trivia.png"
+    },
+    {
+      "slug": "the-last-alibi",
+      "tier": 3,
+      "title": "The Last Alibi",
+      "note": "narrative \u2014 verify",
+      "status": "deployed",
+      "url": "https://the-last-alibi.qa.wolf.games/",
+      "available": true,
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/the-last-alibi.png"
+    },
+    {
+      "slug": "caldera-confidential",
+      "tier": 3,
+      "title": "Caldera Confidential",
+      "note": "narrative prototype",
+      "status": "deployed",
+      "url": "https://caldera-confidential.qa.wolf.games/",
+      "available": true,
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/caldera-confidential.png"
+    },
+    {
+      "slug": "on-the-wire-turns",
+      "tier": 3,
+      "title": "On The Wire \u2014 Turns",
+      "note": "word-search serial",
+      "status": "deployed",
+      "url": "https://on-the-wire-turns.qa.wolf.games/",
+      "available": true,
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/on-the-wire-turns.png"
+    }
+  ]
+}

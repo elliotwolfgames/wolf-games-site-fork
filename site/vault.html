@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vault — Wolf Games</title>
+<meta name="description" content="The Wolf Games Vault — today's pick and the full shelf of live games. A new edition every day.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#181818;
+    --fg:#FEFEF9;
+    --fg-2:#B9B9B4;
+    --fg-3:#7C7C76;
+    --line:rgba(255,255,255,.12);
+    --yellow:#FAFF00;
+    --glass:rgba(255,255,255,.07);
+    --glass-line:rgba(255,255,255,.16);
+    --display:'Inter Tight','Inter',sans-serif;
+    --body:'Inter',sans-serif;
+    --ease:cubic-bezier(0.16,1,0.3,1);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html,body{overflow-x:clip;}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--yellow);color:#000;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(24px,5vw,64px);}
+  .label{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:500;}
+  .shimmer{background:linear-gradient(90deg,#AEAE92 0%,#FEFEF9 52%,#AEAE92 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;}
+  .shimmer-y{background:linear-gradient(90deg,#C6CB08 0%,#FAFF00 52%,#C6CB08 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;}
+
+  .r{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+  .in .r{opacity:1;transform:none;}
+  .r.d1{transition-delay:.08s;} .r.d2{transition-delay:.16s;} .r.d3{transition-delay:.24s;}
+
+  .btn{display:inline-flex;align-items:center;gap:12px;background:var(--yellow);color:#000;
+    font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;
+    text-decoration:none;padding:17px 28px;border-radius:10px;border:0;cursor:pointer;
+    box-shadow:0 4px 20px rgba(249,255,0,.3);
+    transition:transform .25s var(--ease),box-shadow .25s var(--ease),filter .25s;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(249,255,0,.42);filter:brightness(1.03);}
+  .btn .arrow{font-size:17px;line-height:1;transform:translateY(-1px);}
+
+  /* ---------- header + hamburger ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:60;background:linear-gradient(rgba(24,24,24,.9) 40%,transparent);}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:26px;padding-bottom:26px;}
+  header .wm{height:33px;width:auto;display:block;}
+  .burger{position:relative;width:34px;height:20px;background:none;border:0;padding:0;cursor:pointer;}
+  .burger i{position:absolute;left:0;right:0;height:2.5px;border-radius:2px;background:var(--yellow);
+    transition:transform .35s var(--ease),opacity .25s,top .35s var(--ease);}
+  .burger i:nth-child(1){top:0;}
+  .burger i:nth-child(2){top:50%;transform:translateY(-50%);}
+  .burger i:nth-child(3){top:100%;transform:translateY(-100%);}
+  .burger.open i:nth-child(1){top:50%;transform:translateY(-50%) rotate(45deg);}
+  .burger.open i:nth-child(2){opacity:0;}
+  .burger.open i:nth-child(3){top:50%;transform:translateY(-50%) rotate(-45deg);}
+  .menu{position:fixed;inset:0;z-index:50;background:rgba(20,20,20,.96);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;
+    opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s;}
+  .menu.open{opacity:1;visibility:visible;}
+  .menu a{font-family:var(--display);font-weight:500;font-size:clamp(40px,7vw,64px);letter-spacing:-.035em;
+    line-height:1.2;text-decoration:none;padding:6px 18px;
+    background:linear-gradient(270deg,#FEFEF9 0%,#7d7d7d 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    opacity:0;transform:translateY(26px);transition:transform .55s var(--ease),opacity .55s var(--ease);}
+  .menu.open a{opacity:1;transform:none;}
+  .menu.open a:nth-child(1){transition-delay:.08s;}
+  .menu.open a:nth-child(2){transition-delay:.16s;}
+  .menu.open a:nth-child(3){transition-delay:.24s;}
+  .menu a:hover{background:linear-gradient(270deg,var(--yellow),var(--yellow));
+    -webkit-background-clip:text;background-clip:text;}
+  body.menu-open{overflow:hidden;}
+
+  /* ---------- vault content ---------- */
+  main{padding:clamp(130px,18vh,180px) 0 clamp(70px,10vh,110px);}
+  .vhead h1{font-family:var(--display);font-weight:500;letter-spacing:-.045em;line-height:1.02;
+    font-size:clamp(44px,6.4vw,88px);margin:14px 0 0;}
+
+  /* sign-in strip */
+  .signup{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    background:var(--glass);border:1px solid var(--glass-line);border-radius:16px;
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:16px 22px;}
+  .signup p{margin:0;display:flex;align-items:center;gap:11px;font-size:15.5px;color:var(--fg);}
+  .signup .dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 10px var(--yellow);flex:none;}
+  .signup .acts{display:flex;align-items:center;gap:20px;}
+  .btn.small{padding:11px 18px;font-size:12.5px;border-radius:8px;}
+  .lnk{font-size:14px;text-decoration:none;border-bottom:1px solid var(--fg-3);padding-bottom:2px;
+    transition:border-color .25s,color .25s;}
+  .lnk:hover{border-color:var(--yellow);color:var(--yellow);}
+  @media (max-width:560px){.signup{justify-content:center;text-align:center;}}
+
+  /* today's pick */
+  .pick{display:flex;gap:clamp(24px,4vw,48px);align-items:center;margin-top:24px;
+    background:var(--glass);border:1px solid var(--glass-line);border-radius:22px;
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    padding:clamp(20px,3vw,36px);}
+  .pick .pthumb{flex:0 0 clamp(160px,22vw,230px);border-radius:14px;overflow:hidden;aspect-ratio:9/16;background:#101010;}
+  .pick .pthumb img{width:100%;height:100%;object-fit:cover;object-position:top;}
+  .pick .pmeta{display:flex;flex-direction:column;align-items:flex-start;gap:14px;}
+  .chip{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:11px;letter-spacing:.12em;
+    text-transform:uppercase;color:#000;background:var(--yellow);padding:5px 10px;border-radius:6px;}
+  .chip::before{content:'';width:5px;height:5px;border-radius:50%;background:#000;}
+  .pick h2{font-family:var(--display);font-weight:600;letter-spacing:-.03em;line-height:1.05;
+    font-size:clamp(30px,4vw,52px);margin:0;}
+  .pick .pmech{font-size:15px;color:var(--fg-2);letter-spacing:.04em;text-transform:uppercase;}
+  .pick .btn{margin-top:10px;}
+  @media (max-width:640px){.pick{flex-direction:column;align-items:stretch;text-align:center;}
+    .pick .pthumb{margin:0 auto;width:min(230px,70vw);flex:none;}
+    .pick .pmeta{align-items:center;}}
+
+  /* rails */
+  .rail{margin-top:clamp(64px,9vh,96px);}
+  .rail-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
+  .rail-head h3{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.4vw,28px);letter-spacing:-.02em;margin:0;}
+  .rail-head .blurb{font-size:14px;color:var(--fg-3);}
+  .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px;}
+  .vcard{text-decoration:none;background:var(--glass);border:1px solid var(--glass-line);border-radius:16px;
+    overflow:hidden;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    transition:transform .3s var(--ease),border-color .3s;}
+  .vcard:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.34);}
+  .vcard .vthumb{position:relative;aspect-ratio:9/14;overflow:hidden;background:#101010;}
+  .vcard .vthumb img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .7s var(--ease);}
+  .vcard:hover .vthumb img{transform:scale(1.04);}
+  .vcard .vthumb .chip{position:absolute;top:10px;left:10px;}
+  .vcard .vmeta{padding:12px 14px 15px;}
+  .vcard .vrow{display:flex;justify-content:space-between;align-items:baseline;gap:10px;}
+  .vcard .vmech{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);}
+  .vcard .vplays{font-size:11.5px;color:var(--fg-3);white-space:nowrap;}
+  .vcard .vplays b{color:var(--fg-2);font-weight:600;}
+  .vcard .vplays .tri{display:inline-block;width:0;height:0;margin-right:5px;
+    border-style:solid;border-width:4px 0 4px 6.5px;border-color:transparent transparent transparent var(--yellow);
+    transform:translateY(-.5px);}
+  .vcard .vtitle{font-family:var(--display);font-weight:600;font-size:16.5px;letter-spacing:-.01em;margin:3px 0 0;color:var(--fg);}
+  .vcard.soon{opacity:.45;pointer-events:none;}
+  .vcard.soon .chip{background:rgba(255,255,255,.22);color:var(--fg);}
+  .vcard.soon .chip::before{background:var(--fg);}
+  /* difficulty chips */
+  .chip.medium{background:rgba(255,255,255,.24);color:var(--fg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+  .chip.medium::before{background:var(--fg);}
+  .chip.hard{background:#FF5C39;}
+
+  #banner{display:none;margin-top:40px;padding:18px 22px;border:1px solid var(--glass-line);border-radius:14px;
+    background:var(--glass);color:var(--fg-2);font-size:15px;}
+
+  footer{border-top:1px solid var(--line);margin-top:clamp(70px,10vh,110px);}
+  footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding-top:30px;padding-bottom:34px;font-size:13px;color:var(--fg-3);}
+  footer img{height:15px;width:auto;opacity:.7;}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition-duration:.01ms !important;}
+    html{scroll-behavior:auto;}
+    .r{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body class="in">
+
+<header>
+  <div class="wrap">
+    <a href="index.html" aria-label="Wolf Games home"><img class="wm" src="assets/wordmark-yellow.svg" alt="Wolf Games"></a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Site menu">
+  <a href="#">Sign In</a>
+  <a href="vault.html">Play Games</a>
+  <a href="about.html">About Us</a>
+</nav>
+
+<main>
+  <div class="wrap">
+    <div id="banner"></div>
+    <div class="signup r in">
+      <p><span class="dot"></span>Sign in to unlock more games and rewards.</p>
+      <div class="acts">
+        <a class="btn small" href="#">Sign Up</a>
+        <a class="lnk" href="#">Sign In</a>
+      </div>
+    </div>
+    <div id="pick"></div>
+    <div id="rails"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
+    <span>Stories You Play.</span>
+    <span>© 2026 Wolf Games</span>
+  </div>
+</footer>
+
+<script>
+/* ---- always fetch the latest build of internal pages ---- */
+(function(){
+  var t=Date.now();
+  document.querySelectorAll('a[href$="index.html"],a[href$="vault.html"],a[href$="about.html"]').forEach(function(a){
+    a.href=a.getAttribute('href')+'?t='+t;
+  });
+})();
+
+/* ---- hamburger ---- */
+(function(){
+  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  function setOpen(open){
+    burger.classList.toggle('open',open);
+    menu.classList.toggle('open',open);
+    document.body.classList.toggle('menu-open',open);
+    burger.setAttribute('aria-expanded',open?'true':'false');
+  }
+  burger.addEventListener('click',function(){setOpen(!menu.classList.contains('open'));});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setOpen(false);});});
+  window.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
+})();
+
+/* ---- vault shelf ---- */
+(function(){
+  var MECH={1:'Hypercasual',2:'Competitive',3:'Narrative serial'};
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+
+  fetch('/data/vault.json').then(function(r){
+    if(!r.ok) throw new Error('vault.json → '+r.status);
+    return r.json();
+  }).then(function(data){
+    var games=data.games.map(function(g){g.mechanic=MECH[g.tier]||'Game';return g;});
+    var avail=games.filter(function(g){return g.available;});
+
+    /* today's pick: rotate daily through available narrative games, fall back to any */
+    var pool=avail.filter(function(g){return g.tier===3;});
+    if(!pool.length) pool=avail;
+    var day=Math.floor(Date.now()/86400000);
+    var pick=pool.length?pool[day%pool.length]:null;
+
+    if(pick){
+      document.getElementById('pick').innerHTML=
+        '<div class="pick r d2 in">'+
+          '<div class="pthumb">'+(pick.thumb?'<img src="'+esc(pick.thumb)+'" alt="">':'')+'</div>'+
+          '<div class="pmeta">'+
+            '<span class="chip">Today’s Pick</span>'+
+            '<h2>'+esc(pick.title)+'</h2>'+
+            '<span class="pmech">'+esc(pick.mechanic)+' · new edition daily</span>'+
+            '<a class="btn" href="'+esc(pick.url)+'" target="_blank" rel="noopener">Play today’s edition <span class="arrow">→</span></a>'+
+          '</div>'+
+        '</div>';
+    }
+
+    var railsEl=document.getElementById('rails');
+    var RAIL_NAMES={1:'Trending Editions',2:'Test Your Brain'};
+    [1,2,3].forEach(function(t){
+      var tier=data.tiers[t]; var list=games.filter(function(g){return g.tier===t;});
+      if(!tier||!list.length) return;
+      var name=RAIL_NAMES[t]||(tier.label||'').split('·').pop().trim()||('Tier '+t);
+      var rail=document.createElement('section');
+      rail.className='rail';
+      rail.innerHTML='<div class="rail-head"><h3>'+esc(name)+'</h3><span class="blurb">'+esc(tier.blurb||'')+'</span></div>';
+      var grid=document.createElement('div');grid.className='vgrid';
+      list.forEach(function(g){
+        var live=!!g.available;
+        var el=document.createElement(live?'a':'div');
+        el.className='vcard'+(live?'':' soon');
+        if(live){el.href=g.url;el.target='_blank';el.rel='noopener';}
+        /* placeholder difficulty + play count: seeded from slug so they vary per game but stay stable */
+        var h=0; for(var i=0;i<g.slug.length;i++){h=(h*33+g.slug.charCodeAt(i))>>>0;}
+        h=(((h^(h>>>7))>>>0)*2654435761)>>>0; h=(h^(h>>>16))>>>0;
+        var diff=['Easy','Medium','Hard'][h%3];
+        var plays=40000+(h%1460000);
+        var playsFmt=plays>=1000000?(plays/1000000).toFixed(1)+'M':Math.round(plays/1000)+'K';
+        var chip=live
+          ? '<span class="chip '+diff.toLowerCase()+'">'+diff+'</span>'
+          : '<span class="chip">Soon</span>';
+        el.innerHTML=
+          '<div class="vthumb">'+(g.thumb?'<img src="'+esc(g.thumb)+'" alt="" loading="lazy">':'')+chip+'</div>'+
+          '<div class="vmeta"><div class="vrow"><span class="vmech">'+esc(g.mechanic)+'</span>'+
+            '<span class="vplays"><span class="tri"></span><b>'+playsFmt+'</b> plays</span></div>'+
+            '<div class="vtitle">'+esc(g.title)+'</div></div>';
+        grid.appendChild(el);
+      });
+      rail.appendChild(grid);
+      railsEl.appendChild(rail);
+    });
+  }).catch(function(e){
+    var b=document.getElementById('banner');
+    b.style.display='block';
+    b.textContent='The shelf is restocking — check back shortly. ('+e.message+')';
+  });
+})();
+</script>
+</body>
+</html>
