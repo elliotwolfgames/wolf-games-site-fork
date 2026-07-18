@@ -167,6 +167,25 @@
       radial-gradient(58% 52% at 28% 18%, rgba(122,22,6,.38), transparent 70%),
       radial-gradient(52% 60% at 78% 82%, rgba(92,16,5,.3), transparent 72%),
       #161010;}
+  /* blend the section into its neighbors, wolfgames.net-style */
+  .lo::before{content:'';position:absolute;left:0;right:0;top:0;height:clamp(110px,18vh,200px);
+    background:linear-gradient(var(--bg),transparent);pointer-events:none;z-index:1;}
+  .lo::after{content:'';position:absolute;left:0;right:0;bottom:0;height:clamp(110px,18vh,200px);
+    background:linear-gradient(transparent,var(--bg));pointer-events:none;z-index:1;}
+  .lo .wrap{position:relative;z-index:3;}
+
+  /* drifting ember particles */
+  .particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2;}
+  .particles i{position:absolute;bottom:-10px;border-radius:50%;opacity:0;
+    background:var(--pc,#FAFF00);box-shadow:0 0 6px 1px var(--pc,#FAFF00);
+    animation:rise var(--pt,10s) linear infinite;animation-delay:var(--pd,0s);}
+  @keyframes rise{
+    0%{transform:translate(0,0) scale(1);opacity:0;}
+    8%{opacity:var(--po,.4);}
+    82%{opacity:var(--po,.4);}
+    100%{transform:translate(var(--px,0px),-108vh) scale(.55);opacity:0;}}
+  @media (prefers-reduced-motion:reduce){.particles{display:none;}}
+
   .lo .grid{display:grid;grid-template-columns:1.05fr .95fr;grid-template-areas:"intro arch" "feat arch";
     column-gap:clamp(40px,6vw,90px);row-gap:38px;align-items:center;}
   .intro-lo{grid-area:intro;align-self:end;}
@@ -215,7 +234,7 @@
   /* ---------- story — the game engine, scroll-driven ---------- */
   .story{position:relative;height:300svh;padding:0;}
   .story-pin{position:sticky;top:0;height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .stage{width:100%;max-width:1100px;padding:0 clamp(24px,5vw,64px);display:flex;flex-direction:column;
+  .stage{position:relative;z-index:3;width:100%;max-width:1100px;padding:0 clamp(24px,5vw,64px);display:flex;flex-direction:column;
     align-items:center;text-align:center;gap:clamp(26px,4.5vh,44px);}
   .story h2{font-family:var(--display);font-weight:500;letter-spacing:-.035em;line-height:1.12;
     font-size:clamp(26px,3.2vw,44px);margin:0;text-wrap:balance;}
@@ -367,6 +386,7 @@
 <!-- story -->
 <section class="story obs" id="engine">
   <div class="story-pin">
+    <div class="particles" id="pt-engine" aria-hidden="true"></div>
     <div class="stage">
       <span class="label r">Work With Us and Supercharge Your Audience</span>
       <h2 class="r"><span class="shimmer">Your archive isn't a back catalog.</span><br>It's a <span class="shimmer-y">game engine.</span></h2>
@@ -394,6 +414,7 @@
 
 <!-- Law & Order: Clue Hunter -->
 <section class="lo obs" id="cluehunter">
+  <div class="particles" id="pt-lo" aria-hidden="true"></div>
   <div class="wrap">
     <div class="grid">
       <div class="intro-lo">
@@ -508,6 +529,28 @@
     if(!ticking){ticking=true;requestAnimationFrame(update);}
   },{passive:true});
   update();
+})();
+
+/* ---- ember particles ---- */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function spawn(id,color,count){
+    var el=document.getElementById(id); if(!el) return;
+    for(var i=0;i<count;i++){
+      var p=document.createElement('i');
+      var s=(1.5+Math.random()*2.6).toFixed(1);
+      p.style.left=(Math.random()*100).toFixed(2)+'%';
+      p.style.width=s+'px'; p.style.height=s+'px';
+      p.style.setProperty('--pc',color);
+      p.style.setProperty('--pt',(7+Math.random()*10).toFixed(1)+'s');
+      p.style.setProperty('--pd',(-Math.random()*17).toFixed(1)+'s');
+      p.style.setProperty('--px',Math.round(Math.random()*140-70)+'px');
+      p.style.setProperty('--po',(0.2+Math.random()*0.45).toFixed(2));
+      el.appendChild(p);
+    }
+  }
+  spawn('pt-engine','#FAFF00',20);
+  spawn('pt-lo','#FF5A3C',28);
 })();
 
 /* ---- hamburger menu ---- */
