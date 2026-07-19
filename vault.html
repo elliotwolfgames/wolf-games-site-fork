@@ -156,9 +156,15 @@
     font-size:clamp(28px,3.6vw,48px);margin:0;}
   .pick .pmech{font-size:14px;color:var(--fg-2);letter-spacing:.04em;text-transform:uppercase;}
   .pick .btn{margin-top:8px;}
-  @media (max-width:640px){.pick{flex-direction:column;align-items:stretch;text-align:center;}
-    .pick .pthumb{margin:0 auto;width:min(210px,64vw);flex:none;}
-    .pick .pmeta{align-items:center;}}
+  /* mobile: keep the pick compact — thumb beside meta — so the first rail peeks in */
+  @media (max-width:640px){
+    .pick{gap:16px;padding:14px;margin-top:16px;}
+    .pick .pthumb{flex:0 0 96px;border-radius:12px;}
+    .pick .pmeta{gap:8px;}
+    .pick h2{font-size:21px;}
+    .pick .pmech{font-size:11.5px;}
+    .pick .btn{margin-top:2px;padding:11px 16px;font-size:12px;border-radius:9px;}
+  }
 
   /* ---------- rails ---------- */
   .rail{margin-top:clamp(48px,7vh,70px);}
