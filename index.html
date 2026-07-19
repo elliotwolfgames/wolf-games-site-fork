@@ -100,16 +100,23 @@
     -webkit-background-clip:text;background-clip:text;}
   body.menu-open{overflow:hidden;}
 
-  /* ---------- hero — cinematic, centered ---------- */
+  /* ---------- hero — cinematic, centered, studio-lit ---------- */
   .hero{position:relative;min-height:92svh;display:flex;align-items:center;justify-content:center;
-    text-align:center;padding:150px 0 110px;overflow:hidden;}
-  .hero .bg{position:absolute;inset:0;z-index:0;}
-  .hero .bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:saturate(.9);}
-  .hero .bg::after{content:'';position:absolute;inset:0;
-    background:linear-gradient(rgba(16,16,16,.68),rgba(20,20,20,.78) 55%,var(--bg) 96%);}
-  .hero .wrap{position:relative;z-index:1;}
+    text-align:center;padding:150px 0 110px;overflow:hidden;
+    background:
+      radial-gradient(60% 55% at 50% 8%, rgba(255,255,255,.05), transparent 70%),
+      radial-gradient(120% 90% at 50% 115%, rgba(0,0,0,.55), transparent 60%),
+      var(--bg);}
+  .hero .glow{position:absolute;z-index:0;left:50%;top:30%;transform:translate(-50%,-50%);
+    width:min(1000px,130vw);height:min(1000px,130vw);pointer-events:none;
+    background:radial-gradient(closest-side,rgba(250,255,0,.15),rgba(250,255,0,.04) 46%,transparent 72%);}
+  .hero .vig{position:absolute;inset:0;z-index:0;pointer-events:none;
+    box-shadow:inset 0 0 clamp(80px,14vw,220px) rgba(0,0,0,.6);}
+  .hero .particles{z-index:1;}
+  .hero .wrap{position:relative;z-index:2;}
   .hero h1{font-family:var(--display);font-weight:500;letter-spacing:-.045em;line-height:1.04;
     font-size:clamp(46px,7vw,104px);margin:0;text-wrap:balance;}
+  .hero h1 .shimmer-y{filter:drop-shadow(0 0 46px rgba(250,255,0,.32));}
   .hero p{margin:28px auto 0;max-width:36em;font-size:clamp(17px,1.5vw,20px);color:var(--fg-2);text-wrap:pretty;}
   .hero .cta{margin-top:44px;}
   /* daily three */
@@ -351,7 +358,9 @@
 
 <!-- hero -->
 <section class="hero obs">
-  <div class="bg" aria-hidden="true"><img src="assets/scene-street.jpg" alt=""></div>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="particles" id="pt-hero" aria-hidden="true"></div>
+  <div class="vig" aria-hidden="true"></div>
   <div class="wrap">
     <h1 class="r"><span class="shimmer-y">Play On.</span></h1>
     <div class="daily r d1">
@@ -549,6 +558,7 @@
       el.appendChild(p);
     }
   }
+  spawn('pt-hero','#FAFF00',24);
   spawn('pt-engine','#FAFF00',20);
   spawn('pt-lo','#FF5A3C',28);
 })();
