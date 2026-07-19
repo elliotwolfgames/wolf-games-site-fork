@@ -293,8 +293,7 @@
 <!-- in-vault game player -->
 <div class="player" id="player" hidden>
   <div class="pbar">
-    <button class="pback" id="p-back" type="button">&larr; Back to the Vault</button>
-    <span class="ptitle" id="p-title"></span>
+    <button class="pback" id="p-back" type="button">&larr; Back to My Vault</button>
     <a class="pext" id="p-ext" href="#" target="_blank" rel="noopener">Open in new tab &#8599;</a>
   </div>
   <iframe id="p-frame" title="Game" allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -344,7 +343,6 @@
 var WGPlayer=(function(){
   var el=document.getElementById('player'),
       frame=document.getElementById('p-frame'),
-      title=document.getElementById('p-title'),
       ext=document.getElementById('p-ext'),
       back=document.getElementById('p-back'),
       tabbar=document.querySelector('.tabbar');
@@ -355,7 +353,7 @@ var WGPlayer=(function(){
     el.style.bottom=(mobile&&tabbar)?tabbar.offsetHeight+'px':'0px';
   }
   function open(url,name){
-    frame.src=url; ext.href=url; title.textContent=name||'';
+    frame.src=url; ext.href=url;
     el.hidden=false; document.body.classList.add('playing');
     fit();
     history.pushState({wgPlayer:1},'');
