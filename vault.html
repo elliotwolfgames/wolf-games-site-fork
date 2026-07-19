@@ -131,16 +131,6 @@
     main{padding-bottom:130px;}
   }
 
-  /* ---------- sign-in strip ---------- */
-  .signup{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
-    background:var(--glass);border:1px solid var(--glass-line);border-radius:16px;
-    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:16px 22px;}
-  .signup p{margin:0;display:flex;align-items:center;gap:11px;font-size:15.5px;color:var(--fg);}
-  .signup .dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 10px var(--yellow);flex:none;}
-  .signup .acts{display:flex;align-items:center;gap:20px;}
-  .btn.small{padding:11px 18px;font-size:12.5px;border-radius:8px;}
-  @media (max-width:560px){.signup{justify-content:center;text-align:center;}}
-
   /* ---------- today's pick ---------- */
   .pick{display:flex;gap:clamp(24px,4vw,48px);align-items:center;margin-top:24px;
     background:var(--glass);border:1px solid var(--glass-line);border-radius:22px;
@@ -288,14 +278,6 @@
 
 <main>
   <div id="banner"></div>
-
-  <div class="signup r in">
-    <p><span class="dot"></span>Sign in to unlock more games and rewards.</p>
-    <div class="acts">
-      <a class="btn small" href="#">Sign Up</a>
-      <a class="lnk" href="#">Sign In</a>
-    </div>
-  </div>
 
   <div id="pick"></div>
   <div id="rails"></div>
