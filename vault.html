@@ -188,6 +188,26 @@
   .chip.medium::before{background:var(--fg);}
   .chip.hard{background:#FF5C39;}
 
+  /* ---------- in-vault game player ---------- */
+  .player{position:fixed;z-index:45;left:0;right:0;top:0;bottom:0;
+    background:#0b0b0b;display:flex;flex-direction:column;}
+  .player[hidden]{display:none;}
+  .pbar{flex:none;display:flex;align-items:center;gap:14px;
+    padding:10px clamp(14px,2vw,22px);border-bottom:1px solid var(--line);
+    background:rgba(21,21,21,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+  .pback{display:inline-flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
+    color:var(--yellow);font-family:var(--body);font-weight:600;font-size:14px;
+    padding:9px 11px;border-radius:9px;transition:background .2s;}
+  .pback:hover{background:rgba(255,255,255,.06);}
+  .ptitle{font-family:var(--display);font-weight:600;font-size:15px;color:var(--fg);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pext{margin-left:auto;font-size:12.5px;color:var(--fg-3);text-decoration:none;white-space:nowrap;}
+  .pext:hover{color:var(--yellow);}
+  .player iframe{flex:1;width:100%;border:0;background:#000;}
+  body.playing{overflow:hidden;}
+  body.playing header{display:none;}
+  @media (min-width:900px){.player{left:250px;}}
+
   #banner{display:none;margin-top:40px;padding:18px 22px;border:1px solid var(--glass-line);border-radius:14px;
     background:var(--glass);color:var(--fg-2);font-size:15px;}
 
@@ -270,6 +290,16 @@
   </footer>
 </main>
 
+<!-- in-vault game player -->
+<div class="player" id="player" hidden>
+  <div class="pbar">
+    <button class="pback" id="p-back" type="button">&larr; Back to the Vault</button>
+    <span class="ptitle" id="p-title"></span>
+    <a class="pext" id="p-ext" href="#" target="_blank" rel="noopener">Open in new tab &#8599;</a>
+  </div>
+  <iframe id="p-frame" title="Game" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
+
 <!-- mobile bottom tab bar -->
 <nav class="tabbar" aria-label="Vault tabs">
   <a class="tab" href="index.html">
@@ -310,6 +340,45 @@
   window.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
 })();
 
+/* ---- in-vault game player ---- */
+var WGPlayer=(function(){
+  var el=document.getElementById('player'),
+      frame=document.getElementById('p-frame'),
+      title=document.getElementById('p-title'),
+      ext=document.getElementById('p-ext'),
+      back=document.getElementById('p-back'),
+      tabbar=document.querySelector('.tabbar');
+
+  function fit(){
+    if(el.hidden) return;
+    var mobile=window.matchMedia('(max-width: 899.98px)').matches;
+    el.style.bottom=(mobile&&tabbar)?tabbar.offsetHeight+'px':'0px';
+  }
+  function open(url,name){
+    frame.src=url; ext.href=url; title.textContent=name||'';
+    el.hidden=false; document.body.classList.add('playing');
+    fit();
+    history.pushState({wgPlayer:1},'');
+  }
+  function close(fromPop){
+    if(el.hidden) return;
+    el.hidden=true; frame.src='about:blank';
+    document.body.classList.remove('playing');
+    if(!fromPop && history.state && history.state.wgPlayer) history.back();
+  }
+  back.addEventListener('click',function(){close(false);});
+  window.addEventListener('popstate',function(){close(true);});
+  window.addEventListener('resize',fit);
+  window.addEventListener('keydown',function(e){if(e.key==='Escape')close(false);});
+  /* tapping My Arcade while playing exits back to the shelf instead of reloading */
+  document.querySelectorAll('.snav a.active,.tab.active').forEach(function(a){
+    a.addEventListener('click',function(e){
+      if(!el.hidden){e.preventDefault();close(false);}
+    });
+  });
+  return {open:open,close:close,isOpen:function(){return !el.hidden;}};
+})();
+
 /* ---- vault shelf ---- */
 (function(){
   var MECH={1:'Hypercasual',2:'Competitive',3:'Narrative serial'};
@@ -339,8 +408,15 @@
             '<a class="btn" href="'+esc(pick.url)+'" target="_blank" rel="noopener">Play today’s edition <span class="arrow">→</span></a>'+
           '</div>'+
         '</div>';
+      document.querySelector('#pick .btn').addEventListener('click',function(e){
+        e.preventDefault(); WGPlayer.open(pick.url,pick.title);
+      });
       ['side-play','tab-play'].forEach(function(id){
-        var b=document.getElementById(id); if(b) b.href=pick.url;
+        var b=document.getElementById(id); if(!b) return;
+        b.href=pick.url;
+        b.addEventListener('click',function(e){
+          e.preventDefault(); WGPlayer.open(pick.url,pick.title);
+        });
       });
     }
 
@@ -358,7 +434,12 @@
         var live=!!g.available;
         var el=document.createElement(live?'a':'div');
         el.className='vcard'+(live?'':' soon');
-        if(live){el.href=g.url;el.target='_blank';el.rel='noopener';}
+        if(live){
+          el.href=g.url;el.target='_blank';el.rel='noopener';
+          el.addEventListener('click',function(e){
+            e.preventDefault(); WGPlayer.open(g.url,g.title);
+          });
+        }
         /* placeholder difficulty + play count: seeded from slug so they vary per game but stay stable */
         var h=0; for(var i=0;i<g.slug.length;i++){h=(h*33+g.slug.charCodeAt(i))>>>0;}
         h=(((h^(h>>>7))>>>0)*2654435761)>>>0; h=(h^(h>>>16))>>>0;
