@@ -383,6 +383,13 @@ var WGPlayer=(function(){
     var games=data.games.map(function(g){g.mechanic=MECH[g.tier]||'Game';return g;});
     var avail=games.filter(function(g){return g.available;});
 
+    /* arriving from a game link elsewhere on the site (e.g. homepage) — open straight into the player */
+    var playSlug=new URLSearchParams(location.search).get('play');
+    if(playSlug){
+      var linked=avail.filter(function(g){return g.slug===playSlug;})[0];
+      if(linked) WGPlayer.open(linked.url,linked.title);
+    }
+
     /* today's pick: rotate daily through available narrative games, fall back to any */
     var pool=avail.filter(function(g){return g.tier===3;});
     if(!pool.length) pool=avail;
