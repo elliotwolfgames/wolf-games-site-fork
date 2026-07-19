@@ -3,15 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wolf Games · Play On.</title>
-<meta name="description" content="A new edition every day. Games from the stories you love, finished in minutes.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Wolf Games">
-<meta property="og:title" content="Wolf Games · Play On.">
-<meta property="og:description" content="A new edition every day. Games from the stories you love, finished in minutes.">
-<meta property="og:url" content="https://wolf-games-site-ew.vercel.app/">
-<meta property="og:image" content="https://wolf-games-site-ew.vercel.app/assets/scene-street.jpg">
-<meta name="twitter:card" content="summary_large_image">
+<title>Wolf Games — Let Your Audience Play.</title>
+<meta name="description" content="Wolf Games turns media archives into daily interactive games — designed, built, and operated for you.">
 <style>
   /* ============================================================
      WOLF GAMES — partner site
@@ -35,8 +28,6 @@
     --ease:cubic-bezier(0.16,1,0.3,1);
   }
   *{box-sizing:border-box;}
-  :root{color-scheme:dark;}
-  [hidden]{display:none!important;}
   html{scroll-behavior:smooth;}
   html,body{overflow-x:clip;}
   body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55;
@@ -77,7 +68,7 @@
   /* ---------- header ---------- */
   header{position:fixed;top:0;left:0;right:0;z-index:60;background:linear-gradient(rgba(24,24,24,.9) 40%,transparent);}
   header .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:26px;padding-bottom:26px;}
-  header .wm{height:40px;width:auto;}
+  header .wm{height:33px;width:auto;}
 
   /* hamburger — wolfgames.net style */
   .burger{position:relative;width:34px;height:20px;background:none;border:0;padding:0;cursor:pointer;}
@@ -172,40 +163,6 @@
     .partners .lg.nbcu{font-size:16px;}
     .partners .lg.adv{font-size:17px;letter-spacing:.07em;}
   }
-
-  /* streak chip (player, above the fold) */
-  .streak-chip{display:inline-flex;align-items:center;gap:8px;margin-top:22px;
-    background:var(--glass);border:1px solid var(--glass-line);border-radius:999px;
-    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-    padding:8px 16px;font-size:13px;font-weight:600;letter-spacing:.05em;color:var(--fg);}
-  .streak-chip .flame{width:14px;height:14px;fill:var(--yellow);
-    filter:drop-shadow(0 0 6px rgba(250,255,0,.55));}
-  .streak-chip b{color:var(--yellow);}
-
-  /* seam between the player story and the partner case */
-  .seam{padding:clamp(70px,10vh,120px) 0 0;text-align:center;scroll-margin-top:70px;}
-  .seam-line{margin:0;font-family:var(--display);font-weight:500;letter-spacing:-.03em;
-    font-size:clamp(24px,3.2vw,42px);}
-
-  /* partner intro */
-  .pintro{text-align:center;padding:clamp(30px,5vh,60px) 0 clamp(60px,9vh,110px);}
-  .pintro h2{font-family:var(--display);font-weight:500;letter-spacing:-.04em;line-height:1.08;
-    font-size:clamp(32px,4.6vw,60px);margin:16px 0 0;text-wrap:balance;}
-  .pdiff{margin:22px auto 0;max-width:44em;color:var(--fg-2);font-size:clamp(15.5px,1.4vw,18px);}
-
-  /* partner lead form */
-  .pform{margin:44px auto 0;max-width:640px;display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left;}
-  .pform .full{grid-column:1/-1;}
-  .pform input,.pform select{width:100%;background:var(--glass);border:1px solid var(--glass-line);
-    border-radius:12px;padding:15px 16px;color:var(--fg);font-family:var(--body);font-size:15px;
-    outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;}
-  .pform input::placeholder{color:var(--fg-3);}
-  .pform select:invalid{color:var(--fg-3);}
-  .pform input:focus,.pform select:focus{border-color:var(--yellow);}
-  .pform .btn{grid-column:1/-1;justify-content:center;margin-top:6px;}
-  .pform-done{margin:40px auto 0;max-width:520px;background:var(--glass);border:1px solid var(--glass-line);
-    border-radius:16px;padding:26px 30px;font-size:16.5px;color:var(--fg);}
-  @media (max-width:560px){.pform{grid-template-columns:1fr;}}
 
   section{position:relative;padding:clamp(80px,12vh,140px) 0;}
 
@@ -407,9 +364,9 @@
 </header>
 
 <nav class="menu" id="menu" aria-label="Site menu">
-  <a href="vault.html">Play</a>
-  <a href="about.html">About</a>
-  <a href="#partners">For Partners</a>
+  <a href="#">Sign In</a>
+  <a href="vault.html">Play Games</a>
+  <a href="about.html">About Us</a>
 </nav>
 
 <!-- hero -->
@@ -419,10 +376,6 @@
   <div class="vig" aria-hidden="true"></div>
   <div class="wrap">
     <h1 class="r"><span class="shimmer-y">Play On.</span></h1>
-    <div class="streak-chip r d1" id="streak-chip" hidden>
-      <svg class="flame" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c.7 2.8 0 4.8-1.6 6.6C9 10.2 7.5 11.9 7.5 14.4a4.5 4.5 0 0 0 9 0c0-1.3-.4-2.5-1.1-3.7-.5.9-1.2 1.5-2.2 1.7.9-2.8.3-6.2-1.2-10.4z"/></svg>
-      <span><b id="streak-num">0</b>-day streak</span>
-    </div>
     <div class="daily r d1">
       <div class="daily-lead">Today's Top Three Editions</div>
       <div class="board3">
@@ -441,23 +394,6 @@
       </div>
       <div class="cta" style="margin-top:30px;"><a class="btn" href="vault.html">Enter My Vault <span class="arrow">&rarr;</span></a></div>
     </div>
-  </div>
-</section>
-
-<!-- seam: the player story ends, the partner case begins -->
-<section class="seam obs" id="partners">
-  <div class="wrap">
-    <p class="seam-line r"><span class="shimmer">That's what your audience could be playing.</span></p>
-  </div>
-</section>
-
-<!-- partner intro -->
-<section class="pintro obs">
-  <div class="wrap">
-    <span class="label r">For Partners</span>
-    <h2 class="r d1">We turn your IP into games people <span class="shimmer-y">play every day.</span></h2>
-    <p class="pdiff r d2">Produced, curated games. Built AI-native and operated for you.<br>
-      Not a UGC platform. Not a game studio invoice.</p>
     <div class="partners r d3">
       <span class="plabel">Our Partners</span>
       <div class="lmask">
@@ -491,8 +427,8 @@
         <span class="chout" style="--ex:312px;--ey:50px;--d:3.4s;--t:4.2s">Live</span>
       </div>
       <div class="msgs">
-        <div class="msg on"><h3>Habit</h3><p>A game a day, finished in minutes, then on with your life. Finite by design.</p></div>
-        <div class="msg"><h3>Community</h3><p>Your audience goes deeper on what they already love. You learn what holds them.</p></div>
+        <div class="msg on"><h3>Habit</h3><p>A new episode of play, every day.</p></div>
+        <div class="msg"><h3>Community</h3><p>One touchpoint your whole audience meets at.</p></div>
         <div class="msg"><h3>Seamless Brand Integration</h3><p>Brands built into the mechanic, sold by your team.</p></div>
       </div>
       <div class="rail" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
@@ -508,7 +444,7 @@
       <div class="intro-lo">
         <span class="step r">Exclusively on Peacock</span>
         <h2 class="big r d1">Law &amp; Order<span class="sub">Clue Hunter</span></h2>
-        <p class="lead-lo r d2">Step onto the case board. Search the scene, connect the suspects, and crack a new investigation in the Law &amp; Order universe. Every day.</p>
+        <p class="lead-lo r d2">Step onto the case board. Search the scene, connect the suspects, and crack a new investigation in the Law &amp; Order universe — every day.</p>
       </div>
       <div class="arch r d2">
         <div class="aimg"><img src="assets/lo-cluehunter-bg.jpg" alt="Law &amp; Order: Clue Hunter case board">
@@ -539,24 +475,7 @@
     <span class="label r">Get in touch</span>
     <h2 class="r d1"><span class="shimmer">Let's build your first game.</span></h2>
     <p class="side r d2">Tell us about your audience and your archive. We'll come back with a playable concept you can put in front of your team.</p>
-    <form class="pform r d2" id="partner-form">
-      <input name="name" type="text" placeholder="Your name" required autocomplete="name">
-      <input name="company" type="text" placeholder="Company" required autocomplete="organization">
-      <input name="role" type="text" placeholder="Role" required autocomplete="organization-title">
-      <select name="audienceSize" required>
-        <option value="" disabled selected>Audience size</option>
-        <option>Under 100K</option>
-        <option>100K to 1M</option>
-        <option>1M to 10M</option>
-        <option>10M+</option>
-      </select>
-      <input class="full" name="archiveType" type="text" placeholder="Your archive or IP (true crime library, sports rights, podcast universe...)" required>
-      <input class="full" name="email" type="email" placeholder="Work email" required autocomplete="email">
-      <button class="btn" type="submit">Let's build your first game <span class="arrow">&rarr;</span></button>
-    </form>
-    <div class="pform-done" id="pform-done" hidden>
-      <b>Got it.</b> We'll come back with a playable concept, usually within a few days.
-    </div>
+    <div class="cta r d2"><a class="btn" href="mailto:elliot@wolfgames.net?subject=Waitlist">Join the waitlist <span class="arrow">&rarr;</span></a></div>
   </div>
 </section>
 
@@ -591,46 +510,12 @@
   </div>
 </footer>
 
-<script src="js/vault-state.js"></script>
-<script src="js/track.js"></script>
 <script>
 /* ---- always fetch the latest build of internal pages ---- */
 (function(){
   var t=Date.now();
-  document.querySelectorAll('a[href$="index.html"],a[href$="vault.html"],a[href$="about.html"],a[href$="profile.html"],a[href$="save-progress.html"]').forEach(function(a){
+  document.querySelectorAll('a[href$="index.html"],a[href$="vault.html"],a[href$="about.html"]').forEach(function(a){
     a.href=a.getAttribute('href')+'?t='+t;
-  });
-})();
-
-/* ---- streak chip: only when a streak exists ---- */
-(function(){
-  if(!window.WGVaultState) return;
-  var s=WGVaultState.getStreak();
-  if(s>=1){
-    document.getElementById('streak-num').textContent=s;
-    document.getElementById('streak-chip').hidden=false;
-  }
-})();
-
-/* ---- partner lead form ---- */
-(function(){
-  var form=document.getElementById('partner-form'), done=document.getElementById('pform-done');
-  if(!form) return;
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var data={};
-    new FormData(form).forEach(function(v,k){ data[k]=v; });
-    form.querySelector('button[type="submit"]').disabled=true;
-    fetch('/api/partner-lead',{
-      method:'POST',
-      headers:{'content-type':'application/json'},
-      body:JSON.stringify(data)
-    }).catch(function(err){
-      /* static preview has no serverless runtime; the deployed site does */
-      console.warn('partner-lead endpoint unreachable in this environment',err);
-    }).then(function(){
-      form.hidden=true; done.hidden=false;
-    });
   });
 })();
 
@@ -639,14 +524,8 @@
     es.forEach(function(e){
       if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
     });
-  },{threshold:0});
+  },{threshold:0.15});
   document.querySelectorAll('.obs').forEach(function(s){io.observe(s);});
-  /* if observer callbacks never arrive (some embedded browsers), reveal everything */
-  setTimeout(function(){
-    if(!document.querySelector('.obs.in')){
-      document.querySelectorAll('.obs').forEach(function(s){s.classList.add('in');});
-    }
-  },900);
 })();
 
 /* ---- game engine: scroll-driven message stages ---- */
@@ -709,25 +588,7 @@
     burger.setAttribute('aria-expanded',open?'true':'false');
   }
   burger.addEventListener('click',function(){setOpen(!menu.classList.contains('open'));});
-  menu.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(e){
-      setOpen(false);
-      /* in-page anchors: close the overlay first, then scroll; navigating
-         while the menu holds body overflow locked silently drops the jump */
-      var href=a.getAttribute('href');
-      if(href && href.charAt(0)==='#'){
-        e.preventDefault();
-        var target=document.querySelector(href);
-        history.replaceState(null,'',href);
-        /* instant jump: smooth scrolling is unreliable in embedded browsers
-           and this control has to land every time */
-        if(target) setTimeout(function(){
-          var y=target.getBoundingClientRect().top+window.scrollY-70;
-          window.scrollTo({top:y,behavior:'instant'});
-        },60);
-      }
-    });
-  });
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setOpen(false);});});
   window.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
 })();
 </script>
