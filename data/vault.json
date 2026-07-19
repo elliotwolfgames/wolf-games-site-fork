@@ -48,7 +48,7 @@
     {
       "slug": "soccer-cup-final-shot",
       "tier": 2,
-      "title": "Soccer Cup \u2014 Final Shot",
+      "title": "Soccer Cup: Final Shot",
       "note": "seed pick",
       "status": "deployed",
       "url": "https://soccer-cup-final-shot.qa.wolf.games/",
@@ -98,7 +98,7 @@
     {
       "slug": "on-the-wire-turns",
       "tier": 3,
-      "title": "On The Wire \u2014 Turns",
+      "title": "On The Wire: Turns",
       "note": "word-search serial",
       "status": "deployed",
       "url": "https://on-the-wire-turns.qa.wolf.games/",
