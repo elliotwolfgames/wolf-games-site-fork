@@ -293,7 +293,7 @@
 <!-- in-vault game player -->
 <div class="player" id="player" hidden>
   <div class="pbar">
-    <button class="pback" id="p-back" type="button">&larr; Back to My Vault</button>
+    <button class="pback" id="p-back" type="button">&larr; Back</button>
     <a class="pext" id="p-ext" href="#" target="_blank" rel="noopener">Open in new tab &#8599;</a>
   </div>
   <iframe id="p-frame" title="Game" allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -339,24 +339,38 @@ var WGPlayer=(function(){
       frame=document.getElementById('p-frame'),
       ext=document.getElementById('p-ext'),
       back=document.getElementById('p-back'),
-      tabbar=document.querySelector('.tabbar');
+      tabbar=document.querySelector('.tabbar'),
+      returnTo=null;
 
   function fit(){
     if(el.hidden) return;
     var mobile=window.matchMedia('(max-width: 899.98px)').matches;
     el.style.bottom=(mobile&&tabbar)?tabbar.offsetHeight+'px':'0px';
   }
-  function open(url,name){
+  function open(url,name,opts){
     frame.src=url; ext.href=url;
     el.hidden=false; document.body.classList.add('playing');
     fit();
-    history.pushState({wgPlayer:1},'');
+    /* returnTo: the page we should land on when "Back" is pressed. Only set when the
+       player was opened by arriving fresh from another page (e.g. the homepage) — in
+       that case skip pushState so a real navigation, not a fake history entry, sends
+       the user back to where they actually came from. */
+    returnTo=(opts&&opts.returnTo)||null;
+    if(!returnTo) history.pushState({wgPlayer:1},'');
   }
-  function close(fromPop){
+  function hide(){
     if(el.hidden) return;
     el.hidden=true; frame.src='about:blank';
     document.body.classList.remove('playing');
-    if(!fromPop && history.state && history.state.wgPlayer) history.back();
+    returnTo=null;
+  }
+  function close(fromPop){
+    if(el.hidden) return;
+    var to=returnTo;
+    hide();
+    if(fromPop) return;
+    if(to){ location.href=to; return; }
+    if(history.state && history.state.wgPlayer) history.back();
   }
   back.addEventListener('click',function(){close(false);});
   window.addEventListener('popstate',function(){close(true);});
@@ -365,7 +379,7 @@ var WGPlayer=(function(){
   /* tapping My Arcade while playing exits back to the shelf instead of reloading */
   document.querySelectorAll('.snav a.active,.tab.active').forEach(function(a){
     a.addEventListener('click',function(e){
-      if(!el.hidden){e.preventDefault();close(false);}
+      if(!el.hidden){e.preventDefault();hide();}
     });
   });
   return {open:open,close:close,isOpen:function(){return !el.hidden;}};
@@ -383,11 +397,18 @@ var WGPlayer=(function(){
     var games=data.games.map(function(g){g.mechanic=MECH[g.tier]||'Game';return g;});
     var avail=games.filter(function(g){return g.available;});
 
-    /* arriving from a game link elsewhere on the site (e.g. homepage) — open straight into the player */
+    /* arriving from a game link elsewhere on the site (e.g. homepage) — open straight into the
+       player, and remember where we came from so "Back" returns there instead of the shelf */
     var playSlug=new URLSearchParams(location.search).get('play');
     if(playSlug){
       var linked=avail.filter(function(g){return g.slug===playSlug;})[0];
-      if(linked) WGPlayer.open(linked.url,linked.title);
+      if(linked){
+        var cameFrom=null;
+        try{
+          if(document.referrer && new URL(document.referrer).origin===location.origin) cameFrom=document.referrer;
+        }catch(e){}
+        WGPlayer.open(linked.url,linked.title,{returnTo:cameFrom});
+      }
     }
 
     /* today's pick: rotate daily through available narrative games, fall back to any */
