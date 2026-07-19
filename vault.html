@@ -220,6 +220,17 @@
   body.playing header{display:none;}
   @media (min-width:900px){.player{left:250px;}}
 
+  /* ambient drifting particles — fixed backdrop behind the shelf, no set direction */
+  .particles{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+  .particles i{position:absolute;border-radius:50%;opacity:var(--po,.22);
+    background:var(--pc,#FEFEF9);box-shadow:0 0 6px 1px var(--pc,#FEFEF9);
+    animation:drift var(--pt,16s) ease-in-out infinite alternate;animation-delay:var(--pd,0s);}
+  @keyframes drift{
+    from{transform:translate(0,0);}
+    to{transform:translate(var(--dx,18px),var(--dy,-22px));}}
+  @media (prefers-reduced-motion:reduce){.particles{display:none;}}
+  main{position:relative;z-index:1;}
+
   #banner{display:none;margin-top:40px;padding:18px 22px;border:1px solid var(--glass-line);border-radius:14px;
     background:var(--glass);color:var(--fg-2);font-size:15px;}
 
@@ -236,6 +247,8 @@
 </style>
 </head>
 <body class="in">
+
+<div class="particles" id="pt-vault" aria-hidden="true"></div>
 
 <!-- mobile top header -->
 <header>
@@ -323,6 +336,25 @@
   document.querySelectorAll('a[href$="index.html"],a[href$="vault.html"],a[href$="about.html"]').forEach(function(a){
     a.href=a.getAttribute('href')+'?t='+t;
   });
+})();
+
+/* ---- drifting particles ---- */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var el=document.getElementById('pt-vault'); if(!el) return;
+  for(var i=0;i<26;i++){
+    var p=document.createElement('i');
+    var s=(1.4+Math.random()*2.4).toFixed(1);
+    p.style.left=(Math.random()*100).toFixed(2)+'%';
+    p.style.top=(Math.random()*100).toFixed(2)+'%';
+    p.style.width=s+'px'; p.style.height=s+'px';
+    p.style.setProperty('--pt',(12+Math.random()*12).toFixed(1)+'s');
+    p.style.setProperty('--pd',(-Math.random()*18).toFixed(1)+'s');
+    p.style.setProperty('--dx',Math.round(Math.random()*60-30)+'px');
+    p.style.setProperty('--dy',Math.round(Math.random()*60-30)+'px');
+    p.style.setProperty('--po',(0.12+Math.random()*0.22).toFixed(2));
+    el.appendChild(p);
+  }
 })();
 
 /* ---- hamburger (mobile) ---- */
