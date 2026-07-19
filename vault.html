@@ -109,15 +109,20 @@
   .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
     font-size:10.5px;letter-spacing:.02em;color:var(--fg-3);text-decoration:none;}
   .tab.active{color:var(--yellow);}
-  .tab-play{flex:0 0 auto;margin:0 8px;width:58px;height:58px;border-radius:50%;
+  .tab-play{flex:0 0 auto;margin:0 8px;min-width:58px;height:58px;border-radius:29px;
     background:var(--yellow);transform:translateY(-18px);
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 6px 26px rgba(249,255,0,.45);}
-  .tab-play i{width:0;height:0;border-style:solid;border-width:10px 0 10px 16px;
-    border-color:transparent transparent transparent #000;margin-left:4px;}
-  /* while a game is open the play triangle becomes a "next game" down-chevron */
-  body.playing .tab-play i{width:15px;height:15px;border-style:solid;border-width:0 3.5px 3.5px 0;
-    border-color:#000;border-radius:2px;margin:-7px 0 0;transform:rotate(45deg);}
+    display:flex;align-items:center;justify-content:center;padding:0 22px;
+    box-shadow:0 6px 26px rgba(249,255,0,.45);
+    text-decoration:none;font-family:var(--body);font-weight:700;font-size:13px;
+    letter-spacing:.03em;text-transform:uppercase;color:#000;white-space:nowrap;
+    transition:padding .2s var(--ease),border-radius .2s var(--ease);}
+  .tab-play i{display:none;width:0;height:0;border-style:solid;border-width:10px 0 10px 16px;
+    border-color:transparent transparent transparent #000;}
+  /* while a game is open, the "Challenge Me" label becomes a "next game" down-chevron */
+  body.playing .tab-play{width:58px;min-width:58px;padding:0;border-radius:50%;}
+  body.playing .tab-play .tp-label{display:none;}
+  body.playing .tab-play i{display:block;width:15px;height:15px;border-style:solid;border-width:0 3.5px 3.5px 0;
+    border-color:#000;border-radius:2px;transform:rotate(45deg);}
 
   /* ---------- layout shell ---------- */
   main{padding:clamp(110px,15vh,150px) clamp(20px,4vw,48px) clamp(60px,8vh,90px);
@@ -304,11 +309,11 @@
 <nav class="tabbar" aria-label="Vault tabs">
   <a class="tab active" href="vault.html">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2z"/></svg>
-    Discover</a>
-  <a class="tab-play" id="tab-play" href="#" target="_blank" rel="noopener" aria-label="Play today's edition"><i></i></a>
+    My Vault</a>
+  <a class="tab-play" id="tab-play" href="#" target="_blank" rel="noopener" aria-label="Play today's edition"><span class="tp-label">Challenge Me</span><i></i></a>
   <a class="tab" href="#">
     <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="12" r="4.5"/><path d="M12 7.5V5.5M12 18.5v-2M16.5 12h2M5.5 12h2"/></svg>
-    My Vault</a>
+    My Profile</a>
 </nav>
 
 <script>
