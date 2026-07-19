@@ -30,29 +30,29 @@
   img{max-width:100%;display:block;}
   a{color:inherit;}
 
-  .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(24px,5vw,64px);}
   .label{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:500;}
-  .shimmer{background:linear-gradient(90deg,#AEAE92 0%,#FEFEF9 52%,#AEAE92 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent;}
-  .shimmer-y{background:linear-gradient(90deg,#C6CB08 0%,#FAFF00 52%,#C6CB08 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent;}
 
   .r{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
   .in .r{opacity:1;transform:none;}
   .r.d1{transition-delay:.08s;} .r.d2{transition-delay:.16s;} .r.d3{transition-delay:.24s;}
 
-  .btn{display:inline-flex;align-items:center;gap:12px;background:var(--yellow);color:#000;
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--yellow);color:#000;
     font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;
-    text-decoration:none;padding:17px 28px;border-radius:10px;border:0;cursor:pointer;
+    text-decoration:none;padding:17px 28px;border-radius:12px;border:0;cursor:pointer;
     box-shadow:0 4px 20px rgba(249,255,0,.3);
     transition:transform .25s var(--ease),box-shadow .25s var(--ease),filter .25s;}
   .btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(249,255,0,.42);filter:brightness(1.03);}
   .btn .arrow{font-size:17px;line-height:1;transform:translateY(-1px);}
+  .btn .tri{width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent #000;}
 
-  /* ---------- header + hamburger ---------- */
+  .lnk{font-size:14px;text-decoration:none;border-bottom:1px solid var(--fg-3);padding-bottom:2px;
+    transition:border-color .25s,color .25s;}
+  .lnk:hover{border-color:var(--yellow);color:var(--yellow);}
+
+  /* ---------- mobile top header + hamburger ---------- */
   header{position:fixed;top:0;left:0;right:0;z-index:60;background:linear-gradient(rgba(24,24,24,.9) 40%,transparent);}
-  header .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:26px;padding-bottom:26px;}
-  header .wm{height:33px;width:auto;display:block;}
+  header .hwrap{display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,5vw,40px);}
+  header .wm{height:30px;width:auto;display:block;}
   .burger{position:relative;width:34px;height:20px;background:none;border:0;padding:0;cursor:pointer;}
   .burger i{position:absolute;left:0;right:0;height:2.5px;border-radius:2px;background:var(--yellow);
     transition:transform .35s var(--ease),opacity .25s,top .35s var(--ease);}
@@ -80,12 +80,55 @@
     -webkit-background-clip:text;background-clip:text;}
   body.menu-open{overflow:hidden;}
 
-  /* ---------- vault content ---------- */
-  main{padding:clamp(130px,18vh,180px) 0 clamp(70px,10vh,110px);}
-  .vhead h1{font-family:var(--display);font-weight:500;letter-spacing:-.045em;line-height:1.02;
-    font-size:clamp(44px,6.4vw,88px);margin:14px 0 0;}
+  /* ---------- desktop sidebar ---------- */
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:250px;z-index:40;
+    display:flex;flex-direction:column;gap:28px;padding:30px 22px 26px;
+    background:rgba(21,21,21,.85);border-right:1px solid var(--line);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+  .sidebar .wm{height:26px;width:auto;align-self:flex-start;margin-left:6px;}
+  .side-play{width:100%;}
+  .snav{display:flex;flex-direction:column;gap:6px;}
+  .snav a{display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:12px;
+    text-decoration:none;font-weight:500;font-size:15px;color:var(--fg-2);
+    transition:background .2s,color .2s;}
+  .snav a:hover{background:rgba(255,255,255,.06);color:var(--fg);}
+  .snav a.active{background:rgba(255,255,255,.08);color:var(--yellow);}
+  .snav svg,.tab svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;
+    stroke-linecap:round;stroke-linejoin:round;flex:none;}
+  .sidebar .sfoot{margin-top:auto;display:flex;flex-direction:column;gap:8px;
+    font-size:12.5px;color:var(--fg-3);padding-left:6px;}
+  .sidebar .sfoot a{text-decoration:none;transition:color .2s;}
+  .sidebar .sfoot a:hover{color:var(--yellow);}
 
-  /* sign-in strip */
+  /* ---------- mobile bottom tab bar ---------- */
+  .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:55;
+    display:flex;align-items:flex-end;justify-content:space-around;
+    background:rgba(20,20,20,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    border-top:1px solid var(--line);
+    padding:10px 10px calc(10px + env(safe-area-inset-bottom));}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+    font-size:10.5px;letter-spacing:.02em;color:var(--fg-3);text-decoration:none;}
+  .tab.active{color:var(--yellow);}
+  .tab-play{flex:0 0 auto;margin:0 8px;width:58px;height:58px;border-radius:50%;
+    background:var(--yellow);transform:translateY(-18px);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 26px rgba(249,255,0,.45);}
+  .tab-play i{width:0;height:0;border-style:solid;border-width:10px 0 10px 16px;
+    border-color:transparent transparent transparent #000;margin-left:4px;}
+
+  /* ---------- layout shell ---------- */
+  main{padding:clamp(110px,15vh,150px) clamp(20px,4vw,48px) clamp(60px,8vh,90px);
+    max-width:1280px;margin:0 auto;}
+  @media (min-width:900px){
+    header,.menu,.tabbar{display:none;}
+    main{margin-left:250px;max-width:none;padding-top:44px;}
+  }
+  @media (max-width:899.98px){
+    .sidebar{display:none;}
+    main{padding-bottom:130px;}
+  }
+
+  /* ---------- sign-in strip ---------- */
   .signup{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
     background:var(--glass);border:1px solid var(--glass-line);border-radius:16px;
     backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:16px 22px;}
@@ -93,57 +136,54 @@
   .signup .dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 10px var(--yellow);flex:none;}
   .signup .acts{display:flex;align-items:center;gap:20px;}
   .btn.small{padding:11px 18px;font-size:12.5px;border-radius:8px;}
-  .lnk{font-size:14px;text-decoration:none;border-bottom:1px solid var(--fg-3);padding-bottom:2px;
-    transition:border-color .25s,color .25s;}
-  .lnk:hover{border-color:var(--yellow);color:var(--yellow);}
   @media (max-width:560px){.signup{justify-content:center;text-align:center;}}
 
-  /* today's pick */
+  /* ---------- today's pick ---------- */
   .pick{display:flex;gap:clamp(24px,4vw,48px);align-items:center;margin-top:24px;
     background:var(--glass);border:1px solid var(--glass-line);border-radius:22px;
     backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
     padding:clamp(20px,3vw,36px);}
-  .pick .pthumb{flex:0 0 clamp(160px,22vw,230px);border-radius:14px;overflow:hidden;aspect-ratio:9/16;background:#101010;}
+  .pick .pthumb{flex:0 0 clamp(150px,20vw,220px);border-radius:16px;overflow:hidden;aspect-ratio:2/3;background:#101010;}
   .pick .pthumb img{width:100%;height:100%;object-fit:cover;object-position:top;}
   .pick .pmeta{display:flex;flex-direction:column;align-items:flex-start;gap:14px;}
   .chip{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:11px;letter-spacing:.12em;
     text-transform:uppercase;color:#000;background:var(--yellow);padding:5px 10px;border-radius:6px;}
   .chip::before{content:'';width:5px;height:5px;border-radius:50%;background:#000;}
   .pick h2{font-family:var(--display);font-weight:600;letter-spacing:-.03em;line-height:1.05;
-    font-size:clamp(30px,4vw,52px);margin:0;}
-  .pick .pmech{font-size:15px;color:var(--fg-2);letter-spacing:.04em;text-transform:uppercase;}
-  .pick .btn{margin-top:10px;}
+    font-size:clamp(28px,3.6vw,48px);margin:0;}
+  .pick .pmech{font-size:14px;color:var(--fg-2);letter-spacing:.04em;text-transform:uppercase;}
+  .pick .btn{margin-top:8px;}
   @media (max-width:640px){.pick{flex-direction:column;align-items:stretch;text-align:center;}
-    .pick .pthumb{margin:0 auto;width:min(230px,70vw);flex:none;}
+    .pick .pthumb{margin:0 auto;width:min(210px,64vw);flex:none;}
     .pick .pmeta{align-items:center;}}
 
-  /* rails */
-  .rail{margin-top:clamp(64px,9vh,96px);}
-  .rail-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
-  .rail-head h3{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.4vw,28px);letter-spacing:-.02em;margin:0;}
-  .rail-head .blurb{font-size:14px;color:var(--fg-3);}
-  .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px;}
-  .vcard{text-decoration:none;background:var(--glass);border:1px solid var(--glass-line);border-radius:16px;
-    overflow:hidden;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-    transition:transform .3s var(--ease),border-color .3s;}
-  .vcard:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.34);}
-  .vcard .vthumb{position:relative;aspect-ratio:9/14;overflow:hidden;background:#101010;}
+  /* ---------- rails ---------- */
+  .rail{margin-top:clamp(48px,7vh,70px);}
+  .rail-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+  .rail-head h3{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,27px);letter-spacing:-.02em;margin:0;}
+  .rail-head .blurb{font-size:13.5px;color:var(--fg-3);}
+  .vgrid{display:flex;gap:clamp(12px,1.6vw,20px);overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:4px 4px 14px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;
+    -webkit-overflow-scrolling:touch;}
+  .vcard{flex:0 0 clamp(160px,20vw,210px);scroll-snap-align:start;text-decoration:none;
+    transition:transform .3s var(--ease);}
+  .vcard:hover{transform:translateY(-4px);}
+  .vcard .vthumb{position:relative;aspect-ratio:2/3;overflow:hidden;border-radius:18px;background:#101010;
+    border:1px solid var(--glass-line);}
   .vcard .vthumb img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .7s var(--ease);}
-  .vcard:hover .vthumb img{transform:scale(1.04);}
+  .vcard:hover .vthumb img{transform:scale(1.05);}
   .vcard .vthumb .chip{position:absolute;top:10px;left:10px;}
-  .vcard .vmeta{padding:12px 14px 15px;}
-  .vcard .vrow{display:flex;justify-content:space-between;align-items:baseline;gap:10px;}
-  .vcard .vmech{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);}
-  .vcard .vplays{font-size:11.5px;color:var(--fg-3);white-space:nowrap;}
-  .vcard .vplays b{color:var(--fg-2);font-weight:600;}
-  .vcard .vplays .tri{display:inline-block;width:0;height:0;margin-right:5px;
-    border-style:solid;border-width:4px 0 4px 6.5px;border-color:transparent transparent transparent var(--yellow);
-    transform:translateY(-.5px);}
-  .vcard .vtitle{font-family:var(--display);font-weight:600;font-size:16.5px;letter-spacing:-.01em;margin:3px 0 0;color:var(--fg);}
+  .plays-pill{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:7px;
+    background:rgba(12,12,12,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700;color:var(--fg);}
+  .plays-pill i{width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;
+    border-color:transparent transparent transparent var(--yellow);}
+  .vcard .vmeta{padding:10px 4px 0;}
+  .vcard .vtitle{font-family:var(--display);font-weight:600;font-size:15.5px;letter-spacing:-.01em;color:var(--fg);}
+  .vcard .vmech{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);}
   .vcard.soon{opacity:.45;pointer-events:none;}
   .vcard.soon .chip{background:rgba(255,255,255,.22);color:var(--fg);}
   .vcard.soon .chip::before{background:var(--fg);}
-  /* difficulty chips */
   .chip.medium{background:rgba(255,255,255,.24);color:var(--fg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
   .chip.medium::before{background:var(--fg);}
   .chip.hard{background:#FF5C39;}
@@ -151,9 +191,9 @@
   #banner{display:none;margin-top:40px;padding:18px 22px;border:1px solid var(--glass-line);border-radius:14px;
     background:var(--glass);color:var(--fg-2);font-size:15px;}
 
-  footer{border-top:1px solid var(--line);margin-top:clamp(70px,10vh,110px);}
-  footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-    padding-top:30px;padding-bottom:34px;font-size:13px;color:var(--fg-3);}
+  footer{border-top:1px solid var(--line);margin-top:clamp(60px,9vh,100px);}
+  footer .fwrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding:28px 4px 8px;font-size:13px;color:var(--fg-3);}
   footer img{height:15px;width:auto;opacity:.7;}
 
   @media (prefers-reduced-motion:reduce){
@@ -165,8 +205,9 @@
 </head>
 <body class="in">
 
+<!-- mobile top header -->
 <header>
-  <div class="wrap">
+  <div class="hwrap">
     <a href="index.html" aria-label="Wolf Games home"><img class="wm" src="assets/wordmark-yellow.svg" alt="Wolf Games"></a>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
   </div>
@@ -178,28 +219,73 @@
   <a href="about.html">About Us</a>
 </nav>
 
-<main>
-  <div class="wrap">
-    <div id="banner"></div>
-    <div class="signup r in">
-      <p><span class="dot"></span>Sign in to unlock more games and rewards.</p>
-      <div class="acts">
-        <a class="btn small" href="#">Sign Up</a>
-        <a class="lnk" href="#">Sign In</a>
-      </div>
-    </div>
-    <div id="pick"></div>
-    <div id="rails"></div>
-  </div>
-</main>
-
-<footer>
-  <div class="wrap">
-    <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
-    <span>Stories You Play.</span>
+<!-- desktop sidebar -->
+<aside class="sidebar" aria-label="Vault navigation">
+  <a href="index.html" aria-label="Wolf Games home"><img class="wm" src="assets/wordmark-yellow.svg" alt="Wolf Games"></a>
+  <a class="btn side-play" id="side-play" href="#" target="_blank" rel="noopener"><span class="tri"></span>Play</a>
+  <nav class="snav">
+    <a href="index.html">
+      <svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"/><path d="M5 8.5V21h14V8.5"/><path d="M9 21v-6h6v6"/></svg>
+      Home</a>
+    <a href="vault.html" class="active">
+      <svg viewBox="0 0 24 24"><path d="M6 12h4M8 10v4"/><path d="M15.5 11.5h.01M17.5 13.5h.01"/><path d="M7 6h10a5 5 0 0 1 5 5v3a4 4 0 0 1-7 2.6L13.8 15h-3.6L9 16.6A4 4 0 0 1 2 14v-3a5 5 0 0 1 5-5z"/></svg>
+      My Arcade</a>
+    <a href="about.html">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>
+      About Us</a>
+    <a href="#">
+      <svg viewBox="0 0 24 24"><path d="M15 3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></svg>
+      Sign In</a>
+    <a href="#">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.6 4.5-5.5 8-5.5s6.5 1.9 8 5.5"/></svg>
+      Profile</a>
+  </nav>
+  <div class="sfoot">
+    <a href="https://discord.gg/YfG3sTYTxs" target="_blank" rel="noopener">Discord</a>
+    <span>@Wolfgames</span>
     <span>© 2026 Wolf Games</span>
   </div>
-</footer>
+</aside>
+
+<main>
+  <div id="banner"></div>
+
+  <div class="signup r in">
+    <p><span class="dot"></span>Sign in to unlock more games and rewards.</p>
+    <div class="acts">
+      <a class="btn small" href="#">Sign Up</a>
+      <a class="lnk" href="#">Sign In</a>
+    </div>
+  </div>
+
+  <div id="pick"></div>
+  <div id="rails"></div>
+
+  <footer>
+    <div class="fwrap">
+      <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
+      <span>Stories You Play.</span>
+      <span>© 2026 Wolf Games</span>
+    </div>
+  </footer>
+</main>
+
+<!-- mobile bottom tab bar -->
+<nav class="tabbar" aria-label="Vault tabs">
+  <a class="tab" href="index.html">
+    <svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"/><path d="M5 8.5V21h14V8.5"/><path d="M9 21v-6h6v6"/></svg>
+    Home</a>
+  <a class="tab active" href="vault.html">
+    <svg viewBox="0 0 24 24"><path d="M6 12h4M8 10v4"/><path d="M15.5 11.5h.01M17.5 13.5h.01"/><path d="M7 6h10a5 5 0 0 1 5 5v3a4 4 0 0 1-7 2.6L13.8 15h-3.6L9 16.6A4 4 0 0 1 2 14v-3a5 5 0 0 1 5-5z"/></svg>
+    My Arcade</a>
+  <a class="tab-play" id="tab-play" href="#" target="_blank" rel="noopener" aria-label="Play today's edition"><i></i></a>
+  <a class="tab" href="#">
+    <svg viewBox="0 0 24 24"><path d="M15 3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></svg>
+    Sign In</a>
+  <a class="tab" href="#">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.6 4.5-5.5 8-5.5s6.5 1.9 8 5.5"/></svg>
+    Profile</a>
+</nav>
 
 <script>
 /* ---- always fetch the latest build of internal pages ---- */
@@ -210,7 +296,7 @@
   });
 })();
 
-/* ---- hamburger ---- */
+/* ---- hamburger (mobile) ---- */
 (function(){
   var burger=document.getElementById('burger'), menu=document.getElementById('menu');
   function setOpen(open){
@@ -253,6 +339,9 @@
             '<a class="btn" href="'+esc(pick.url)+'" target="_blank" rel="noopener">Play today’s edition <span class="arrow">→</span></a>'+
           '</div>'+
         '</div>';
+      ['side-play','tab-play'].forEach(function(id){
+        var b=document.getElementById(id); if(b) b.href=pick.url;
+      });
     }
 
     var railsEl=document.getElementById('rails');
@@ -280,10 +369,10 @@
           ? '<span class="chip '+diff.toLowerCase()+'">'+diff+'</span>'
           : '<span class="chip">Soon</span>';
         el.innerHTML=
-          '<div class="vthumb">'+(g.thumb?'<img src="'+esc(g.thumb)+'" alt="" loading="lazy">':'')+chip+'</div>'+
-          '<div class="vmeta"><div class="vrow"><span class="vmech">'+esc(g.mechanic)+'</span>'+
-            '<span class="vplays"><span class="tri"></span><b>'+playsFmt+'</b> plays</span></div>'+
-            '<div class="vtitle">'+esc(g.title)+'</div></div>';
+          '<div class="vthumb">'+(g.thumb?'<img src="'+esc(g.thumb)+'" alt="" loading="lazy">':'')+chip+
+            '<span class="plays-pill"><i></i>'+playsFmt+'</span></div>'+
+          '<div class="vmeta"><div class="vtitle">'+esc(g.title)+'</div>'+
+            '<span class="vmech">'+esc(g.mechanic)+'</span></div>';
         grid.appendChild(el);
       });
       rail.appendChild(grid);
