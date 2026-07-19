@@ -115,6 +115,9 @@
     box-shadow:0 6px 26px rgba(249,255,0,.45);}
   .tab-play i{width:0;height:0;border-style:solid;border-width:10px 0 10px 16px;
     border-color:transparent transparent transparent #000;margin-left:4px;}
+  /* while a game is open the play triangle becomes a "next game" down-chevron */
+  body.playing .tab-play i{width:15px;height:15px;border-style:solid;border-width:0 3.5px 3.5px 0;
+    border-color:#000;border-radius:2px;margin:-7px 0 0;transform:rotate(45deg);}
 
   /* ---------- layout shell ---------- */
   main{padding:clamp(110px,15vh,150px) clamp(20px,4vw,48px) clamp(60px,8vh,90px);
@@ -203,7 +206,10 @@
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .pext{margin-left:auto;font-size:12.5px;color:var(--fg-3);text-decoration:none;white-space:nowrap;}
   .pext:hover{color:var(--yellow);}
-  .player iframe{flex:1;width:100%;border:0;background:#000;}
+  .player iframe{flex:1;width:100%;border:0;background:#000;
+    transition:transform .28s var(--ease),opacity .28s var(--ease);}
+  .player.adv-out iframe{transform:translateY(-9%);opacity:0;}
+  .player.adv-in iframe{transition:none;transform:translateY(9%);opacity:0;}
   body.playing{overflow:hidden;}
   body.playing header{display:none;}
   @media (min-width:900px){.player{left:250px;}}
@@ -334,7 +340,10 @@ var WGPlayer=(function(){
       ext=document.getElementById('p-ext'),
       back=document.getElementById('p-back'),
       tabbar=document.querySelector('.tabbar'),
+      tabPlay=document.getElementById('tab-play'),
       returnTo=null;
+
+  function setSrc(url){frame.src=url; ext.href=url;}
 
   function fit(){
     if(el.hidden) return;
@@ -342,8 +351,19 @@ var WGPlayer=(function(){
     el.style.bottom=(mobile&&tabbar)?tabbar.offsetHeight+'px':'0px';
   }
   function open(url,name,opts){
-    frame.src=url; ext.href=url;
+    if(!el.hidden){
+      /* already playing — swipe the current game up and out, next one in from below */
+      el.classList.add('adv-out');
+      setTimeout(function(){
+        setSrc(url);
+        el.classList.remove('adv-out'); el.classList.add('adv-in');
+        requestAnimationFrame(function(){requestAnimationFrame(function(){el.classList.remove('adv-in');});});
+      },280);
+      return;
+    }
+    setSrc(url);
     el.hidden=false; document.body.classList.add('playing');
+    if(tabPlay) tabPlay.setAttribute('aria-label','Next game');
     fit();
     /* returnTo: the page we should land on when "Back" is pressed. Only set when the
        player was opened by arriving fresh from another page (e.g. the homepage) — in
@@ -356,6 +376,7 @@ var WGPlayer=(function(){
     if(el.hidden) return;
     el.hidden=true; frame.src='about:blank';
     document.body.classList.remove('playing');
+    if(tabPlay) tabPlay.setAttribute('aria-label','Play today’s edition');
     returnTo=null;
   }
   function close(fromPop){
@@ -391,6 +412,15 @@ var WGPlayer=(function(){
     var games=data.games.map(function(g){g.mechanic=MECH[g.tier]||'Game';return g;});
     var avail=games.filter(function(g){return g.available;});
 
+    /* the shelf doubles as a playlist: while playing, the tab-bar button advances through it */
+    var current=-1;
+    function playGame(g,opts){current=avail.indexOf(g);WGPlayer.open(g.url,g.title,opts);}
+    function nextGame(){
+      if(!avail.length) return;
+      current=(current+1)%avail.length;
+      var g=avail[current]; WGPlayer.open(g.url,g.title);
+    }
+
     /* arriving from a game link elsewhere on the site (e.g. homepage) — open straight into the
        player, and remember where we came from so "Back" returns there instead of the shelf */
     var playSlug=new URLSearchParams(location.search).get('play');
@@ -401,7 +431,7 @@ var WGPlayer=(function(){
         try{
           if(document.referrer && new URL(document.referrer).origin===location.origin) cameFrom=document.referrer;
         }catch(e){}
-        WGPlayer.open(linked.url,linked.title,{returnTo:cameFrom});
+        playGame(linked,{returnTo:cameFrom});
       }
     }
 
@@ -423,15 +453,22 @@ var WGPlayer=(function(){
           '</div>'+
         '</div>';
       document.querySelector('#pick .btn').addEventListener('click',function(e){
-        e.preventDefault(); WGPlayer.open(pick.url,pick.title);
+        e.preventDefault(); playGame(pick);
       });
-      ['side-play','tab-play'].forEach(function(id){
-        var b=document.getElementById(id); if(!b) return;
-        b.href=pick.url;
-        b.addEventListener('click',function(e){
-          e.preventDefault(); WGPlayer.open(pick.url,pick.title);
+      var sideBtn=document.getElementById('side-play');
+      if(sideBtn){
+        sideBtn.href=pick.url;
+        sideBtn.addEventListener('click',function(e){e.preventDefault(); playGame(pick);});
+      }
+      var tabBtn=document.getElementById('tab-play');
+      if(tabBtn){
+        tabBtn.href=pick.url;
+        tabBtn.addEventListener('click',function(e){
+          e.preventDefault();
+          /* on the shelf it plays today's pick; while playing it swipes to the next game */
+          if(WGPlayer.isOpen()) nextGame(); else playGame(pick);
         });
-      });
+      }
     }
 
     var railsEl=document.getElementById('rails');
@@ -451,7 +488,7 @@ var WGPlayer=(function(){
         if(live){
           el.href=g.url;el.target='_blank';el.rel='noopener';
           el.addEventListener('click',function(e){
-            e.preventDefault(); WGPlayer.open(g.url,g.title);
+            e.preventDefault(); playGame(g);
           });
         }
         /* placeholder difficulty + play count: seeded from slug so they vary per game but stay stable */
