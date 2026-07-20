@@ -114,18 +114,21 @@
   .sidebar .sfoot a:hover{color:var(--yellow);}
 
   /* ---------- mobile bottom tab bar ---------- */
+  /* grid, not flex: the side tabs each get a 1fr track and center within it,
+     so they sit in whatever space is actually left after the middle (auto)
+     track — which keeps them clear of the button instead of just splitting
+     the bar 50/50 and letting the wide button overlap into both halves */
   .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:55;
-    display:flex;align-items:flex-end;justify-content:space-around;
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:end;
     background:rgba(20,20,20,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
     border-top:1px solid var(--line);
     padding:10px 10px calc(10px + env(safe-area-inset-bottom));}
-  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+  .tab{display:flex;flex-direction:column;align-items:center;gap:4px;
     font-size:10.5px;letter-spacing:.02em;color:var(--fg-3);text-decoration:none;}
   .tab.active{color:var(--yellow);}
-  /* absolutely centered on the bar itself (not a flex sibling) so it stays
-     dead-center on screen regardless of how many tabs sit on each side */
-  .tab-play{position:absolute;left:50%;bottom:calc(10px + env(safe-area-inset-bottom));
-    transform:translate(-50%,-18px);min-width:58px;height:58px;border-radius:29px;
+  /* the middle grid track always sits exactly at bar-center (the two 1fr
+     tracks on either side are forced equal), so this stays screen-centered */
+  .tab-play{justify-self:center;transform:translateY(-18px);min-width:58px;height:58px;border-radius:29px;
     background:var(--yellow);
     display:flex;align-items:center;justify-content:center;padding:0 22px;
     box-shadow:0 6px 26px rgba(249,255,0,.45);border:0;cursor:pointer;
