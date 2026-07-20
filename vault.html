@@ -315,9 +315,6 @@
     <a href="profile.html">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.6 4.5-5.5 8-5.5s6.5 1.9 8 5.5"/></svg>
       Profile</a>
-    <a href="save-progress.html">
-      <svg viewBox="0 0 24 24"><path d="M12 3v10"/><path d="m8 9 4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-      Save Progress</a>
   </nav>
   <div class="sfoot">
     <a href="https://discord.gg/YfG3sTYTxs" target="_blank" rel="noopener">Discord</a>
@@ -361,13 +358,10 @@
   <a class="tab active" href="vault.html">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2z"/></svg>
     My Vault</a>
-  <button class="tab-play" id="tab-play" type="button" aria-label="Challenge me"><span class="tp-label">Challenge</span><i></i></button>
+  <button class="tab-play" id="tab-play" type="button" aria-label="Challenge me"><span class="tp-label">Challenge Me</span><i></i></button>
   <a class="tab" href="profile.html">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.6 4.5-5.5 8-5.5s6.5 1.9 8 5.5"/></svg>
     Profile</a>
-  <a class="tab" href="save-progress.html">
-    <svg viewBox="0 0 24 24"><path d="M12 3v10"/><path d="m8 9 4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-    Save Progress</a>
 </nav>
 
 <script src="js/vault-state.js"></script>
@@ -376,7 +370,7 @@
 /* ---- always fetch the latest build of internal pages ---- */
 (function(){
   var t=Date.now();
-  document.querySelectorAll('a[href$="index.html"],a[href$="vault.html"],a[href$="about.html"],a[href$="profile.html"],a[href$="save-progress.html"]').forEach(function(a){
+  document.querySelectorAll('a[href$="index.html"],a[href$="vault.html"],a[href$="about.html"],a[href$="profile.html"]').forEach(function(a){
     a.href=a.getAttribute('href')+'?t='+t;
   });
 })();
