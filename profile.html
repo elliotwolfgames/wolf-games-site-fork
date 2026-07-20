@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile · Wolf Games</title>
+<meta name="description" content="Your streak, today's editions, and your play history.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#181818;
+    --fg:#FEFEF9;
+    --fg-2:#B9B9B4;
+    --fg-3:#7C7C76;
+    --line:rgba(255,255,255,.12);
+    --yellow:#FAFF00;
+    --glass:rgba(255,255,255,.07);
+    --glass-line:rgba(255,255,255,.16);
+    --display:'Inter Tight','Inter',sans-serif;
+    --body:'Inter',sans-serif;
+    --ease:cubic-bezier(0.16,1,0.3,1);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box;}
+  [hidden]{display:none!important;}
+  html{scroll-behavior:smooth;}
+  html,body{overflow-x:clip;}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--yellow);color:#000;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+
+  .label{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:500;}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--yellow);color:#000;
+    font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;
+    text-decoration:none;padding:17px 28px;border-radius:12px;border:0;cursor:pointer;
+    box-shadow:0 4px 20px rgba(249,255,0,.3);
+    transition:transform .25s var(--ease),box-shadow .25s var(--ease),filter .25s;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(249,255,0,.42);filter:brightness(1.03);}
+  .btn .arrow{font-size:17px;line-height:1;transform:translateY(-1px);}
+  .btn .tri{width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent #000;}
+
+  /* ---------- mobile top header + hamburger ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:60;background:linear-gradient(rgba(24,24,24,.9) 40%,transparent);}
+  header .hwrap{display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,5vw,40px);}
+  header .wm{height:38px;width:auto;display:block;}
+  header .hright{display:flex;align-items:center;gap:16px;}
+  .flame{fill:var(--yellow);stroke:none;filter:drop-shadow(0 0 6px rgba(250,255,0,.5));}
+  .streak-top{display:inline-flex;align-items:center;gap:6px;
+    font-size:13.5px;font-weight:700;color:var(--yellow);letter-spacing:.02em;}
+  .streak-top .flame{width:14px;height:14px;}
+  .burger{position:relative;width:34px;height:20px;background:none;border:0;padding:0;cursor:pointer;}
+  .burger i{position:absolute;left:0;right:0;height:2.5px;border-radius:2px;background:var(--yellow);
+    transition:transform .35s var(--ease),opacity .25s,top .35s var(--ease);}
+  .burger i:nth-child(1){top:0;}
+  .burger i:nth-child(2){top:50%;transform:translateY(-50%);}
+  .burger i:nth-child(3){top:100%;transform:translateY(-100%);}
+  .burger.open i:nth-child(1){top:50%;transform:translateY(-50%) rotate(45deg);}
+  .burger.open i:nth-child(2){opacity:0;}
+  .burger.open i:nth-child(3){top:50%;transform:translateY(-50%) rotate(-45deg);}
+  .menu{position:fixed;inset:0;z-index:50;background:rgba(20,20,20,.96);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;
+    opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s;}
+  .menu.open{opacity:1;visibility:visible;}
+  .menu a{font-family:var(--display);font-weight:500;font-size:clamp(40px,7vw,64px);letter-spacing:-.035em;
+    line-height:1.2;text-decoration:none;padding:6px 18px;
+    background:linear-gradient(270deg,#FEFEF9 0%,#7d7d7d 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    opacity:0;transform:translateY(26px);transition:transform .55s var(--ease),opacity .55s var(--ease);}
+  .menu.open a{opacity:1;transform:none;}
+  .menu.open a:nth-child(1){transition-delay:.08s;}
+  .menu.open a:nth-child(2){transition-delay:.16s;}
+  .menu.open a:nth-child(3){transition-delay:.24s;}
+  .menu a:hover{background:linear-gradient(270deg,var(--yellow),var(--yellow));
+    -webkit-background-clip:text;background-clip:text;}
+  body.menu-open{overflow:hidden;}
+
+  /* ---------- desktop sidebar ---------- */
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:250px;z-index:40;
+    display:flex;flex-direction:column;gap:28px;padding:30px 22px 26px;
+    background:rgba(21,21,21,.85);border-right:1px solid var(--line);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+  .sidebar .wm{height:26px;width:auto;align-self:flex-start;margin-left:6px;}
+  .streak-side{display:inline-flex;align-items:center;gap:8px;margin-left:6px;
+    font-size:13px;font-weight:600;color:var(--fg);letter-spacing:.04em;}
+  .streak-side .flame{width:14px;height:14px;}
+  .streak-side b{color:var(--yellow);}
+  .side-play{width:100%;}
+  .snav{display:flex;flex-direction:column;gap:6px;}
+  .snav a{display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:12px;
+    text-decoration:none;font-weight:500;font-size:15px;color:var(--fg-2);
+    transition:background .2s,color .2s;}
+  .snav a:hover{background:rgba(255,255,255,.06);color:var(--fg);}
+  .snav a.active{background:rgba(255,255,255,.08);color:var(--yellow);}
+  .snav svg,.tab svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;
+    stroke-linecap:round;stroke-linejoin:round;flex:none;}
+  .sidebar .sfoot{margin-top:auto;display:flex;flex-direction:column;gap:8px;
+    font-size:12.5px;color:var(--fg-3);padding-left:6px;}
+  .sidebar .sfoot a{text-decoration:none;transition:color .2s;}
+  .sidebar .sfoot a:hover{color:var(--yellow);}
+
+  /* ---------- mobile bottom tab bar ---------- */
+  .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:55;
+    display:flex;align-items:flex-end;justify-content:space-around;
+    background:rgba(20,20,20,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    border-top:1px solid var(--line);
+    padding:10px 10px calc(10px + env(safe-area-inset-bottom));}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+    font-size:10.5px;letter-spacing:.02em;color:var(--fg-3);text-decoration:none;}
+  .tab.active{color:var(--yellow);}
+  .tab-play{position:absolute;left:50%;bottom:calc(10px + env(safe-area-inset-bottom));
+    transform:translate(-50%,-18px);min-width:58px;height:58px;border-radius:29px;
+    background:var(--yellow);
+    display:flex;align-items:center;justify-content:center;padding:0 22px;
+    box-shadow:0 6px 26px rgba(249,255,0,.45);border:0;cursor:pointer;
+    text-decoration:none;font-family:var(--body);font-weight:700;font-size:13px;
+    letter-spacing:.03em;text-transform:uppercase;color:#000;white-space:nowrap;}
+
+  /* ---------- layout shell ---------- */
+  main{padding:clamp(110px,15vh,150px) clamp(20px,4vw,48px) clamp(60px,8vh,90px);
+    max-width:1280px;margin:0 auto;}
+  @media (min-width:900px){
+    header,.menu,.tabbar{display:none;}
+    main{margin-left:250px;max-width:none;padding-top:44px;}
+  }
+  @media (max-width:899.98px){
+    .sidebar{display:none;}
+    main{padding-bottom:130px;}
+  }
+
+  /* ---------- profile content ---------- */
+  .streak-big{display:flex;align-items:center;gap:18px;margin-top:18px;
+    background:var(--glass);border:1px solid var(--glass-line);border-radius:20px;
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    padding:22px 28px;width:fit-content;}
+  .streak-big .flame{width:34px;height:34px;filter:drop-shadow(0 0 14px rgba(250,255,0,.5));}
+  .streak-big .num{font-family:var(--display);font-weight:600;font-size:44px;line-height:1;}
+  .streak-big .lab{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-2);margin-top:4px;}
+  .best{margin-top:10px;font-size:13px;color:var(--fg-3);}
+
+  .pgroup{margin-top:clamp(44px,6vh,64px);}
+  .pgroup h3{font-family:var(--display);font-weight:600;font-size:clamp(20px,2.2vw,25px);letter-spacing:-.02em;margin:0 0 14px;}
+  .tlist{display:flex;flex-direction:column;gap:10px;max-width:680px;}
+  .trow{display:flex;align-items:center;gap:14px;background:var(--glass);border:1px solid var(--glass-line);
+    border-radius:14px;padding:12px 16px;text-decoration:none;transition:border-color .2s,transform .25s var(--ease);}
+  a.trow:hover{border-color:rgba(255,255,255,.3);transform:translateY(-2px);}
+  .trow img{width:40px;height:56px;object-fit:cover;object-position:top;border-radius:8px;background:#101010;flex:none;}
+  .trow .tt{font-weight:600;font-size:15.5px;color:var(--fg);}
+  .trow .tm{font-size:11.5px;color:var(--fg-3);letter-spacing:.06em;text-transform:uppercase;margin-top:2px;}
+  .trow .stat{margin-left:auto;flex:none;}
+  .stat{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    padding:5px 10px;border-radius:6px;}
+  .stat.new{background:rgba(255,255,255,.14);color:var(--fg);}
+  .stat.played{background:none;border:1px solid var(--yellow);color:var(--yellow);}
+  .stat.done{background:var(--yellow);color:#000;}
+
+  .empty{background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;
+    padding:30px;max-width:680px;}
+  .empty p{margin:0 0 18px;color:var(--fg-2);}
+
+  .psave{max-width:680px;}
+  .psave p{color:var(--fg-2);font-size:15px;margin:0 0 16px;}
+  .pform{display:flex;gap:10px;flex-wrap:wrap;}
+  .pform input[type=email]{flex:1;min-width:220px;background:var(--glass);border:1px solid var(--glass-line);
+    border-radius:12px;padding:15px 16px;color:var(--fg);font-family:var(--body);font-size:15px;
+    outline:none;transition:border-color .2s;}
+  .pform input[type=email]::placeholder{color:var(--fg-3);}
+  .pform input[type=email]:focus{border-color:var(--yellow);}
+  .pform .btn{padding:15px 22px;}
+  .save-done{background:var(--glass);border:1px solid var(--glass-line);border-radius:12px;
+    padding:16px 20px;font-size:15px;color:var(--fg);}
+
+  footer{border-top:1px solid var(--line);margin-top:clamp(60px,9vh,100px);}
+  footer .fwrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding:28px 4px 8px;font-size:13px;color:var(--fg-3);}
+  footer img{height:15px;width:auto;opacity:.7;}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition-duration:.01ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- mobile top header -->
+<header>
+  <div class="hwrap">
+    <a href="index.html" aria-label="Wolf Games home"><img class="wm" src="assets/wordmark-yellow.svg" alt="Wolf Games"></a>
+    <div class="hright">
+      <span class="streak-top" id="streak-top" hidden>
+        <svg class="flame" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c.7 2.8 0 4.8-1.6 6.6C9 10.2 7.5 11.9 7.5 14.4a4.5 4.5 0 0 0 9 0c0-1.3-.4-2.5-1.1-3.7-.5.9-1.2 1.5-2.2 1.7.9-2.8.3-6.2-1.2-10.4z"/></svg>
+        <b id="streak-top-n">0</b>
+      </span>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Site menu">
+  <a href="vault.html">Vault</a>
+  <a href="profile.html">Profile</a>
+  <a href="save-progress.html">Save Progress</a>
+</nav>
+
+<!-- desktop sidebar -->
+<aside class="sidebar" aria-label="Vault navigation">
+  <a href="index.html" aria-label="Wolf Games home"><img class="wm" src="assets/wordmark-yellow.svg" alt="Wolf Games"></a>
+  <span class="streak-side" id="streak-side" hidden>
+    <svg class="flame" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c.7 2.8 0 4.8-1.6 6.6C9 10.2 7.5 11.9 7.5 14.4a4.5 4.5 0 0 0 9 0c0-1.3-.4-2.5-1.1-3.7-.5.9-1.2 1.5-2.2 1.7.9-2.8.3-6.2-1.2-10.4z"/></svg>
+    <span><b id="streak-side-n">0</b>-day streak</span>
+  </span>
+  <a class="btn side-play" href="vault.html?challenge=1"><span class="tri"></span>Challenge Me</a>
+  <nav class="snav">
+    <a href="index.html">
+      <svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"/><path d="M5 8.5V21h14V8.5"/><path d="M9 21v-6h6v6"/></svg>
+      Discover</a>
+    <a href="vault.html">
+      <svg viewBox="0 0 24 24"><path d="M6 12h4M8 10v4"/><path d="M15.5 11.5h.01M17.5 13.5h.01"/><path d="M7 6h10a5 5 0 0 1 5 5v3a4 4 0 0 1-7 2.6L13.8 15h-3.6L9 16.6A4 4 0 0 1 2 14v-3a5 5 0 0 1 5-5z"/></svg>
+      My Vault</a>
+    <a href="profile.html" class="active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.6 4.5-5.5 8-5.5s6.5 1.9 8 5.5"/></svg>
+      Profile</a>
+    <a href="save-progress.html">
+      <svg viewBox="0 0 24 24"><path d="M12 3v10"/><path d="m8 9 4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      Save Progress</a>
+  </nav>
+  <div class="sfoot">
+    <a href="https://discord.gg/YfG3sTYTxs" target="_blank" rel="noopener">Discord</a>
+    <span>@Wolfgames</span>
+    <span>© 2026 Wolf Games</span>
+  </div>
+</aside>
+
+<main>
+  <span class="label">Profile</span>
+
+  <div class="streak-big">
+    <svg class="flame" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c.7 2.8 0 4.8-1.6 6.6C9 10.2 7.5 11.9 7.5 14.4a4.5 4.5 0 0 0 9 0c0-1.3-.4-2.5-1.1-3.7-.5.9-1.2 1.5-2.2 1.7.9-2.8.3-6.2-1.2-10.4z"/></svg>
+    <div>
+      <span class="num" id="p-streak">0</span>
+      <span class="lab">day streak</span>
+    </div>
+  </div>
+  <p class="best" id="p-best" hidden>Best streak: <span id="p-best-n">0</span> days</p>
+
+  <div class="empty pgroup" id="p-empty" hidden>
+    <p>Nothing on the board yet. Today's editions are live, and the first play starts your streak.</p>
+    <a class="btn" href="vault.html">Enter the Vault <span class="arrow">&rarr;</span></a>
+  </div>
+
+  <section class="pgroup" id="p-today-group">
+    <h3>Today's editions</h3>
+    <div class="tlist" id="today-list"></div>
+  </section>
+
+  <section class="pgroup" id="p-history-group" hidden>
+    <h3>Your history</h3>
+    <div class="tlist" id="hist-list"></div>
+  </section>
+
+  <section class="pgroup psave">
+    <h3>Save my progress</h3>
+    <p>Your streak and history live on this device. Leave your email and we'll sync them to your account when accounts launch.</p>
+    <form class="pform" id="save-form">
+      <input type="email" name="email" placeholder="you@email.com" required autocomplete="email">
+      <button class="btn" type="submit">Save my progress</button>
+    </form>
+    <p class="save-done" id="save-done" hidden><b>Saved.</b> We'll link this device to your account at launch.</p>
+  </section>
+
+  <footer>
+    <div class="fwrap">
+      <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
+      <span>Stories You Play.</span>
+      <span>© 2026 Wolf Games</span>
+    </div>
+  </footer>
+</main>
+
+<!-- mobile bottom tab bar -->
+<nav class="tabbar" aria-label="Vault tabs">
+  <a class="tab" href="vault.html">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="12" r="4.5"/><path d="M12 7.5V5.5M12 18.5v-2M16.5 12h2M5.5 12h2"/></svg>
+    My Vault</a>
+  <a class="tab-play" href="vault.html?challenge=1"><span class="tp-label">Challenge</span></a>
+  <a class="tab active" href="profile.html">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.6 4.5-5.5 8-5.5s6.5 1.9 8 5.5"/></svg>
+    Profile</a>
+  <a class="tab" href="save-progress.html">
+    <svg viewBox="0 0 24 24"><path d="M12 3v10"/><path d="m8 9 4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+    Save Progress</a>
+</nav>
+
+<script src="js/vault-state.js"></script>
+<script src="js/track.js"></script>
+<script>
+/* ---- always fetch the latest build of internal pages ---- */
+(function(){
+  var t=Date.now();
+  document.querySelectorAll('a[href$="index.html"],a[href$="vault.html"],a[href$="about.html"],a[href$="profile.html"],a[href$="save-progress.html"]').forEach(function(a){
+    a.href=a.getAttribute('href')+'?t='+t;
+  });
+})();
+
+/* ---- hamburger (mobile) ---- */
+(function(){
+  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  function setOpen(open){
+    burger.classList.toggle('open',open);
+    menu.classList.toggle('open',open);
+    document.body.classList.toggle('menu-open',open);
+    burger.setAttribute('aria-expanded',open?'true':'false');
+  }
+  burger.addEventListener('click',function(){setOpen(!menu.classList.contains('open'));});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setOpen(false);});});
+  window.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
+})();
+
+/* ---- profile ---- */
+(function(){
+  var S=window.WGVaultState;
+  if(!S) return;
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+  var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function niceDay(day){
+    if(!day) return '';
+    var p=day.split('-');
+    return MONTHS[+p[1]-1]+' '+(+p[2]);
+  }
+
+  /* streak displays */
+  var s=S.getStreak(), best=S.getBestStreak();
+  document.getElementById('p-streak').textContent=s;
+  ['streak-top','streak-side'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.hidden=s<1;
+  });
+  document.getElementById('streak-top-n').textContent=s;
+  document.getElementById('streak-side-n').textContent=s;
+  if(best>=1){
+    document.getElementById('p-best-n').textContent=best;
+    document.getElementById('p-best').hidden=false;
+  }
+
+  var hist=S.getHistory();
+  var hasAny=Object.keys(hist).length>0;
+  if(!hasAny) document.getElementById('p-empty').hidden=false;
+
+  fetch('/data/vault.json',{cache:'no-cache'}).then(function(r){
+    if(!r.ok) throw new Error('vault.json '+r.status);
+    return r.json();
+  }).then(function(data){
+    var avail=data.games.filter(function(g){return g.available;});
+    var bySlug={};
+    avail.forEach(function(g){bySlug[g.slug]=g;});
+    var st=S.getTodayStatus(avail.map(function(g){return g.slug;}));
+
+    /* today's editions with status */
+    var todayEl=document.getElementById('today-list');
+    avail.forEach(function(g){
+      var x=st.bySlug[g.slug]||{};
+      var stat=x.completed?'<span class="stat done">Cleared</span>'
+              :x.played?'<span class="stat played">Played</span>'
+              :'<span class="stat new">New</span>';
+      var a=document.createElement('a');
+      a.className='trow';
+      a.href='vault.html?play='+encodeURIComponent(g.slug);
+      a.innerHTML=(g.thumb?'<img src="'+esc(g.thumb)+'" alt="" loading="lazy">':'')+
+        '<span><span class="tt">'+esc(g.title)+'</span><br><span class="tm">New edition today</span></span>'+stat;
+      todayEl.appendChild(a);
+    });
+
+    /* per-title history */
+    var slugs=Object.keys(hist).filter(function(slug){return bySlug[slug];});
+    if(slugs.length){
+      slugs.sort(function(a,b){return (hist[b].lastDay||'').localeCompare(hist[a].lastDay||'');});
+      var histEl=document.getElementById('hist-list');
+      slugs.forEach(function(slug){
+        var g=bySlug[slug], h=hist[slug];
+        var row=document.createElement('div');
+        row.className='trow';
+        row.innerHTML=(g.thumb?'<img src="'+esc(g.thumb)+'" alt="" loading="lazy">':'')+
+          '<span><span class="tt">'+esc(g.title)+'</span><br><span class="tm">'+
+          h.plays+(h.plays===1?' play':' plays')+' · last '+esc(niceDay(h.lastDay))+'</span></span>';
+        histEl.appendChild(row);
+      });
+      document.getElementById('p-history-group').hidden=false;
+    }
+  }).catch(function(e){
+    console.warn('profile catalog unavailable',e);
+  });
+
+  /* save-my-progress email capture: player-tagged, kept apart from partner leads */
+  var form=document.getElementById('save-form'), done=document.getElementById('save-done');
+  var saved=null;
+  try{ saved=localStorage.getItem('wg.vault.email'); }catch(e){}
+  if(saved){ form.querySelector('input[type=email]').value=saved; }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=form.querySelector('input[type=email]').value;
+    try{ localStorage.setItem('wg.vault.email',email); }catch(err){}
+    form.querySelector('button').disabled=true;
+    fetch('/api/player-lead',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({email:email,deviceId:S.deviceId,source:'profile'})
+    }).catch(function(err){
+      console.warn('player-lead endpoint unreachable in this environment',err);
+    }).then(function(){
+      form.hidden=true; done.hidden=false;
+    });
+  });
+})();
+</script>
+</body>
+</html>

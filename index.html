@@ -28,6 +28,8 @@
     --ease:cubic-bezier(0.16,1,0.3,1);
   }
   *{box-sizing:border-box;}
+  :root{color-scheme:dark;}
+  [hidden]{display:none!important;}
   html{scroll-behavior:smooth;}
   html,body{overflow-x:clip;}
   body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55;
@@ -163,6 +165,29 @@
     .partners .lg.nbcu{font-size:16px;}
     .partners .lg.adv{font-size:17px;letter-spacing:.07em;}
   }
+
+  /* streak chip (player, above the fold) */
+  .streak-chip{display:inline-flex;align-items:center;gap:8px;margin-top:22px;
+    background:var(--glass);border:1px solid var(--glass-line);border-radius:999px;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    padding:8px 16px;font-size:13px;font-weight:600;letter-spacing:.05em;color:var(--fg);}
+  .streak-chip .flame{width:14px;height:14px;fill:var(--yellow);
+    filter:drop-shadow(0 0 6px rgba(250,255,0,.55));}
+  .streak-chip b{color:var(--yellow);}
+
+  /* partner lead form */
+  .pform{margin:44px auto 0;max-width:640px;display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left;}
+  .pform .full{grid-column:1/-1;}
+  .pform input,.pform select{width:100%;background:var(--glass);border:1px solid var(--glass-line);
+    border-radius:12px;padding:15px 16px;color:var(--fg);font-family:var(--body);font-size:15px;
+    outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;}
+  .pform input::placeholder{color:var(--fg-3);}
+  .pform select:invalid{color:var(--fg-3);}
+  .pform input:focus,.pform select:focus{border-color:var(--yellow);}
+  .pform .btn{grid-column:1/-1;justify-content:center;margin-top:6px;}
+  .pform-done{margin:40px auto 0;max-width:520px;background:var(--glass);border:1px solid var(--glass-line);
+    border-radius:16px;padding:26px 30px;font-size:16.5px;color:var(--fg);}
+  @media (max-width:560px){.pform{grid-template-columns:1fr;}}
 
   section{position:relative;padding:clamp(80px,12vh,140px) 0;}
 
@@ -376,6 +401,10 @@
   <div class="vig" aria-hidden="true"></div>
   <div class="wrap">
     <h1 class="r"><span class="shimmer-y">Play On.</span></h1>
+    <div class="streak-chip r d1" id="streak-chip" hidden>
+      <svg class="flame" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c.7 2.8 0 4.8-1.6 6.6C9 10.2 7.5 11.9 7.5 14.4a4.5 4.5 0 0 0 9 0c0-1.3-.4-2.5-1.1-3.7-.5.9-1.2 1.5-2.2 1.7.9-2.8.3-6.2-1.2-10.4z"/></svg>
+      <span><b id="streak-num">0</b>-day streak</span>
+    </div>
     <div class="daily r d1">
       <div class="daily-lead">Today's Top Three Editions</div>
       <div class="board3">
@@ -475,7 +504,24 @@
     <span class="label r">Get in touch</span>
     <h2 class="r d1"><span class="shimmer">Let's build your first game.</span></h2>
     <p class="side r d2">Tell us about your audience and your archive. We'll come back with a playable concept you can put in front of your team.</p>
-    <div class="cta r d2"><a class="btn" href="mailto:elliot@wolfgames.net?subject=Waitlist">Join the waitlist <span class="arrow">&rarr;</span></a></div>
+    <form class="pform r d2" id="partner-form">
+      <input name="name" type="text" placeholder="Your name" required autocomplete="name">
+      <input name="company" type="text" placeholder="Company" required autocomplete="organization">
+      <input name="role" type="text" placeholder="Role" required autocomplete="organization-title">
+      <select name="audienceSize" required>
+        <option value="" disabled selected>Audience size</option>
+        <option>Under 100K</option>
+        <option>100K to 1M</option>
+        <option>1M to 10M</option>
+        <option>10M+</option>
+      </select>
+      <input class="full" name="archiveType" type="text" placeholder="Your archive or IP (true crime library, sports rights, podcast universe...)" required>
+      <input class="full" name="email" type="email" placeholder="Work email" required autocomplete="email">
+      <button class="btn" type="submit">Let's build your first game <span class="arrow">&rarr;</span></button>
+    </form>
+    <div class="pform-done" id="pform-done" hidden>
+      <b>Got it.</b> We'll come back with a playable concept, usually within a few days.
+    </div>
   </div>
 </section>
 
@@ -510,12 +556,46 @@
   </div>
 </footer>
 
+<script src="js/vault-state.js"></script>
+<script src="js/track.js"></script>
 <script>
 /* ---- always fetch the latest build of internal pages ---- */
 (function(){
   var t=Date.now();
   document.querySelectorAll('a[href$="index.html"],a[href$="vault.html"],a[href$="about.html"]').forEach(function(a){
     a.href=a.getAttribute('href')+'?t='+t;
+  });
+})();
+
+/* ---- streak chip: only when a streak exists ---- */
+(function(){
+  if(!window.WGVaultState) return;
+  var s=WGVaultState.getStreak();
+  if(s>=1){
+    document.getElementById('streak-num').textContent=s;
+    document.getElementById('streak-chip').hidden=false;
+  }
+})();
+
+/* ---- partner lead form ---- */
+(function(){
+  var form=document.getElementById('partner-form'), done=document.getElementById('pform-done');
+  if(!form) return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var data={};
+    new FormData(form).forEach(function(v,k){ data[k]=v; });
+    form.querySelector('button[type="submit"]').disabled=true;
+    fetch('/api/partner-lead',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify(data)
+    }).catch(function(err){
+      /* static preview has no serverless runtime; the deployed site does */
+      console.warn('partner-lead endpoint unreachable in this environment',err);
+    }).then(function(){
+      form.hidden=true; done.hidden=false;
+    });
   });
 })();
 
