@@ -33,7 +33,7 @@
       "status": "deployed",
       "url": "https://the-stacks.qa.wolf.games/",
       "available": true,
-      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/the-stacks.png"
+      "thumb": "assets/the-stacks.jpg"
     },
     {
       "slug": "game-amino-solitaire",

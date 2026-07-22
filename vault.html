@@ -591,11 +591,16 @@ var WGPlayer=(function(){
       }
     }
 
-    /* today's pick: rotate daily through available narrative games, fall back to any */
-    var pool=avail.filter(function(g){return g.tier===3;});
-    if(!pool.length) pool=avail;
-    var day=Math.floor(Date.now()/86400000);
-    var pick=pool.length?pool[day%pool.length]:null;
+    /* today's pick: feature a specific title when set; otherwise rotate
+       daily through available narrative games, falling back to any */
+    var FEATURED_SLUG='the-stacks';
+    var pick=avail.filter(function(g){return g.slug===FEATURED_SLUG;})[0]||null;
+    if(!pick){
+      var pool=avail.filter(function(g){return g.tier===3;});
+      if(!pool.length) pool=avail;
+      var day=Math.floor(Date.now()/86400000);
+      pick=pool.length?pool[day%pool.length]:null;
+    }
 
     if(pick){
       document.getElementById('pick').innerHTML=
