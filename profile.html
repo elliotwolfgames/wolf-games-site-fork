@@ -353,11 +353,14 @@
     var avail=data.games.filter(function(g){return g.available;});
     var bySlug={};
     avail.forEach(function(g){bySlug[g.slug]=g;});
-    var st=S.getTodayStatus(avail.map(function(g){return g.slug;}));
+    /* the same four the Vault features */
+    var FEATURED=['the-stacks','on-the-wire-turns','game-amino-merge','caldera-confidential'];
+    var featured=FEATURED.map(function(s){return bySlug[s];}).filter(Boolean);
+    var st=S.getTodayStatus(featured.map(function(g){return g.slug;}));
 
     /* today's editions with status */
     var todayEl=document.getElementById('today-list');
-    avail.forEach(function(g){
+    featured.forEach(function(g){
       var x=st.bySlug[g.slug]||{};
       var stat=x.completed?'<span class="stat done">Cleared</span>'
               :x.played?'<span class="stat played">Played</span>'

@@ -144,73 +144,69 @@
   body.playing .tab-play i{display:block;width:15px;height:15px;border-style:solid;border-width:0 3.5px 3.5px 0;
     border-color:#000;border-radius:2px;transform:rotate(45deg);}
 
-  /* ---------- layout shell ---------- */
-  main{padding:clamp(110px,15vh,150px) clamp(20px,4vw,48px) clamp(60px,8vh,90px);
-    max-width:1280px;margin:0 auto;}
+  /* ---------- layout shell: one screen, everything reachable without scrolling ---------- */
+  main{height:100dvh;display:flex;flex-direction:column;align-items:center;
+    padding:clamp(84px,11vh,100px) clamp(14px,4vw,26px) clamp(104px,14vh,120px);}
+  .shell{width:100%;max-width:1060px;flex:1;min-height:0;
+    display:flex;flex-direction:column;gap:clamp(10px,1.6vh,18px);}
   @media (min-width:900px){
     header,.menu,.tabbar{display:none;}
-    main{margin-left:250px;max-width:none;padding-top:44px;}
+    main{margin-left:250px;height:100vh;padding:34px clamp(28px,4vw,56px) 38px;}
   }
   @media (max-width:899.98px){
     .sidebar{display:none;}
-    main{padding-bottom:130px;}
   }
 
-  /* ---------- today's pick ---------- */
-  .pick{display:flex;gap:clamp(24px,4vw,48px);align-items:center;margin-top:24px;
-    background:var(--glass);border:1px solid var(--glass-line);border-radius:22px;
-    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-    padding:clamp(20px,3vw,36px);}
-  .pick .pthumb{flex:0 0 clamp(150px,20vw,220px);border-radius:16px;overflow:hidden;aspect-ratio:2/3;background:#101010;}
-  .pick .pthumb img{width:100%;height:100%;object-fit:cover;object-position:top;}
-  .pick .pmeta{display:flex;flex-direction:column;align-items:flex-start;gap:14px;}
+  /* ---------- the four ---------- */
   .chip{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:11px;letter-spacing:.12em;
     text-transform:uppercase;color:#000;background:var(--yellow);padding:5px 10px;border-radius:6px;}
   .chip::before{content:'';width:5px;height:5px;border-radius:50%;background:#000;}
-  .pick h2{font-family:var(--display);font-weight:600;letter-spacing:-.03em;line-height:1.05;
-    font-size:clamp(28px,3.6vw,48px);margin:0;}
-  .pick .pmech{font-size:14px;color:var(--fg-2);letter-spacing:.04em;text-transform:uppercase;}
-  .pick .btn{margin-top:8px;}
-  /* mobile: keep the pick compact — thumb beside meta — so the first rail peeks in */
-  @media (max-width:640px){
-    .pick{gap:16px;padding:14px;margin-top:16px;}
-    .pick .pthumb{flex:0 0 96px;border-radius:12px;}
-    .pick .pmeta{gap:8px;}
-    .pick h2{font-size:21px;}
-    .pick .pmech{font-size:11.5px;}
-    .pick .btn{margin-top:2px;padding:11px 16px;font-size:12px;border-radius:9px;}
-  }
-
-  /* ---------- rails ---------- */
-  .rail{margin-top:clamp(48px,7vh,70px);}
-  .rail-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
-  .rail-head h3{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,27px);letter-spacing:-.02em;margin:0;}
-  .rail-head .blurb{font-size:13.5px;color:var(--fg-3);}
-  .vgrid{display:flex;gap:clamp(12px,1.6vw,20px);overflow-x:auto;scroll-snap-type:x mandatory;
-    padding:4px 4px 14px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;
-    -webkit-overflow-scrolling:touch;}
-  .vcard{flex:0 0 clamp(160px,20vw,210px);scroll-snap-align:start;text-decoration:none;
-    transition:transform .3s var(--ease);}
-  .vcard:hover{transform:translateY(-4px);}
-  .vcard .vthumb{position:relative;aspect-ratio:2/3;overflow:hidden;border-radius:18px;background:#101010;
-    border:1px solid var(--glass-line);}
-  .vcard .vthumb img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .7s var(--ease);}
-  .vcard:hover .vthumb img{transform:scale(1.05);}
-  .vcard .vthumb .chip{position:absolute;top:10px;left:10px;}
-  .plays-pill{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:7px;
-    background:rgba(12,12,12,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-    border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700;color:var(--fg);}
-  .plays-pill i{width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;
-    border-color:transparent transparent transparent var(--yellow);}
-  .vcard .vmeta{padding:10px 4px 0;}
-  .vcard .vtitle{font-family:var(--display);font-weight:600;font-size:15.5px;letter-spacing:-.01em;color:var(--fg);}
-  .vcard .vmech{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);}
-  .vcard.soon{opacity:.45;pointer-events:none;}
-  .vcard.soon .chip{background:rgba(255,255,255,.22);color:var(--fg);}
-  .vcard.soon .chip::before{background:var(--fg);}
   .chip.medium{background:rgba(255,255,255,.24);color:var(--fg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
   .chip.medium::before{background:var(--fg);}
   .chip.hard{background:#FF5C39;}
+
+  .ggrid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+    gap:clamp(10px,1.6vh,18px);}
+  .gtile{position:relative;border-radius:20px;overflow:hidden;background:#101010;
+    border:1px solid var(--glass-line);cursor:pointer;display:block;text-decoration:none;
+    transition:transform .3s var(--ease),border-color .3s;}
+  .gtile:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.34);}
+  .gtile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;
+    transition:transform .7s var(--ease);}
+  .gtile:hover img{transform:scale(1.05);}
+  .gtile::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(transparent 46%,rgba(8,8,8,.88));}
+  .gtile .gmeta{position:absolute;left:13px;right:13px;bottom:11px;z-index:2;}
+  .gtile .gtitle{font-family:var(--display);font-weight:600;font-size:clamp(15px,1.9vw,20px);
+    letter-spacing:-.01em;color:var(--fg);line-height:1.15;}
+  .gtile .gmech{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-2);
+    margin-top:3px;display:block;}
+  .gtile .chip{position:absolute;top:10px;left:10px;z-index:2;}
+  .gtile .gplays{position:absolute;top:10px;right:10px;z-index:2;display:inline-flex;align-items:center;gap:6px;
+    background:rgba(12,12,12,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-radius:999px;padding:5px 10px;font-size:11px;font-weight:700;color:var(--fg);}
+  .gtile .gplays i{width:0;height:0;border-style:solid;border-width:4px 0 4px 7px;
+    border-color:transparent transparent transparent var(--yellow);}
+
+  /* ---------- Public Eye CTA ---------- */
+  .pe{position:relative;flex:none;display:flex;align-items:center;gap:14px;
+    border-radius:20px;overflow:hidden;border:1px solid var(--glass-line);
+    padding:clamp(14px,2vh,20px) clamp(16px,2.4vw,24px);min-height:clamp(92px,13vh,122px);
+    text-decoration:none;transition:transform .3s var(--ease),border-color .3s;}
+  .pe:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.34);}
+  .pe-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;
+    filter:saturate(.85);}
+  .pe::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(90deg,rgba(10,10,10,.93) 32%,rgba(10,10,10,.6) 70%,rgba(10,10,10,.35));}
+  .pe-meta{position:relative;z-index:2;flex:1;min-width:0;}
+  .pe-label{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);}
+  .pe-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--yellow);
+    box-shadow:0 0 8px var(--yellow);}
+  .pe h3{font-family:var(--display);font-weight:600;font-size:clamp(19px,2.4vw,27px);
+    letter-spacing:-.02em;margin:3px 0 2px;color:var(--fg);}
+  .pe p{margin:0;font-size:12.5px;color:var(--fg-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pe .btn{position:relative;z-index:2;flex:none;padding:13px 20px;font-size:12.5px;border-radius:11px;}
 
   /* ---------- in-vault game player ---------- */
   .player{position:fixed;z-index:45;left:0;right:0;top:0;bottom:0;
@@ -247,11 +243,11 @@
   main{position:relative;z-index:1;}
 
   /* day status strip: remaining editions + countdown to the next daily drop */
-  .daystat{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  .daystat{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;
     background:var(--glass);border:1px solid var(--glass-line);border-radius:16px;
     backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    padding:15px 20px;margin-bottom:18px;}
-  .daystat p{margin:0;font-size:15px;color:var(--fg);}
+    padding:clamp(11px,1.6vh,15px) clamp(14px,2vw,20px);}
+  .daystat p{margin:0;font-size:clamp(13.5px,1.5vw,15px);color:var(--fg);}
   .daystat p b{color:var(--yellow);}
   .daystat .dcount{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--fg-2);
     letter-spacing:.06em;text-transform:uppercase;font-weight:600;white-space:nowrap;}
@@ -260,11 +256,6 @@
 
   #banner{display:none;margin-top:40px;padding:18px 22px;border:1px solid var(--glass-line);border-radius:14px;
     background:var(--glass);color:var(--fg-2);font-size:15px;}
-
-  footer{border-top:1px solid var(--line);margin-top:clamp(60px,9vh,100px);}
-  footer .fwrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-    padding:28px 4px 8px;font-size:13px;color:var(--fg-3);}
-  footer img{height:15px;width:auto;opacity:.7;}
 
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{transition-duration:.01ms !important;}
@@ -324,23 +315,26 @@
 </aside>
 
 <main>
-  <div id="banner"></div>
+  <div class="shell">
+    <div id="banner"></div>
 
-  <div class="daystat" id="daystat" hidden>
-    <p id="daystat-line"></p>
-    <span class="dcount" id="daystat-count"></span>
-  </div>
-
-  <div id="pick"></div>
-  <div id="rails"></div>
-
-  <footer>
-    <div class="fwrap">
-      <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
-      <span>Stories You Play.</span>
-      <span>© 2026 Wolf Games</span>
+    <div class="daystat" id="daystat" hidden>
+      <p id="daystat-line"></p>
+      <span class="dcount" id="daystat-count"></span>
     </div>
-  </footer>
+
+    <div class="ggrid" id="ggrid"></div>
+
+    <a class="pe" href="https://www.wolfgames.net/" target="_blank" rel="noopener">
+      <img class="pe-bg" src="assets/scene-street.jpg" alt="">
+      <div class="pe-meta">
+        <span class="pe-label">Featured Case</span>
+        <h3>Public Eye</h3>
+        <p>One case. Every day.</p>
+      </div>
+      <span class="btn"><span class="tri"></span>Play</span>
+    </a>
+  </div>
 </main>
 
 <!-- in-vault game player -->
@@ -483,16 +477,22 @@ var WGPlayer=(function(){
   var MECH={1:'Hypercasual',2:'Competitive',3:'Narrative serial'};
   function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
 
-  fetch('/data/vault.json').then(function(r){
-    if(!r.ok) throw new Error('vault.json → '+r.status);
+  fetch('/data/vault.json',{cache:'no-cache'}).then(function(r){
+    if(!r.ok) throw new Error('vault.json '+r.status);
     return r.json();
   }).then(function(data){
     var games=data.games.map(function(g){g.mechanic=g.mechanic||MECH[g.tier]||'Game';return g;});
     var avail=games.filter(function(g){return g.available;});
 
+    /* the four: everything on this screen routes into one of these */
+    var FEATURED=['the-stacks','on-the-wire-turns','game-amino-merge','caldera-confidential'];
+    var featured=FEATURED.map(function(s){
+      return avail.filter(function(g){return g.slug===s;})[0];
+    }).filter(Boolean);
+
     /* ---- player state: streak, day status, instrumentation ---- */
     var S=window.WGVaultState;
-    function slugsAll(){ return avail.map(function(g){return g.slug;}); }
+    function slugsAll(){ return featured.map(function(g){return g.slug;}); }
     function hashOf(slug){
       var h=0; for(var i=0;i<slug.length;i++){h=(h*33+slug.charCodeAt(i))>>>0;}
       h=(((h^(h>>>7))>>>0)*2654435761)>>>0; return (h^(h>>>16))>>>0;
@@ -518,34 +518,36 @@ var WGPlayer=(function(){
       var box=document.getElementById('daystat'); if(!box) return;
       var line=document.getElementById('daystat-line'), count=document.getElementById('daystat-count');
       var st=S.getTodayStatus(slugsAll());
-      var total=avail.length, done=st.playedCount;
-      if(done<1){ box.hidden=true; return; }
+      var total=featured.length, done=st.playedCount;
       box.hidden=false;
       var next='New editions in '+fmtMs(S.msUntilNextDay());
-      if(done>=total){
+      if(total && done>=total){
         line.innerHTML='You&rsquo;ve cleared the board. New editions tomorrow.';
         var s=S.getStreak();
         count.textContent=(s>=1 ? s+'-day streak · ' : '')+next;
-      }else{
+      }else if(done>0){
         line.innerHTML='<b>'+done+'</b> of '+total+' editions played today.';
+        count.textContent=next;
+      }else{
+        line.innerHTML='<b>'+total+'</b> fresh editions today.';
         count.textContent=next;
       }
     }
-    function refreshState(){ updateStreakUI(); updateDayStat(); }
+    function refreshState(){ updateStreakUI(); updateDayStat(); renderTiles(); }
 
-    /* the shelf doubles as a playlist: while playing, the tab-bar button advances through it */
+    /* the four double as a playlist: while playing, the tab-bar button advances through them */
     var current=-1;
     function launch(g,url,opts){
-      current=avail.indexOf(g);
+      current=featured.indexOf(g);
       if(S) S.recordPlay(g.slug);
       WGPlayer.open(url||g.url,g.title,opts);
       refreshState();
     }
     function playGame(g,opts){ launch(g,null,opts); }
     function nextGame(){
-      if(!avail.length) return;
-      current=(current+1)%avail.length;
-      launch(avail[current]);
+      if(!featured.length) return;
+      current=(current+1)%featured.length;
+      launch(featured[current]);
     }
 
     /* Challenge Me: route into one game not yet cleared today, hard titles
@@ -558,7 +560,7 @@ var WGPlayer=(function(){
     function challengeMe(){
       var st=S?S.getTodayStatus(slugsAll()):{bySlug:{}};
       var open=WGPlayer.isOpen();
-      var notDone=avail.filter(function(g){
+      var notDone=featured.filter(function(g){
         var x=st.bySlug[g.slug]; return !x || !x.played;
       });
       if(!notDone.length){
@@ -587,77 +589,37 @@ var WGPlayer=(function(){
       }
     }
 
-    /* today's pick: feature a specific title when set; otherwise rotate
-       daily through available narrative games, falling back to any */
-    var FEATURED_SLUG='the-stacks';
-    var pick=avail.filter(function(g){return g.slug===FEATURED_SLUG;})[0]||null;
-    if(!pick){
-      var pool=avail.filter(function(g){return g.tier===3;});
-      if(!pool.length) pool=avail;
-      var day=Math.floor(Date.now()/86400000);
-      pick=pool.length?pool[day%pool.length]:null;
-    }
-
-    if(pick){
-      document.getElementById('pick').innerHTML=
-        '<div class="pick r d2 in">'+
-          '<div class="pthumb">'+(pick.thumb?'<img src="'+esc(pick.thumb)+'" alt="">':'')+'</div>'+
-          '<div class="pmeta">'+
-            '<span class="chip">Today’s Pick</span>'+
-            '<h2>'+esc(pick.title)+'</h2>'+
-            '<span class="pmech">'+esc(pick.mechanic)+' · new edition daily</span>'+
-            '<a class="btn" href="'+esc(pick.url)+'" target="_blank" rel="noopener">Play today’s edition <span class="arrow">→</span></a>'+
-          '</div>'+
-        '</div>';
-      document.querySelector('#pick .btn').addEventListener('click',function(e){
-        e.preventDefault(); playGame(pick);
+    /* the 2x2: art-forward tiles that go straight into the player */
+    function renderTiles(){
+      var grid=document.getElementById('ggrid'); if(!grid) return;
+      var st=S?S.getTodayStatus(slugsAll()):{bySlug:{}};
+      grid.innerHTML='';
+      featured.forEach(function(g){
+        var x=st.bySlug[g.slug]||{};
+        var el=document.createElement('a');
+        el.className='gtile';
+        el.href=g.url; el.target='_blank'; el.rel='noopener';
+        el.addEventListener('click',function(e){ e.preventDefault(); playGame(g); });
+        var diff=diffFor(g.slug), h=hashOf(g.slug);
+        var plays=40000+(h%1460000);
+        var playsFmt=plays>=1000000?(plays/1000000).toFixed(1)+'M':Math.round(plays/1000)+'K';
+        var chip=x.played
+          ? '<span class="chip">Played</span>'
+          : '<span class="chip '+diff.toLowerCase()+'">'+diff+'</span>';
+        el.innerHTML=(g.thumb?'<img src="'+esc(g.thumb)+'" alt="">':'')+chip+
+          '<span class="gplays"><i></i>'+playsFmt+'</span>'+
+          '<div class="gmeta"><div class="gtitle">'+esc(g.title)+'</div>'+
+            '<span class="gmech">'+esc(g.mechanic)+'</span></div>';
+        grid.appendChild(el);
       });
     }
+
     var sideBtn=document.getElementById('side-play');
     if(sideBtn) sideBtn.addEventListener('click',function(){ challengeMe(); });
     var tabBtn=document.getElementById('tab-play');
     if(tabBtn) tabBtn.addEventListener('click',function(){
       /* on the shelf it starts a challenge; while playing it swipes to the next game */
       if(WGPlayer.isOpen()) nextGame(); else challengeMe();
-    });
-
-    var railsEl=document.getElementById('rails');
-    var RAIL_NAMES={1:'Trending Editions',2:'Test Your Brain'};
-    [1,2,3].forEach(function(t){
-      var tier=data.tiers[t]; var list=games.filter(function(g){return g.tier===t;});
-      if(!tier||!list.length) return;
-      var name=RAIL_NAMES[t]||(tier.label||'').split('·').pop().trim()||('Tier '+t);
-      var rail=document.createElement('section');
-      rail.className='rail';
-      rail.innerHTML='<div class="rail-head"><h3>'+esc(name)+'</h3><span class="blurb">'+esc(tier.blurb||'')+'</span></div>';
-      var grid=document.createElement('div');grid.className='vgrid';
-      list.forEach(function(g){
-        var live=!!g.available;
-        var el=document.createElement(live?'a':'div');
-        el.className='vcard'+(live?'':' soon');
-        if(live){
-          el.href=g.url;el.target='_blank';el.rel='noopener';
-          el.addEventListener('click',function(e){
-            e.preventDefault(); playGame(g);
-          });
-        }
-        /* placeholder difficulty + play count: seeded from slug so they vary per game but stay stable */
-        var h=hashOf(g.slug);
-        var diff=diffFor(g.slug);
-        var plays=40000+(h%1460000);
-        var playsFmt=plays>=1000000?(plays/1000000).toFixed(1)+'M':Math.round(plays/1000)+'K';
-        var chip=live
-          ? '<span class="chip '+diff.toLowerCase()+'">'+diff+'</span>'
-          : '<span class="chip">Soon</span>';
-        el.innerHTML=
-          '<div class="vthumb">'+(g.thumb?'<img src="'+esc(g.thumb)+'" alt="" loading="lazy">':'')+chip+
-            '<span class="plays-pill"><i></i>'+playsFmt+'</span></div>'+
-          '<div class="vmeta"><div class="vtitle">'+esc(g.title)+'</div>'+
-            '<span class="vmech">'+esc(g.mechanic)+'</span></div>';
-        grid.appendChild(el);
-      });
-      rail.appendChild(grid);
-      railsEl.appendChild(rail);
     });
 
     /* ---- boot: state UI, countdown ticker, deep links, completion events ---- */
@@ -679,7 +641,7 @@ var WGPlayer=(function(){
   }).catch(function(e){
     var b=document.getElementById('banner');
     b.style.display='block';
-    b.textContent='The shelf is restocking — check back shortly. ('+e.message+')';
+    b.textContent='The shelf is restocking. Check back shortly. ('+e.message+')';
   });
 })();
 </script>
