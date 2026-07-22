@@ -161,9 +161,6 @@
   .chip{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:11px;letter-spacing:.12em;
     text-transform:uppercase;color:#000;background:var(--yellow);padding:5px 10px;border-radius:6px;}
   .chip::before{content:'';width:5px;height:5px;border-radius:50%;background:#000;}
-  .chip.medium{background:rgba(255,255,255,.24);color:var(--fg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
-  .chip.medium::before{background:var(--fg);}
-  .chip.hard{background:#FF5C39;}
 
   .ggrid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
     gap:clamp(10px,1.6vh,18px);}
@@ -603,12 +600,10 @@ var WGPlayer=(function(){
         el.className='gtile';
         el.href=g.url; el.target='_blank'; el.rel='noopener';
         el.addEventListener('click',function(e){ e.preventDefault(); playGame(g); });
-        var diff=diffFor(g.slug), h=hashOf(g.slug);
+        var h=hashOf(g.slug);
         var plays=40000+(h%1460000);
         var playsFmt=plays>=1000000?(plays/1000000).toFixed(1)+'M':Math.round(plays/1000)+'K';
-        var chip=x.played
-          ? '<span class="chip">Played</span>'
-          : '<span class="chip '+diff.toLowerCase()+'">'+diff+'</span>';
+        var chip=x.played ? '<span class="chip">Played</span>' : '';
         el.innerHTML=(g.thumb?'<img src="'+esc(g.thumb)+'" alt="">':'')+chip+
           '<span class="gplays"><i></i>'+playsFmt+'</span>'+
           '<div class="gmeta"><div class="gtitle">'+esc(g.title)+'</div>'+
