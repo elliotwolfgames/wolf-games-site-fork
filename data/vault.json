@@ -2,15 +2,15 @@
   "syncedAt": "2026-07-18T02:08:18.566Z",
   "tiers": {
     "1": {
-      "label": "Tier 1 \u00b7 Character / Tone Hypercasual",
+      "label": "Tier 1 · Character / Tone Hypercasual",
       "blurb": "Voice-driven casual. Retention via level progression & difficulty ramp."
     },
     "2": {
-      "label": "Tier 2 \u00b7 Competitive Hypercasual",
+      "label": "Tier 2 · Competitive Hypercasual",
       "blurb": "Leaderboards, standings, prestige. Retention via skill + competition."
     },
     "3": {
-      "label": "Tier 3 \u00b7 Narrative Episodic Micro-Drama",
+      "label": "Tier 3 · Narrative Episodic Micro-Drama",
       "blurb": "Serial story, PE-style. Retention via the daily serial hook."
     }
   },
@@ -19,7 +19,7 @@
       "slug": "game-amino-merge",
       "tier": 1,
       "title": "Amino Merge",
-      "note": "seed pick \u2014 verify tier",
+      "note": "seed pick — verify tier",
       "status": "deployed",
       "url": "https://game-amino-merge.qa.wolf.games/",
       "available": true,
@@ -36,19 +36,9 @@
       "thumb": "assets/the-stacks.jpg"
     },
     {
-      "slug": "game-amino-solitaire",
-      "tier": 1,
-      "title": "Amino Solitaire",
-      "note": "seed pick",
-      "status": "deployed",
-      "url": "https://game-amino-solitaire.qa.wolf.games/",
-      "available": true,
-      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/game-amino-solitaire.png"
-    },
-    {
       "slug": "soccer-cup-final-shot",
       "tier": 2,
-      "title": "Soccer Cup \u2014 Final Shot",
+      "title": "Soccer Cup — Final Shot",
       "note": "seed pick",
       "status": "deployed",
       "url": "https://soccer-cup-final-shot.qa.wolf.games/",
@@ -79,7 +69,7 @@
       "slug": "the-last-alibi",
       "tier": 3,
       "title": "The Last Alibi",
-      "note": "narrative \u2014 verify",
+      "note": "narrative — verify",
       "status": "deployed",
       "url": "https://the-last-alibi.qa.wolf.games/",
       "available": true,
@@ -97,8 +87,8 @@
     },
     {
       "slug": "on-the-wire-turns",
-      "tier": 3,
-      "title": "On The Wire \u2014 Turns",
+      "tier": 1,
+      "title": "On The Wire — Turns",
       "note": "word-search serial",
       "status": "deployed",
       "url": "https://on-the-wire-turns.qa.wolf.games/",
