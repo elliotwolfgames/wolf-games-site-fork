@@ -60,12 +60,13 @@
     {
       "slug": "game-diablo3-trivia",
       "tier": 2,
-      "title": "Diablo 3 Trivia",
-      "note": "trivia/competitive",
+      "title": "Off the Record",
+      "note": "true crime & local history trivia",
       "status": "deployed",
-      "url": "https://game-diablo3-trivia.qa.wolf.games/",
+      "url": "https://amino-trivia.staging.wolf.games/",
       "available": true,
-      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/game-diablo3-trivia.png"
+      "thumb": "assets/off-the-record.jpg",
+      "mechanic": "Trivia"
     },
     {
       "slug": "the-last-alibi",

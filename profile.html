@@ -354,7 +354,7 @@
     var bySlug={};
     avail.forEach(function(g){bySlug[g.slug]=g;});
     /* the same four the Vault features */
-    var FEATURED=['the-stacks','on-the-wire-turns','game-amino-merge','caldera-confidential'];
+    var FEATURED=['the-stacks','on-the-wire-turns','game-amino-merge','game-diablo3-trivia'];
     var featured=FEATURED.map(function(s){return bySlug[s];}).filter(Boolean);
     var st=S.getTodayStatus(featured.map(function(g){return g.slug;}));
 

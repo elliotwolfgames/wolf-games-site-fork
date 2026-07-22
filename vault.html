@@ -152,6 +152,10 @@
   @media (min-width:900px){
     header,.menu,.tabbar{display:none;}
     main{margin-left:250px;height:100vh;padding:34px clamp(28px,4vw,56px) 38px;}
+    /* on wide/short desktop windows, 1060px makes each tile far wider than it
+       is tall, badly cropping the portrait cover art; cap width by viewport
+       height instead so tiles stay closer to the art's own proportions */
+    .shell{max-width:min(1060px,72vh);}
   }
   @media (max-width:899.98px){
     .sidebar{display:none;}
@@ -485,7 +489,7 @@ var WGPlayer=(function(){
     var avail=games.filter(function(g){return g.available;});
 
     /* the four: everything on this screen routes into one of these */
-    var FEATURED=['the-stacks','on-the-wire-turns','game-amino-merge','caldera-confidential'];
+    var FEATURED=['the-stacks','on-the-wire-turns','game-amino-merge','game-diablo3-trivia'];
     var featured=FEATURED.map(function(s){
       return avail.filter(function(g){return g.slug===s;})[0];
     }).filter(Boolean);
