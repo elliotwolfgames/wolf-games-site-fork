@@ -18,12 +18,13 @@
     {
       "slug": "game-amino-merge",
       "tier": 1,
-      "title": "Amino Merge",
+      "title": "Piecework",
       "note": "seed pick — verify tier",
       "status": "deployed",
       "url": "https://game-amino-merge.qa.wolf.games/",
       "available": true,
-      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/game-amino-merge.png"
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/game-amino-merge.png",
+      "mechanic": "Merging Puzzle"
     },
     {
       "slug": "the-stacks",
@@ -33,7 +34,8 @@
       "status": "deployed",
       "url": "https://the-stacks.qa.wolf.games/",
       "available": true,
-      "thumb": "assets/the-stacks.jpg"
+      "thumb": "assets/the-stacks.jpg",
+      "mechanic": "Connection Puzzle"
     },
     {
       "slug": "soccer-cup-final-shot",
@@ -93,7 +95,8 @@
       "status": "deployed",
       "url": "https://on-the-wire.staging.wolf.games/",
       "available": true,
-      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/on-the-wire-turns.png"
+      "thumb": "https://media.qa.wolf.games/games/game-vault_8cd7a320-582c-4bd0-b8f9-33e0a3564d86/data/assets/vault-thumbs/on-the-wire-turns.png",
+      "mechanic": "Word Puzzle"
     }
   ]
 }

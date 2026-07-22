@@ -491,7 +491,7 @@ var WGPlayer=(function(){
     if(!r.ok) throw new Error('vault.json → '+r.status);
     return r.json();
   }).then(function(data){
-    var games=data.games.map(function(g){g.mechanic=MECH[g.tier]||'Game';return g;});
+    var games=data.games.map(function(g){g.mechanic=g.mechanic||MECH[g.tier]||'Game';return g;});
     var avail=games.filter(function(g){return g.available;});
 
     /* ---- player state: streak, day status, instrumentation ---- */
