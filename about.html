@@ -72,11 +72,20 @@
     -webkit-background-clip:text;background-clip:text;color:transparent;
     opacity:0;transform:translateY(26px);transition:transform .55s var(--ease),opacity .55s var(--ease);}
   .menu.open a{opacity:1;transform:none;}
-  .menu.open a:nth-child(1){transition-delay:.08s;}
-  .menu.open a:nth-child(2){transition-delay:.16s;}
-  .menu.open a:nth-child(3){transition-delay:.24s;}
-  .menu a:hover{background:linear-gradient(270deg,var(--yellow),var(--yellow));
+  .menu a{font-size:clamp(30px,5vw,52px);line-height:1.22;padding:5px 18px;}
+  .menu{gap:2px;}
+  .menu.open a:nth-child(1){transition-delay:.06s;}
+  .menu.open a:nth-child(2){transition-delay:.12s;}
+  .menu.open a:nth-child(3){transition-delay:.18s;}
+  .menu.open a:nth-child(4){transition-delay:.24s;}
+  .menu.open a:nth-child(5){transition-delay:.30s;}
+  .menu.open a:nth-child(6){transition-delay:.36s;}
+  .menu a:hover,.menu a[aria-current="page"]{background:linear-gradient(270deg,var(--yellow),var(--yellow));
     -webkit-background-clip:text;background-clip:text;}
+  .menu .mplay{margin-top:22px;font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.14em;
+    text-transform:uppercase;background:none;-webkit-text-fill-color:var(--fg-3);color:var(--fg-3);
+    border:1px solid var(--glass-line);border-radius:999px;padding:12px 24px;}
+  .menu .mplay:hover{-webkit-text-fill-color:var(--yellow);color:var(--yellow);border-color:var(--yellow);}
   body.menu-open{overflow:hidden;}
 
   /* ---------- hero orb ---------- */
@@ -170,9 +179,12 @@
 </header>
 
 <nav class="menu" id="menu" aria-label="Site menu">
-  <a href="#">Sign In</a>
-  <a href="vault.html">Play Games</a>
-  <a href="about.html">About Us</a>
+  <a href="problem.html">The Problem</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="demo.html">Play the Demo</a>
+  <a href="contact.html">Talk to Us</a>
+  <a href="about.html" aria-current="page">About Us</a>
+  <a class="mplay" href="vault.html">Players — enter the vault</a>
 </nav>
 
 <!-- hero -->

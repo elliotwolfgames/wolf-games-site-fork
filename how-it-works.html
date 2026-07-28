@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works — Wolf Games</title>
+<meta name="description" content="The daily drop is a system on a schedule: the plan, the edition compile, the gates, the drop. Plus the three axes that make an edition local.">
+<link rel="canonical" href="https://wolfgames.net/how-it-works.html">
+<link rel="stylesheet" href="css/wg.css">
+<style>
+  /* ---------- the pipeline ---------- */
+  .pipe{position:relative;display:grid;grid-template-columns:repeat(4,1fr);
+    gap:clamp(16px,2.4vw,28px);margin-top:52px;}
+  .pipe::before{content:'';position:absolute;left:6%;right:6%;top:23px;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,rgba(255,255,255,.14),rgba(250,255,0,.75));}
+  .pstep{position:relative;}
+  .pnode{position:relative;z-index:2;width:46px;height:46px;border-radius:50%;
+    background:#1f1f1f;border:2px solid var(--glass-line);
+    display:flex;align-items:center;justify-content:center;margin-bottom:22px;
+    font-family:var(--display);font-weight:600;font-size:16px;color:var(--fg-2);}
+  .pstep:last-child .pnode{border-color:var(--yellow);background:var(--yellow);color:#000;
+    box-shadow:0 0 26px rgba(250,255,0,.4);}
+  .pstep h3{font-family:var(--display);font-weight:600;font-size:clamp(18px,2vw,23px);
+    letter-spacing:-.015em;margin:0 0 10px;}
+  .pstep p{margin:0;color:var(--fg-2);font-size:15px;line-height:1.55;}
+  .pstep .who{margin:14px 0 0;font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--fg-3);font-weight:600;}
+  @media (max-width:860px){
+    .pipe{grid-template-columns:1fr;gap:0;padding-left:8px;}
+    .pipe::before{left:29px;right:auto;top:8px;bottom:40px;height:auto;width:2px;
+      background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(250,255,0,.75));}
+    .pstep{display:grid;grid-template-columns:auto 1fr;gap:22px;padding-bottom:32px;}
+    .pnode{margin-bottom:0;}
+  }
+
+  /* ---------- channel set ---------- */
+  .channels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:40px;}
+  .chan{background:var(--glass);border:1px solid var(--glass-line);border-radius:16px;overflow:hidden;
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    transition:transform .3s var(--ease),border-color .3s;}
+  .chan:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.32);}
+  .chan .cim{position:relative;aspect-ratio:4/5;overflow:hidden;background:#101010;}
+  .chan .cim img{width:100%;height:100%;object-fit:cover;object-position:top;}
+  .chan .cmeta{padding:13px 15px 17px;}
+  .chan .cmech{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);}
+  .chan .ctitle{font-family:var(--display);font-weight:600;font-size:16.5px;letter-spacing:-.01em;margin:3px 0 0;}
+  @media (max-width:860px){.channels{grid-template-columns:1fr 1fr;}}
+
+  /* ---------- axes ---------- */
+  .axes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:42px;}
+  .axes .card h3{font-family:var(--display);font-weight:600;font-size:clamp(20px,2.1vw,25px);
+    letter-spacing:-.015em;margin:0 0 12px;}
+  .axes .card .eg{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--line);
+    font-size:14px;color:var(--fg-3);line-height:1.55;}
+  .axes .card .eg b{color:var(--fg-2);font-weight:600;}
+  @media (max-width:860px){.axes{grid-template-columns:1fr;}}
+
+  /* ---------- cadence ---------- */
+  .cadence{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:42px;}
+  .cad{position:relative;background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;
+    padding:clamp(24px,3vw,34px);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    overflow:hidden;}
+  .cad .when{font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--yellow);}
+  .cad h3{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,28px);
+    letter-spacing:-.02em;margin:12px 0 10px;}
+  .cad p{margin:0;color:var(--fg-2);font-size:15.5px;line-height:1.55;}
+  .cad .dots{display:flex;gap:5px;margin-top:22px;}
+  .cad .dots i{width:100%;height:3px;border-radius:2px;background:rgba(255,255,255,.14);}
+  .cad .dots i.on{background:var(--yellow);}
+  @media (max-width:860px){.cadence{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" aria-label="Wolf Games home"><img class="wm" src="assets/wordmark-yellow.svg" alt="Wolf Games"></a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Site menu">
+  <a href="problem.html">The Problem</a>
+  <a href="how-it-works.html" aria-current="page">How It Works</a>
+  <a href="demo.html">Play the Demo</a>
+  <a href="contact.html">Talk to Us</a>
+  <a href="about.html">About Us</a>
+  <a class="mplay" href="vault.html">Players — enter the vault</a>
+</nav>
+
+<main id="main">
+
+<section class="phero obs">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="label r">How it works</span>
+    <h1 class="r d1">The daily drop is a <span class="shimmer-y">system,</span> not a promise.</h1>
+    <p class="lede r d2">Four stages run every day, on a schedule, whether or not anyone is watching. Your team sits at the gate and approves. Nothing reaches your page that you have not cleared.</p>
+  </div>
+</section>
+
+<!-- the pipeline -->
+<section class="obs" id="pipeline" style="padding-top:clamp(40px,6vh,70px);">
+  <div class="wrap">
+    <h2 class="h2 r"><span class="shimmer">Plan. Compile. Gate. Drop.</span></h2>
+    <p class="sub r d1">One pipeline, run once a day, for every channel in the vault.</p>
+
+    <div class="pipe">
+      <div class="pstep r d1">
+        <div class="pnode">1</div>
+        <h3>The plan</h3>
+        <p>The week&rsquo;s story is laid out in advance: what happens, in what order, and where each day&rsquo;s instalment has to land.</p>
+        <p class="who">Wolf Games</p>
+      </div>
+      <div class="pstep r d2">
+        <div class="pnode">2</div>
+        <h3>The edition compile</h3>
+        <p>The plan is filled in for a real audience &mdash; the town it is set in, the interest it leans on, and the week it belongs to. This is where a generic story becomes a local one.</p>
+        <p class="who">Wolf Games</p>
+      </div>
+      <div class="pstep r d3">
+        <div class="pnode">3</div>
+        <h3>The gates</h3>
+        <p>Every edition passes content, legal, and quality checks before it can ship. Your newsroom holds the final approval, on your own terms.</p>
+        <p class="who">Wolf Games + your newsroom</p>
+      </div>
+      <div class="pstep r d4">
+        <div class="pnode">4</div>
+        <h3>The drop</h3>
+        <p>The finished edition goes live on your surface as a static bundle. If a compile ever fails, the surface serves the last good edition instead. It never shows a broken frame.</p>
+        <p class="who">Automatic</p>
+      </div>
+    </div>
+
+    <div class="note r d4">
+      <b>Your team&rsquo;s time.</b> The gate is the only stage that needs a person on your side, and it is built to be a short review, not a production job. If your newsroom wants a tighter hold, the gate can be set to block by default.
+    </div>
+  </div>
+</section>
+
+<!-- the channel set -->
+<section class="obs" id="channels">
+  <div class="wrap">
+    <span class="label r">The vault, not a title</span>
+    <h2 class="h2 r d1" style="margin-top:16px;">You are not buying one game.</h2>
+    <p class="sub r d2">A channel is one game with one continuous story, and a reader subscribes to the channel. The vault holds a set of them, so a reader who bounces off one mechanic still finds one that fits. Every channel runs the same daily pipeline.</p>
+
+    <div class="channels">
+      <div class="chan r d1">
+        <div class="cim"><img src="assets/the-stacks.jpg" alt="The Stacks"></div>
+        <div class="cmeta"><span class="cmech">Connection puzzle</span><h3 class="ctitle">The Stacks</h3></div>
+      </div>
+      <div class="chan r d2">
+        <div class="cim"><img src="assets/on-the-wire.jpg" alt="On The Wire"></div>
+        <div class="cmeta"><span class="cmech">Word puzzle</span><h3 class="ctitle">On The Wire</h3></div>
+      </div>
+      <div class="chan r d3">
+        <div class="cim"><img src="assets/Piecework.png" alt="Piecework"></div>
+        <div class="cmeta"><span class="cmech">Merging puzzle</span><h3 class="ctitle">Piecework</h3></div>
+      </div>
+      <div class="chan r d4">
+        <div class="cim"><img src="assets/off-the-record.jpg" alt="Off the Record"></div>
+        <div class="cmeta"><span class="cmech">Trivia</span><h3 class="ctitle">Off the Record</h3></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- the three axes -->
+<section class="obs" id="axes">
+  <div class="wrap">
+    <span class="label r">What makes an edition yours</span>
+    <h2 class="h2 r d1" style="margin-top:16px;">Three axes, resolved fresh every day.</h2>
+    <p class="sub r d2">The same story skeleton is filled three ways. The result is an edition that could only have been written for your audience &mdash; and the local detail does the plot work, rather than sitting on top as decoration.</p>
+
+    <div class="axes">
+      <div class="card r d1">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></div>
+        <h3>The place</h3>
+        <p>Where the edition is set. Real streets, institutions, landmarks, and local folklore from your own coverage area &mdash; used as evidence and motive, not as set dressing.</p>
+        <p class="eg"><b>What changes:</b> the location of the crime, the institution that covered it up, and the piece of local lore that gives the answer away.</p>
+      </div>
+      <div class="card r d2">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/><path d="M4.5 9.5h3M16.5 9.5h3"/></svg></div>
+        <h3>The interest</h3>
+        <p>What the edition is about on the surface. The same story skeleton, moved into the world a given reader already cares about &mdash; sport, music, food, local politics.</p>
+        <p class="eg"><b>What changes:</b> the cast, the setting, and the vocabulary. The puzzle and the story stay the same underneath.</p>
+      </div>
+      <div class="card r d3">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="12" cy="15" r="1.6"/></svg></div>
+        <h3>The week</h3>
+        <p>When it lands. An edition knows what day of the story it is on, and it knows what is happening in the world that week, so a live event can be folded in.</p>
+        <p class="eg"><b>What changes:</b> the instalment of the running story, and any topical element the gate has cleared.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- the serial cadence -->
+<section class="obs" id="cadence">
+  <div class="wrap">
+    <span class="label r">The serial cadence</span>
+    <h2 class="h2 r d1" style="margin-top:16px;">A day, a week, a month &mdash; three loops at once.</h2>
+    <p class="sub r d2">A reader who plays once gets a whole, finished thing. A reader who plays all week gets a case. A reader who stays a month finds out what the case was really about.</p>
+
+    <div class="cadence">
+      <div class="cad r d1">
+        <span class="when">Each day</span>
+        <h3>A beat</h3>
+        <p>One instalment of the story, playable in two to four minutes, resolved on its own terms. It ends one step short of the answer.</p>
+        <div class="dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="cad r d2">
+        <span class="when">Each week</span>
+        <h3>A crime</h3>
+        <p>Seven beats add up to a complete case, with a culprit, a motive, and a resolution the reader helped reach.</p>
+        <div class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      </div>
+      <div class="cad r d3">
+        <span class="when">Each month</span>
+        <h3>A conspiracy</h3>
+        <p>Four cases reveal the larger thing behind them &mdash; the pattern that was there the whole time, in a town the reader actually knows.</p>
+        <div class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      </div>
+    </div>
+
+    <div class="cardgrid" style="margin-top:24px;">
+      <div class="card r d1">
+        <h3 class="h3">A new reader can start on any day.</h3>
+        <p>There is no homework and no catch-up. Every edition is written so that someone arriving today can play it, finish it, and understand it without having read a word of what came before. What a returning reader gets is more context, not permission to play.</p>
+      </div>
+      <div class="card r d2">
+        <h3 class="h3">Nothing reaches your page unapproved.</h3>
+        <p>Real places and real institutions appear; real private individuals do not, and living people are never accused of anything. The gate is where your newsroom sets the line, per market, and where an edition can be pulled before it ever ships.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="obs" style="padding-top:0;">
+  <div class="wrap">
+    <div class="card r" style="text-align:center;padding:clamp(34px,5vw,56px);">
+      <h2 class="h2" style="font-size:clamp(26px,3.2vw,40px);">Reading about it is the weakest version.</h2>
+      <p class="sub" style="margin-left:auto;margin-right:auto;">The demo is the real build &mdash; the same bundle and the same start sequence a partner embed uses. Switch the town and watch the edition change.</p>
+      <div class="btns" style="justify-content:center;margin-top:32px;">
+        <a class="btn" href="demo.html">Play today&rsquo;s edition <span class="arrow">&rarr;</span></a>
+        <a class="btn ghost" href="contact.html">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ftop">
+      <div class="fbrand">
+        <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
+        <p>Wolf Games builds and runs a daily game vault on a publisher&rsquo;s own surface, under the publisher&rsquo;s own brand.</p>
+      </div>
+      <div>
+        <h4>The case</h4>
+        <ul>
+          <li><a href="problem.html">The problem</a></li>
+          <li><a href="how-it-works.html">How it works</a></li>
+          <li><a href="demo.html">Play the demo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Talk to us</a></li>
+          <li><a href="https://wolf-games.breezy.hr/" target="_blank" rel="noopener">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="legal.html">Terms, privacy &amp; cookies</a></li>
+          <li><a href="mailto:partners@wolfgames.net">partners@wolfgames.net</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span>&copy; 2026 Wolf Games. All rights reserved.</span>
+      <span>Partners are here. Players play at <a class="lnk" href="vault.html">the vault</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+</body>
+</html>

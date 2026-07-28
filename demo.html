@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play the Demo — Wolf Games</title>
+<meta name="description" content="The real build, no account and no login. Switch the town and watch the edition change in front of you.">
+<link rel="canonical" href="https://wolfgames.net/demo.html">
+<link rel="stylesheet" href="css/wg.css">
+<style>
+  /* ---------- the playable frame ---------- */
+  .play{position:relative;margin-top:42px;display:grid;grid-template-columns:minmax(0,1fr) 340px;
+    gap:26px;align-items:start;}
+  @media (max-width:1000px){.play{grid-template-columns:1fr;}}
+  .stagebox{position:relative;border:1px solid var(--glass-line);border-radius:20px;overflow:hidden;
+    background:#0f0f0f;aspect-ratio:16/10;}
+  @media (max-width:1000px){.stagebox{aspect-ratio:9/14;max-height:78vh;}}
+  .stagebox iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;}
+  .poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:22px;text-align:center;padding:30px;cursor:pointer;border:0;width:100%;
+    background:radial-gradient(60% 60% at 50% 40%,rgba(250,255,0,.1),transparent 70%),#101010;
+    color:var(--fg);font-family:var(--body);}
+  .poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.34;z-index:0;}
+  .poster .pin{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:18px;}
+  .poster .ppill{display:inline-flex;align-items:center;gap:14px;background:var(--yellow);color:#000;
+    font-weight:600;font-size:15px;letter-spacing:.05em;text-transform:uppercase;
+    padding:16px 30px;border-radius:999px;box-shadow:0 6px 30px rgba(250,255,0,.4);
+    transition:transform .25s var(--ease);}
+  .poster:hover .ppill{transform:scale(1.04);}
+  .poster .ppill .tri{width:0;height:0;border-style:solid;border-width:7px 0 7px 12px;
+    border-color:transparent transparent transparent #000;}
+  .poster small{position:relative;z-index:2;color:var(--fg-2);font-size:14px;max-width:26em;line-height:1.5;}
+
+  .playside .card{margin-bottom:16px;}
+  .playside .card:last-child{margin-bottom:0;}
+  .playside h3{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.01em;margin:0 0 10px;}
+  .playside p{margin:0;font-size:14.5px;color:var(--fg-2);line-height:1.55;}
+  .facts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+  .facts li{position:relative;padding-left:24px;font-size:14.5px;color:var(--fg-2);line-height:1.5;}
+  .facts li::before{content:'';position:absolute;left:0;top:.42em;width:12px;height:12px;border-radius:50%;
+    border:1.5px solid var(--yellow);}
+  .facts li::after{content:'';position:absolute;left:4px;top:calc(.42em + 4px);width:4px;height:4px;
+    border-radius:50%;background:var(--yellow);}
+
+  /* ---------- town picker ---------- */
+  .picker{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;}
+  .tbtn{background:var(--glass);border:1px solid var(--glass-line);border-radius:999px;
+    color:var(--fg-2);font-family:var(--body);font-weight:600;font-size:14px;
+    padding:12px 22px;cursor:pointer;transition:all .25s var(--ease);}
+  .tbtn:hover{border-color:rgba(255,255,255,.34);color:var(--fg);}
+  .tbtn[aria-pressed="true"]{background:var(--yellow);border-color:var(--yellow);color:#000;
+    box-shadow:0 4px 20px rgba(250,255,0,.28);}
+
+  .edition{margin-top:26px;background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;
+    padding:clamp(26px,3.4vw,40px);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+  .edition .ehead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
+  .edition .eday{font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--yellow);}
+  .edition .etown{font-family:var(--body);font-size:10.5px;font-weight:700;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--fg-3);border:1px solid var(--glass-line);
+    border-radius:5px;padding:4px 9px;}
+  .beat{font-family:var(--display);font-weight:400;font-size:clamp(19px,2.3vw,27px);line-height:1.5;
+    letter-spacing:-.015em;margin:0;color:var(--fg);text-wrap:pretty;}
+  .beat mark{background:rgba(250,255,0,.16);color:var(--yellow);padding:1px 5px;border-radius:5px;
+    box-decoration-break:clone;-webkit-box-decoration-break:clone;
+    transition:background .4s var(--ease);}
+  .beat mark.flash{background:rgba(250,255,0,.42);}
+  .hook{margin:26px 0 0;padding-top:22px;border-top:1px solid var(--line);
+    color:var(--fg-2);font-size:15.5px;line-height:1.6;}
+  .hook b{color:var(--fg);}
+
+  /* ---------- side by side ---------- */
+  .sbs{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:38px;}
+  @media (max-width:860px){.sbs{grid-template-columns:1fr;}}
+  .sbs .col{background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;
+    padding:clamp(22px,2.8vw,32px);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+  .sbs .col h3{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;
+    margin:0 0 16px;color:var(--yellow);}
+  .sbs .col .beat{font-size:clamp(16px,1.7vw,19px);}
+  .sbsel{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;}
+  .sbsel label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);
+    font-weight:600;display:block;margin-bottom:7px;}
+  .sbsel select{background:var(--glass);border:1px solid var(--glass-line);border-radius:10px;
+    padding:12px 15px;color:var(--fg);font-family:var(--body);font-size:14.5px;outline:none;
+    -webkit-appearance:none;appearance:none;min-width:190px;transition:border-color .2s;}
+  .sbsel select:focus{border-color:var(--yellow);}
+
+  /* ---------- sample-content marker ---------- */
+  .sample{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;
+    font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#FFB84D;
+    border:1px dashed rgba(255,184,77,.55);border-radius:5px;padding:5px 10px;}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" aria-label="Wolf Games home"><img class="wm" src="assets/wordmark-yellow.svg" alt="Wolf Games"></a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Site menu">
+  <a href="problem.html">The Problem</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="demo.html" aria-current="page">Play the Demo</a>
+  <a href="contact.html">Talk to Us</a>
+  <a href="about.html">About Us</a>
+  <a class="mplay" href="vault.html">Players — enter the vault</a>
+</nav>
+
+<main id="main">
+
+<section class="phero obs">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="label r">Play the demo</span>
+    <h1 class="r d1">This is the real build. <span class="shimmer-y">No account, no login.</span></h1>
+    <p class="lede r d2">Not a video and not a demo-only path &mdash; the same bundle and the same start sequence a partner embed runs. Play it, then switch the town underneath it and watch the edition rewrite itself.</p>
+  </div>
+</section>
+
+<!-- the playable build -->
+<section class="obs" id="play" style="padding-top:clamp(30px,5vh,56px);">
+  <div class="wrap">
+    <div class="play">
+      <div class="stagebox">
+        <button class="poster" id="poster" type="button" aria-label="Start the demo">
+          <img src="assets/the-stacks.jpg" alt="" aria-hidden="true">
+          <span class="pin">
+            <span class="ppill"><span class="tri"></span>Play today&rsquo;s edition</span>
+            <small>Loads the live build. Nothing to install, nothing to sign into.</small>
+          </span>
+        </button>
+      </div>
+
+      <div class="playside">
+        <div class="card r d1">
+          <h3>What you are looking at</h3>
+          <p>A live channel from the vault, running the production bundle. This is what sits in the frame on a partner page.</p>
+        </div>
+        <div class="card r d2">
+          <h3>What your engineer gets</h3>
+          <ul class="facts">
+            <li>A static bundle. No player-facing servers for your team to run.</li>
+            <li>One iframe, sandboxed, with fixed frame sizes.</li>
+            <li>A hardened start sequence. A failed compile serves the last good edition rather than a broken frame.</li>
+            <li>No account wall between your reader and the first move.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- town picker -->
+<section class="obs" id="towns">
+  <div class="wrap">
+    <span class="label r">The town picker</span>
+    <h2 class="h2 r d1" style="margin-top:16px;">The same beat, set in your town.</h2>
+    <p class="sub r d2">Pick a market. The highlighted phrases are the parts the edition compile resolves for that place &mdash; and they are load-bearing. Take them out and the beat has no plot.</p>
+
+    <div class="picker" id="picker" role="group" aria-label="Choose a town"></div>
+
+    <div class="edition">
+      <div class="ehead">
+        <span class="eday">Day 3 of 7 &middot; the missing file</span>
+        <span class="etown" id="etown">&nbsp;</span>
+        <span class="sample">Sample content</span>
+      </div>
+      <p class="beat" id="beat">&nbsp;</p>
+      <p class="hook">
+        <b>Where it stops.</b> The edition resolves &mdash; the reader closes the loop and gets a clean win. But the last card names a second file that should not exist, and that thread does not resolve today. The next instalment drops tomorrow morning.
+      </p>
+    </div>
+
+    <div class="note r">
+      <b>About this copy.</b> The four markets above are sample fill, written to show the mechanic. A live edition set is written per market with your newsroom, from a folklore and records corpus built for your coverage area. Nothing here has shipped to a real audience.
+    </div>
+  </div>
+</section>
+
+<!-- side by side -->
+<section class="obs" id="sbs">
+  <div class="wrap">
+    <span class="label r">Side by side</span>
+    <h2 class="h2 r d1" style="margin-top:16px;">One beat. Two towns. Read them together.</h2>
+    <p class="sub r d2">This is the part a vendor product cannot do. Same story skeleton, same puzzle, same day of the week &mdash; and two editions that could not be swapped without breaking the plot.</p>
+
+    <div class="sbsel r d2">
+      <div>
+        <label for="sel-a">Left market</label>
+        <select id="sel-a"></select>
+      </div>
+      <div>
+        <label for="sel-b">Right market</label>
+        <select id="sel-b"></select>
+      </div>
+      <div>
+        <label for="sel-i">Reader interest</label>
+        <select id="sel-i"></select>
+      </div>
+    </div>
+
+    <div class="sbs">
+      <div class="col r d1">
+        <h3 id="sbs-a-name">&nbsp;</h3>
+        <p class="beat" id="sbs-a">&nbsp;</p>
+      </div>
+      <div class="col r d2">
+        <h3 id="sbs-b-name">&nbsp;</h3>
+        <p class="beat" id="sbs-b">&nbsp;</p>
+      </div>
+    </div>
+
+    <div class="note r">
+      <b>The interest axis.</b> Change the reader interest above and both columns move into a different world &mdash; different cast, different vocabulary &mdash; while the puzzle and the story underneath stay identical. That is one skeleton, three surfaces.
+    </div>
+  </div>
+</section>
+
+<!-- put your market in the frame -->
+<section class="obs" id="mymarket">
+  <div class="wrap narrow">
+    <div class="card r">
+      <span class="label">Ask, not assume</span>
+      <h2 class="h2" style="margin-top:14px;font-size:clamp(26px,3.2vw,42px);">Want to see this set in your market?</h2>
+      <p class="sub">We do not read your location and we do not guess it &mdash; a site that quietly geolocates a privacy-careful publisher reads as a warning, not a feature. So this is a request. Tell us the market and we will build the beat in it and send it back.</p>
+
+      <form class="form" id="market-form">
+        <div>
+          <label for="mm-market">Market or masthead</label>
+          <input id="mm-market" name="market" type="text" placeholder="The town you want to see" required>
+        </div>
+        <div>
+          <label for="mm-email">Work email</label>
+          <input id="mm-email" name="email" type="email" placeholder="you@publisher.com" required autocomplete="email">
+        </div>
+        <button class="btn" type="submit">Build this beat in my market <span class="arrow">&rarr;</span></button>
+      </form>
+      <div class="form-done" id="market-done" hidden>
+        <b>Got it.</b> We will write the beat in that market and send it back, usually within a few days.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="obs" style="padding-top:0;">
+  <div class="wrap">
+    <div class="card r" style="text-align:center;padding:clamp(34px,5vw,56px);">
+      <h2 class="h2" style="font-size:clamp(26px,3.2vw,40px);">You have felt the mechanism. Now the honest part.</h2>
+      <p class="sub" style="margin-left:auto;margin-right:auto;">Whether it actually brings a reader back tomorrow is the thing no pilot has measured yet. A pilot is one embed on one page position, with a defined exit, and you see the same numbers we do.</p>
+      <div class="btns" style="justify-content:center;margin-top:32px;">
+        <a class="btn" href="contact.html">Talk to us <span class="arrow">&rarr;</span></a>
+        <a class="btn ghost" href="problem.html">See what a rung is worth</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ftop">
+      <div class="fbrand">
+        <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
+        <p>Wolf Games builds and runs a daily game vault on a publisher&rsquo;s own surface, under the publisher&rsquo;s own brand.</p>
+      </div>
+      <div>
+        <h4>The case</h4>
+        <ul>
+          <li><a href="problem.html">The problem</a></li>
+          <li><a href="how-it-works.html">How it works</a></li>
+          <li><a href="demo.html">Play the demo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Talk to us</a></li>
+          <li><a href="https://wolf-games.breezy.hr/" target="_blank" rel="noopener">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="legal.html">Terms, privacy &amp; cookies</a></li>
+          <li><a href="mailto:partners@wolfgames.net">partners@wolfgames.net</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span>&copy; 2026 Wolf Games. All rights reserved.</span>
+      <span>Partners are here. Players play at <a class="lnk" href="vault.html">the vault</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+<script>
+/* ============================================================
+   DEMO CONTENT — SAMPLE FILL, NOT SHIPPED EDITIONS
+   These four markets exist to demonstrate the compile mechanic.
+   A live edition set is authored per market with the partner's
+   newsroom from a real folklore and records corpus. Replace this
+   block wholesale when that corpus lands (PRD §12, items 1 and 2).
+   ============================================================ */
+var TOWNS=[
+  {id:'syracuse',name:'Syracuse, NY',
+   place:'the old rail bridge over the canal',
+   inst:'the county records office',
+   lore:'the locks were rebuilt twice because the first set never held'},
+  {id:'boise',name:'Boise, ID',
+   place:'the shuttered drive-in out on the state highway',
+   inst:'the irrigation district board',
+   lore:'the last owner buried the season&rsquo;s takings somewhere under the screen'},
+  {id:'mobile',name:'Mobile, AL',
+   place:'the closed textile mill down by the river',
+   inst:'the port authority archive',
+   lore:'the mill whistle still sounds on the anniversary of the flood'},
+  {id:'spokane',name:'Spokane, WA',
+   place:'the granite quarry above the falls',
+   inst:'the city water department',
+   lore:'the quarry road was moved to go around something the crews dug up'}
+];
+
+var INTERESTS=[
+  {id:'news',name:'General news',
+   tpl:'Tonight&rsquo;s edition opens at {place}. A file has gone missing from {inst} &mdash; and the only person who noticed is the one who filed it. Everyone here grew up being told {lore}. Tonight you find out who needed that story to exist.'},
+  {id:'sport',name:'High-school sport',
+   tpl:'The team bus is parked at {place} an hour after it should have left. A roster sheet has gone missing from {inst} &mdash; and the only person who noticed is the assistant coach who typed it. Every player on that bus grew up being told {lore}. Tonight you find out who needed a name off that list.'},
+  {id:'music',name:'Live music',
+   tpl:'The load-out finishes at {place} well past two in the morning. A permit has gone missing from {inst} &mdash; and the only person who noticed is the promoter who signed it. Everyone on that crew grew up being told {lore}. Tonight you find out why the room was never licensed at all.'}
+];
+
+/* render a beat template with the town fill marked up */
+function renderBeat(town,interest){
+  return interest.tpl
+    .replace('{place}','<mark>'+town.place+'</mark>')
+    .replace('{inst}','<mark>'+town.inst+'</mark>')
+    .replace('{lore}','<mark>'+town.lore+'</mark>');
+}
+
+/* ---- the town picker ---- */
+(function(){
+  var picker=document.getElementById('picker');
+  var beatEl=document.getElementById('beat');
+  var townEl=document.getElementById('etown');
+  if(!picker||!beatEl) return;
+
+  var current=0;
+
+  function paint(i,animate){
+    current=i;
+    var t=TOWNS[i];
+    beatEl.innerHTML=renderBeat(t,INTERESTS[0]);
+    townEl.textContent=t.name;
+    picker.querySelectorAll('.tbtn').forEach(function(b,bi){
+      b.setAttribute('aria-pressed',bi===i?'true':'false');
+    });
+    if(animate){
+      /* flash the resolved phrases so the change is visible, not just present */
+      var marks=beatEl.querySelectorAll('mark');
+      marks.forEach(function(m){ m.classList.add('flash'); });
+      setTimeout(function(){
+        marks.forEach(function(m){ m.classList.remove('flash'); });
+      },420);
+    }
+  }
+
+  TOWNS.forEach(function(t,i){
+    var b=document.createElement('button');
+    b.type='button';
+    b.className='tbtn';
+    b.textContent=t.name;
+    b.setAttribute('aria-pressed','false');
+    b.addEventListener('click',function(){ paint(i,true); });
+    picker.appendChild(b);
+  });
+
+  paint(0,false);
+})();
+
+/* ---- side by side ---- */
+(function(){
+  var a=document.getElementById('sel-a'), b=document.getElementById('sel-b'), i=document.getElementById('sel-i');
+  if(!a||!b||!i) return;
+
+  TOWNS.forEach(function(t,idx){
+    [a,b].forEach(function(sel){
+      var o=document.createElement('option');
+      o.value=idx; o.textContent=t.name;
+      sel.appendChild(o);
+    });
+  });
+  INTERESTS.forEach(function(n,idx){
+    var o=document.createElement('option');
+    o.value=idx; o.textContent=n.name;
+    i.appendChild(o);
+  });
+  a.value='0'; b.value='2'; i.value='0';
+
+  function paint(){
+    var ta=TOWNS[+a.value], tb=TOWNS[+b.value], ni=INTERESTS[+i.value];
+    document.getElementById('sbs-a-name').textContent=ta.name;
+    document.getElementById('sbs-b-name').textContent=tb.name;
+    document.getElementById('sbs-a').innerHTML=renderBeat(ta,ni);
+    document.getElementById('sbs-b').innerHTML=renderBeat(tb,ni);
+  }
+  [a,b,i].forEach(function(sel){ sel.addEventListener('change',paint); });
+  paint();
+})();
+
+/* ---- load the live build on demand ---- */
+(function(){
+  var poster=document.getElementById('poster');
+  if(!poster) return;
+  poster.addEventListener('click',function(){
+    var f=document.createElement('iframe');
+    f.src='https://the-stacks.qa.wolf.games/';
+    f.title='The Stacks — live demo build';
+    f.setAttribute('allow','autoplay; fullscreen');
+    f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-forms');
+    poster.parentNode.appendChild(f);
+    poster.remove();
+    if(window.WGTrack) WGTrack('demo_start',{surface:'wolfgames.net'});
+  });
+})();
+
+/* ---- market request (a request, never an automatic lookup) ---- */
+(function(){
+  var form=document.getElementById('market-form'), done=document.getElementById('market-done');
+  if(!form) return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var data={source:'demo-market-request'};
+    new FormData(form).forEach(function(v,k){ data[k]=v; });
+    form.querySelector('button[type="submit"]').disabled=true;
+    fetch('/api/partner-lead',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify(data)
+    }).catch(function(err){
+      /* static preview has no serverless runtime; the deployed site does */
+      console.warn('partner-lead endpoint unreachable in this environment',err);
+    }).then(function(){
+      form.hidden=true; done.hidden=false;
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Problem — Wolf Games</title>
+<meta name="description" content="A click that does not return has almost no worth. The attention ladder, the metric at each rung, and a model you can run with your own numbers.">
+<link rel="canonical" href="https://wolfgames.net/problem.html">
+<link rel="stylesheet" href="css/wg.css">
+<style>
+  /* ---------- pains ---------- */
+  .pains td.p{width:62%;}
+  .pains .pid{font-family:var(--display);font-weight:600;color:var(--fg);font-size:15px;}
+
+  /* ---------- the model ---------- */
+  .model{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;align-items:start;}
+  @media (max-width:900px){.model{grid-template-columns:1fr;}}
+  .calc label{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--fg-3);font-weight:600;margin-bottom:7px;}
+  .calc .field{margin-bottom:16px;}
+  .calc .field:last-of-type{margin-bottom:0;}
+  .calc input{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--glass-line);
+    border-radius:10px;padding:14px 15px;color:var(--fg);font-family:var(--display);font-size:19px;
+    font-weight:600;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;}
+  .calc input:focus{border-color:var(--yellow);}
+  .calc .hint{margin:6px 0 0;font-size:12.5px;color:var(--fg-3);line-height:1.45;}
+
+  .out{background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;
+    padding:clamp(24px,3vw,34px);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    position:sticky;top:100px;}
+  .out .stamp{display:inline-flex;align-items:center;gap:7px;font-family:var(--body);font-weight:700;
+    font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#FFB84D;
+    border:1px dashed rgba(255,184,77,.55);border-radius:5px;padding:5px 10px;margin-bottom:22px;}
+  .orow{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+    padding:16px 0;border-bottom:1px solid var(--line);}
+  .orow:last-of-type{border-bottom:0;}
+  .orow .ok{font-size:14.5px;color:var(--fg-2);max-width:16em;line-height:1.4;}
+  .orow .ov{font-family:var(--display);font-weight:600;font-size:clamp(22px,2.6vw,32px);
+    letter-spacing:-.02em;color:var(--yellow);white-space:nowrap;}
+  .orow.muted .ov{color:var(--fg);}
+  .out .disclaim{margin:22px 0 0;padding-top:20px;border-top:1px solid var(--line);
+    font-size:13px;color:var(--fg-3);line-height:1.55;}
+
+  /* ---------- one-pager (print) ---------- */
+  .onepager{margin-top:26px;}
+  .op-body{display:none;}
+
+  @media print{
+    @page{margin:14mm;}
+    :root{--bg:#fff;--fg:#111;--fg-2:#333;--fg-3:#555;--line:#ccc;--glass:#fff;--glass-line:#bbb;}
+    html,body{background:#fff!important;color:#111!important;font-size:11pt;}
+    header,.menu,.skip,footer,.particles,.phero .glow,.btns,.calc,.laxis,
+    .noprint{display:none!important;}
+    .op-body{display:block!important;}
+    section{padding:0 0 14pt!important;}
+    .wrap{max-width:none;padding:0;}
+    .card,.rung,.tablewrap,.out{background:#fff!important;border:1px solid #bbb!important;
+      box-shadow:none!important;backdrop-filter:none!important;break-inside:avoid;}
+    .rung{margin-left:0!important;}
+    .rung .n,.orow .ov{color:#111!important;}
+    .shimmer,.shimmer-y{color:#111!important;-webkit-text-fill-color:#111!important;background:none!important;}
+    .tier{border:1px solid #666!important;color:#111!important;background:#fff!important;}
+    .tier.proven{background:#eee!important;}
+    .phero{padding:0 0 12pt!important;}
+    .phero h1{font-size:22pt;}
+    .h2{font-size:15pt;}
+    a[href]::after{content:'';}
+    .r{opacity:1!important;transform:none!important;}
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" aria-label="Wolf Games home"><img class="wm" src="assets/wordmark-yellow.svg" alt="Wolf Games"></a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Site menu">
+  <a href="problem.html" aria-current="page">The Problem</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="demo.html">Play the Demo</a>
+  <a href="contact.html">Talk to Us</a>
+  <a href="about.html">About Us</a>
+  <a class="mplay" href="vault.html">Players — enter the vault</a>
+</nav>
+
+<main id="main">
+
+<section class="phero obs">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="label r">The problem</span>
+    <h1 class="r d1">A click that never returns has almost <span class="shimmer-y">no worth.</span></h1>
+    <p class="lede r d2">You can buy a click. You cannot buy a return. This page gives you the language and the arithmetic to put that in front of your own board.</p>
+    <div class="btns r d3" style="margin-top:34px;">
+      <button class="btn ghost" type="button" id="print-op">Download the one-page version</button>
+    </div>
+    <p class="op-body" style="margin-top:10pt;">Wolf Games &middot; the attention ladder &middot; internal summary. Prepared for a publisher audience. Claims are labelled: <b>proven</b> is a plain fact, <b>we expect</b> is a design target, <b>our bet</b> is not yet measured.</p>
+  </div>
+</section>
+
+<!-- the eight pains -->
+<section class="obs" style="padding-top:clamp(40px,6vh,70px);">
+  <div class="wrap">
+    <span class="label r">What we hear</span>
+    <h2 class="h2 r d1" style="margin-top:16px;">Eight pains, and how sure we are about each one.</h2>
+    <p class="sub r d2">We separate what we have proven from what we believe. If a line below is only a belief, we say so &mdash; including where that weakens our own pitch.</p>
+
+    <div class="tablewrap r d2 pains">
+      <table class="t">
+        <thead>
+          <tr><th scope="col">&nbsp;</th><th scope="col">The pain</th><th scope="col">How sure we are</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="pid">P1</td>
+            <td class="p"><strong>Daily return visits fall each quarter.</strong> You can buy clicks. You cannot buy return.</td>
+            <td><span class="tier expect">We expect</span></td>
+          </tr>
+          <tr>
+            <td class="pid">P2</td>
+            <td class="p"><strong>Clickbait wins attention that is worth little.</strong> The reader arrives, reads twenty seconds, and leaves. That session is hard to sell at a good price.</td>
+            <td><span class="tier expect">We expect</span></td>
+          </tr>
+          <tr>
+            <td class="pid">P3</td>
+            <td class="p"><strong>You have no game team, and no realistic path to one.</strong></td>
+            <td><span class="tier proven">Proven</span></td>
+          </tr>
+          <tr>
+            <td class="pid">P4</td>
+            <td class="p"><strong>Vendor products look the same in every market.</strong> No vendor product is about your town.</td>
+            <td><span class="tier expect">We expect</span></td>
+          </tr>
+          <tr>
+            <td class="pid">P5</td>
+            <td class="p"><strong>A vendor defect on your page is your embarrassment, not the vendor&rsquo;s.</strong></td>
+            <td><span class="tier proven">Proven</span></td>
+          </tr>
+          <tr>
+            <td class="pid">P6</td>
+            <td class="p"><strong>The audience relationship moves to the large platforms a little more each day.</strong></td>
+            <td><span class="tier expect">We expect</span></td>
+          </tr>
+          <tr>
+            <td class="pid">P7</td>
+            <td class="p"><strong>The board asks for innovation, but you cannot accept product risk to get it.</strong></td>
+            <td><span class="tier expect">We expect</span></td>
+          </tr>
+          <tr>
+            <td class="pid">P8</td>
+            <td class="p"><strong>You must show a number that survives scrutiny.</strong> Soft attention metrics do not survive it.</td>
+            <td><span class="tier expect">We expect</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note r d2">
+      <b>Why the labels.</b> Two of these eight are proven, because they are the reason our current deals exist. The other six are what we believe from the rooms we sit in. We would rather you find the label here than find it in a procurement review.
+    </div>
+  </div>
+</section>
+
+<!-- the ladder -->
+<section class="obs" id="ladder">
+  <div class="wrap">
+    <span class="label r">The attention ladder</span>
+    <h2 class="h2 r d1" style="margin-top:16px;">Four rungs. Each one is worth more than the one below.</h2>
+    <p class="sub r d2">Name the rung, name the metric, name the thing that lifts a reader to the next one. If a rung has no mechanism, a reader does not climb it.</p>
+
+    <div class="laxis r d2" aria-hidden="true"><span>Lower value</span><span class="bar"></span><span>Higher value</span></div>
+
+    <div class="ladder">
+      <div class="rung r d1" style="--i:0;--lit:.14;">
+        <div class="n">01</div>
+        <div>
+          <div class="rhead"><h3 class="rname">Click</h3><span class="metric">Page view</span></div>
+          <p class="does">The reader arrives and leaves.</p>
+          <p class="lift"><b>What lifts them:</b> nothing. Clickbait stops here.</p>
+        </div>
+      </div>
+      <div class="rung r d2" style="--i:1;--lit:.4;">
+        <div class="n">02</div>
+        <div>
+          <div class="rhead"><h3 class="rname">Play</h3><span class="metric">Session time · completion</span><span class="tier expect">We expect</span></div>
+          <p class="does">The reader gives two to four minutes of active attention.</p>
+          <p class="lift"><b>What lifts them:</b> one short puzzle, low friction, and a fast first win.</p>
+        </div>
+      </div>
+      <div class="rung r d3" style="--i:2;--lit:.7;">
+        <div class="n">03</div>
+        <div>
+          <div class="rhead"><h3 class="rname">Return</h3><span class="metric">Next-day and 7-day return · streak length</span><span class="tier bet">Our bet</span></div>
+          <p class="does">The reader comes back the next day without a prompt.</p>
+          <p class="lift"><b>What lifts them:</b> the story stops one beat too soon, and the next edition drops tomorrow. <b>This rung is a bet.</b> No pilot has measured it. We will not publish a return number until one does.</p>
+        </div>
+      </div>
+      <div class="rung top r d4" style="--i:3;--lit:1;">
+        <div class="n">04</div>
+        <div>
+          <div class="rhead"><h3 class="rname">Declaration</h3><span class="metric">Declared profile rate</span><span class="tier expect">We expect</span></div>
+          <p class="does">The reader tells you their town and their interest with one tap.</p>
+          <p class="lift"><b>What lifts them:</b> the edition changes in front of them. The change is the receipt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- the model -->
+<section class="obs" id="model">
+  <div class="wrap">
+    <span class="label r">What a rung is worth</span>
+    <h2 class="h2 r d1" style="margin-top:16px;">Run the arithmetic with your own numbers.</h2>
+    <p class="sub r d2">We do not supply the inputs, because we have not measured them on your property. Put your own figures in and the model does the multiplication in front of you.</p>
+
+    <div class="model noprint">
+      <div class="calc card r d1">
+        <div class="field">
+          <label for="pv">Monthly page views</label>
+          <input type="text" inputmode="numeric" id="pv" value="1,000,000">
+          <p class="hint">Your number, from your own analytics.</p>
+        </div>
+        <div class="field">
+          <label for="startrate">Share of visitors who start a game (%)</label>
+          <input type="text" inputmode="decimal" id="startrate" value="3">
+          <p class="hint">Placeholder so the arithmetic runs. Replace it with a figure your team is willing to defend.</p>
+        </div>
+        <div class="field">
+          <label for="spm">Play sessions per player, per month</label>
+          <input type="text" inputmode="decimal" id="spm" value="4">
+          <p class="hint">This is the rung-three assumption. It is the one we have not measured.</p>
+        </div>
+        <div class="field">
+          <label for="imp">Ad impressions per play session</label>
+          <input type="text" inputmode="decimal" id="imp" value="2">
+          <p class="hint">Set by your own page template and your own policy.</p>
+        </div>
+      </div>
+
+      <div class="out r d2" aria-live="polite">
+        <span class="stamp">Model, not a measurement</span>
+        <div class="orow muted">
+          <span class="ok">Visitors who start a game</span>
+          <span class="ov" id="o-players">30,000</span>
+        </div>
+        <div class="orow">
+          <span class="ok">Monthly play sessions</span>
+          <span class="ov" id="o-sessions">120,000</span>
+        </div>
+        <div class="orow">
+          <span class="ok">Monthly impressions from play</span>
+          <span class="ov" id="o-imps">240,000</span>
+        </div>
+        <div class="orow muted">
+          <span class="ok">Active minutes, at three minutes a session</span>
+          <span class="ov" id="o-mins">360,000</span>
+        </div>
+        <p class="disclaim">
+          Every input above is yours. Wolf Games supplies none of them, and the defaults are placeholders that let the arithmetic run &mdash; they are not our measurements and they are not our forecast. We will not publish a retention figure until a pilot produces one on a real property.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="obs noprint" style="padding-top:0;">
+  <div class="wrap">
+    <div class="card r" style="text-align:center;padding:clamp(34px,5vw,56px);">
+      <h2 class="h2" style="font-size:clamp(26px,3.2vw,40px);">The next rung is the one we have to prove together.</h2>
+      <p class="sub" style="margin-left:auto;margin-right:auto;">Play the demo and you will feel the mechanism that is supposed to do it. Then tell us whether you would put it on one page for one quarter.</p>
+      <div class="btns" style="justify-content:center;margin-top:32px;">
+        <a class="btn" href="demo.html">Play today&rsquo;s edition <span class="arrow">&rarr;</span></a>
+        <a class="btn ghost" href="contact.html">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="noprint">
+  <div class="wrap">
+    <div class="ftop">
+      <div class="fbrand">
+        <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
+        <p>Wolf Games builds and runs a daily game vault on a publisher&rsquo;s own surface, under the publisher&rsquo;s own brand.</p>
+      </div>
+      <div>
+        <h4>The case</h4>
+        <ul>
+          <li><a href="problem.html">The problem</a></li>
+          <li><a href="how-it-works.html">How it works</a></li>
+          <li><a href="demo.html">Play the demo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Talk to us</a></li>
+          <li><a href="https://wolf-games.breezy.hr/" target="_blank" rel="noopener">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="legal.html">Terms, privacy &amp; cookies</a></li>
+          <li><a href="mailto:partners@wolfgames.net">partners@wolfgames.net</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span>&copy; 2026 Wolf Games. All rights reserved.</span>
+      <span>Partners are here. Players play at <a class="lnk" href="vault.html">the vault</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+<script>
+/* ---- the attention model (FR-7) ----
+   Every input belongs to the visitor. Nothing here is a Wolf Games
+   measurement or forecast; the output carries that label on screen. */
+(function(){
+  var ids=['pv','startrate','spm','imp'];
+  var els={}; ids.forEach(function(id){ els[id]=document.getElementById(id); });
+  if(!els.pv) return;
+
+  var out={
+    players:document.getElementById('o-players'),
+    sessions:document.getElementById('o-sessions'),
+    imps:document.getElementById('o-imps'),
+    mins:document.getElementById('o-mins')
+  };
+
+  function num(el){
+    var v=parseFloat(String(el.value).replace(/[^0-9.]/g,''));
+    return isFinite(v)&&v>=0 ? v : 0;
+  }
+  function fmt(n){
+    if(!isFinite(n)) return '—';
+    return Math.round(n).toLocaleString('en-US');
+  }
+  function calc(){
+    var pv=num(els.pv), rate=num(els.startrate)/100, spm=num(els.spm), imp=num(els.imp);
+    var players=pv*rate;
+    var sessions=players*spm;
+    out.players.textContent=fmt(players);
+    out.sessions.textContent=fmt(sessions);
+    out.imps.textContent=fmt(sessions*imp);
+    out.mins.textContent=fmt(sessions*3);
+  }
+  ids.forEach(function(id){
+    els[id].addEventListener('input',calc);
+    els[id].addEventListener('blur',function(){
+      /* re-format the page-view field with thousands separators */
+      if(id==='pv'){ var v=num(els.pv); if(v) els.pv.value=fmt(v); }
+    });
+  });
+  calc();
+})();
+
+/* ---- one-page version for internal circulation ---- */
+(function(){
+  var b=document.getElementById('print-op');
+  if(b) b.addEventListener('click',function(){ window.print(); });
+})();
+</script>
+</body>
+</html>
