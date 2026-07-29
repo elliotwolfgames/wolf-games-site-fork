@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Games that learn your audience.</title>
-<meta name="description" content="We build, host and run a vault of games for your audience, under your brand, on the cadence you choose. The system gets better at your audience every time they play.">
+<title>Wolf Games · a vault of games that learns your audience.</title>
+<meta name="description" content="A vault of games built out of what you already own, running under your brand, on the cadence you choose. We build it, host it and run it. No games team required on your side.">
 <link rel="canonical" href="https://wolfgames.net/">
 <link rel="stylesheet" href="css/wg.css">
 <script>document.documentElement.className+=' js';</script>
@@ -46,32 +46,18 @@
     .hero .bg img{opacity:.18;}
   }
 
-  .hero-subline{margin:18px 0 0;max-width:34em;font-size:clamp(15.5px,1.4vw,17.5px);color:var(--fg);}
-  .hero-source{margin:14px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--fg-40);}
-
-  /* three worlds, one mechanic */
-  .worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.8vw,22px);margin-top:44px;}
-  @media (max-width:760px){.worlds{grid-template-columns:1fr;}}
-  .world figure{margin:0;}
-  .world .scr{position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line-2);
-    background:#0a0a0a;}
-  .world .scr img{width:100%;height:100%;object-fit:cover;}
-  .world .wlabel{display:block;margin-top:14px;font-family:var(--mono);font-weight:500;font-size:10px;
-    letter-spacing:.16em;text-transform:uppercase;color:var(--fg-40);}
-  .world .wname{display:block;margin-top:5px;font-family:var(--display);font-weight:600;font-size:16px;}
-  .worlds-note{margin-top:22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--fg-40);}
-
-  /* hosts in the arch treatment, fanned like the live site's cards */
-  .hosts{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,26px);
-    align-items:end;margin-top:44px;}
-  @media (max-width:820px){.hosts{grid-template-columns:1fr;max-width:380px;}}
-  .hosts .tag{margin-bottom:-14px;}
-  .hosts .arch{margin:0;}
-  @media (min-width:821px){
-    .hosts .arch:nth-of-type(2){transform:translateY(-22px);}
-  }
+  /* host options: arch portrait over the option copy */
+  .hostopts{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,30px);margin-top:44px;}
+  @media (max-width:820px){.hostopts{grid-template-columns:1fr;max-width:420px;}}
+  .hopt .arch{margin:0 0 22px;aspect-ratio:4/5;}
+  .hopt .onum{display:block;font-family:var(--mono);font-weight:600;font-size:10.5px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--yellow);}
+  .hopt h3{font-family:var(--display);font-weight:600;font-size:clamp(18px,1.9vw,22px);
+    letter-spacing:-.015em;margin:12px 0 10px;}
+  .hopt p{margin:0;color:var(--fg-60);font-size:15px;line-height:1.6;}
+  .hopt .otag{display:block;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-40);}
+  @media (min-width:821px){.hopt:nth-child(2) .arch{transform:translateY(-18px);}}
 
   /* sponsor frame with callout */
   .spon-grid{display:grid;grid-template-columns:1fr .9fr;gap:clamp(34px,5vw,70px);align-items:center;}
@@ -134,13 +120,12 @@
     <div class="grid">
       <div>
         <h1 class="h1 hero-anim">
-          <span data-copy="index.hero.h1a">A new reason to show up.</span>
-          <span class="y" data-copy="index.hero.h1b">Every day. Forever.</span>
+          <span data-copy="index.hero.h1a">Games that learn</span>
+          <span class="y" data-copy="index.hero.h1b">your audience.</span>
         </h1>
         <hr class="rule hero-anim">
-        <p class="lede hero-anim" data-copy="index.hero.lede">Two hundred and twelve million Americans already play games every week. Two-thirds of the country, an hour or more, with nobody asking them to. We build the games that make you part of that habit, out of what you already own, and the system gets better at your audience every time they play.</p>
-        <p class="hero-subline hero-anim" data-copy="index.hero.subline">You set the cadence, up to a new drop every day. We do the rest.</p>
-        <p class="hero-source hero-anim" data-copy="index.hero.source">Entertainment Software Association and YouGov, June 2026</p>
+        <p class="lede hero-anim" data-copy="index.hero.lede">We build, host and run a vault of games for your audience, under your brand, on the cadence you choose. The system gets better at your audience every time they play.</p>
+        
         <div class="btns hero-anim">
           <a class="btn" href="demo.html" data-copy="index.hero.cta1">Play today&rsquo;s edition</a>
           <a class="btn ghost" href="problem.html" data-copy="index.hero.cta2">See what a pilot looks like</a>
@@ -172,12 +157,13 @@
   </div>
 </section>
 
-<!-- ===================== 2.2 WHAT IT IS ===================== -->
+<!-- ===================== WHAT IT IS ===================== -->
 <section class="obs" id="shelf">
   <div class="wrap">
     <span class="eyebrow r" data-copy="index.shelf.label">One vault, several channels</span>
-    <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.shelf.h2">Nobody builds a habit across a whole audience with one puzzle.</h2>
-    <p class="sub r d2" data-copy="index.shelf.body">Each channel has its own mechanic, its own host, and a story that keeps going. Someone who bounces off one finds another, and the ones they play tell us what to surface next.</p>
+    <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.shelf.h2">A new reason to show up every day.</h2>
+    <p class="sub r d2" data-copy="index.shelf.body">Two hundred and twelve million Americans already play games every week. We make you part of that habit with games that speak specifically to your audience.</p>
+    <p class="sub r d2" data-copy="index.shelf.sub">Our vault integration delivers top game mechanics tailored to your brand, learning which resonate with your audience and how to improve them.</p>
 
     <div class="shelf">
       <div class="tile r d1">
@@ -193,226 +179,98 @@
       <div class="tile r d2">
         <figure>
           <div class="scr"><img src="assets/on-the-wire.jpg" alt="On the Wire" loading="lazy"></div>
-          <figcaption>
-            <span class="tmech">Word search</span>
-            <span class="tname">On the Wire</span>
-          </figcaption>
+          <figcaption><span class="tmech">Word search</span><span class="tname">On the Wire</span></figcaption>
         </figure>
       </div>
       <div class="tile r d3">
         <figure>
           <div class="scr"><img src="assets/off-the-record.jpg" alt="Off the Record" loading="lazy"></div>
-          <figcaption>
-            <span class="tmech">Hosted trivia</span>
-            <span class="tname">Off the Record</span>
-          </figcaption>
+          <figcaption><span class="tmech">Hosted trivia</span><span class="tname">Off the Record</span></figcaption>
         </figure>
       </div>
       <div class="tile r d4">
         <figure>
-          <!-- No art exists for this channel yet (open item 6). Visible
-               placeholder rather than a silent stub or a borrowed screen. -->
           <div class="scr pending"><span>Art<br>pending</span></div>
-          <figcaption>
-            <span class="tmech">Match and clear</span>
-            <span class="tname">Nana&rsquo;s Bakery</span>
-          </figcaption>
+          <figcaption><span class="tmech">Match and clear</span><span class="tname">Nana&rsquo;s Bakery</span></figcaption>
         </figure>
       </div>
       <div class="tile r d5">
         <figure>
           <div class="scr"><img src="assets/linked-2-crop.jpg" alt="Linked" loading="lazy"></div>
-          <figcaption>
-            <span class="tmech">Connections puzzle</span>
-            <span class="tname">Linked</span>
-          </figcaption>
+          <figcaption><span class="tmech">Connections puzzle</span><span class="tname">Linked</span></figcaption>
         </figure>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== 2.3 NOT A RESKIN ===================== -->
-<section class="obs" id="mechanic">
+<!-- ===================== SOMEONE TO PLAY WITH ===================== -->
+<section class="obs" id="host">
   <div class="wrap">
-    <span class="eyebrow r" data-copy="index.mech.label">Built from you, not painted over</span>
+    <span class="eyebrow r" data-copy="index.host.label">Every game has a host</span>
     <h2 class="h2 r d1" style="margin-top:20px;">
-      <span data-copy="index.mech.h2a">Anyone can put your logo on a puzzle.</span>
-      <span class="y" data-copy="index.mech.h2b">We build the puzzle out of you.</span>
+      <span data-copy="index.host.h2a">Someone</span>
+      <span class="y" data-copy="index.host.h2b">to play with.</span>
     </h2>
-    <p class="sub r d2" data-copy="index.mech.body">A reskin is a stock game wearing your colors, and your audience can tell inside ten seconds. We start from the other end. What your audience already does with you becomes the thing they do in the game.</p>
+    <p class="sub r d2" data-copy="index.host.body">A licensed catalog game gives your audience a generic puzzle. Ours gives them a personality-driven experience. Every game is fronted by a host who guides the play, reacts to how it goes, and gives the format a face.</p>
 
-    <!-- one mechanic, three worlds -->
-    <div class="worlds">
-      <div class="world r d1">
-        <figure>
-          <div class="scr"><img src="assets/scene-street.jpg" alt="The same mechanic set on a city street" loading="lazy"></div>
-          <figcaption>
-            <span class="wlabel">World one</span>
-            <span class="wname">The street</span>
-          </figcaption>
+    <div class="hostopts">
+      <div class="hopt r d1">
+        <figure class="arch">
+          <img src="assets/ph-woman-cel.jpg" alt="A host drawn from real talent" loading="lazy">
         </figure>
+        <span class="onum" data-copy="index.host.o1.num">Option 01</span>
+        <h3 data-copy="index.host.o1.head">A real voice.</h3>
+        <p data-copy="index.host.o1.body">Talent your audience already follows. The game becomes their drop, and the trust they have built comes with it.</p>
+        <span class="otag" data-copy="index.host.o1.tag">Real &middot; trusted</span>
       </div>
-      <div class="world r d2">
-        <figure>
-          <div class="scr"><img src="assets/scene-stadium.jpg" alt="The same mechanic set in a stadium" loading="lazy"></div>
-          <figcaption>
-            <span class="wlabel">World two</span>
-            <span class="wname">The stadium</span>
-          </figcaption>
+      <div class="hopt r d2">
+        <figure class="arch">
+          <img src="assets/ph-woman-sp.jpg" alt="A host drawn from a partner&rsquo;s own world" loading="lazy">
         </figure>
+        <span class="onum" data-copy="index.host.o2.num">Option 02</span>
+        <h3 data-copy="index.host.o2.head">A character from your world.</h3>
+        <p data-copy="index.host.o2.body">A known face out of your own IP, brought in to front the format with the fandom already attached.</p>
+        <span class="otag" data-copy="index.host.o2.tag">Licensed &middot; iconic</span>
       </div>
-      <div class="world r d3">
-        <figure>
-          <div class="scr"><img src="assets/scene-crate.jpg" alt="The same mechanic set in a storeroom" loading="lazy"></div>
-          <figcaption>
-            <span class="wlabel">World three</span>
-            <span class="wname">The storeroom</span>
-          </figcaption>
+      <div class="hopt r d3">
+        <figure class="arch">
+          <img src="assets/ph-woman-gn.jpg" alt="An original host built for a partner" loading="lazy">
         </figure>
-      </div>
-    </div>
-    <p class="worlds-note">One mechanic, three worlds. Definitive art for this section is in production.</p>
-
-    <div class="ncards">
-      <div class="ncard r d1">
-        <span class="num">01</span>
-        <h3 data-copy="index.mech.p1.head">The mechanic comes from what you do.</h3>
-        <p data-copy="index.mech.p1.body">An investigation brand gets a game about searching a scene and assembling the case. A food brand gets a board that fills with the product and pays out in real rewards. A sports brand gets a game played against the clock and the table. The verb of the game is your verb.</p>
-        <span class="pin">The verb</span>
-      </div>
-      <div class="ncard r d2">
-        <span class="num">02</span>
-        <h3 data-copy="index.mech.p2.head">The host comes from who you are.</h3>
-        <p data-copy="index.mech.p2.body">Every channel is fronted by a character written the way we would write a series regular, with a history, an attitude and a way of seeing the world. Your on-air talent, your mascot, or someone new we build for you. People come back for a person, not a mechanic.</p>
-        <span class="pin">The person</span>
-      </div>
-      <div class="ncard r d3">
-        <span class="num">03</span>
-        <h3 data-copy="index.mech.p3.head">The content comes from what you own.</h3>
-        <p data-copy="index.mech.p3.body">Your catalog, your world, your cast, your back issues, your library. It is the one asset in this business nobody can license out from under you, and it was built to do one job. It can carry another.</p>
-        <span class="pin">The material</span>
-      </div>
-      <div class="ncard r d4">
-        <span class="num">04</span>
-        <h3 data-copy="index.mech.p4.head">The art direction is yours.</h3>
-        <p data-copy="index.mech.p4.body">We keep a house of styles to move fast, and we build bespoke ones tuned to a brand when the identity demands it. Nothing ships that would look at home on somebody else&rsquo;s site.</p>
-        <span class="pin">The look</span>
+        <span class="onum" data-copy="index.host.o3.num">Option 03</span>
+        <h3 data-copy="index.host.o3.head">An original we create.</h3>
+        <p data-copy="index.host.o3.body">A new character built for you, designed from your culture up, and yours to keep.</p>
+        <span class="otag" data-copy="index.host.o3.tag">Original &middot; owned</span>
       </div>
     </div>
 
-    <!-- Hosts, in the arch treatment the player site uses for its
-         characters. Archetypes rather than named characters: the host
-         on a partner channel is built with that partner. -->
-    <div class="hosts">
-      <span class="tag r" style="grid-column:1/-1;">Hosts we have built</span>
-      <figure class="arch r d1">
-        <img src="assets/ph-woman-sp.jpg" alt="A host archetype: the analyst" loading="lazy">
-        <figcaption class="cap">
-          <span class="role">The analyst</span>
-          <span class="name">Reads the signal</span>
-          <p class="quote">&ldquo;Your phone tells me everything I need to know.&rdquo;</p>
-        </figcaption>
-      </figure>
-      <figure class="arch r d2">
-        <img src="assets/ph-woman-cel.jpg" alt="A host archetype: the insider" loading="lazy">
-        <figcaption class="cap">
-          <span class="role">The insider</span>
-          <span class="name">Knows who talked</span>
-          <p class="quote">&ldquo;Everyone here owes somebody a favour.&rdquo;</p>
-        </figcaption>
-      </figure>
-      <figure class="arch r d3">
-        <img src="assets/ph-woman-gn.jpg" alt="A host archetype: the veteran" loading="lazy">
-        <figcaption class="cap">
-          <span class="role">The veteran</span>
-          <span class="name">Has seen this before</span>
-          <p class="quote">&ldquo;Cut the noise. Find the truth.&rdquo;</p>
-        </figcaption>
-      </figure>
-    </div>
-
-    <div class="btns r d4" style="margin-top:30px;">
-      <span class="chip proven" data-copy="index.mech.tier">Proven capability</span>
+    <p class="sub r d3" data-copy="index.host.close">Whoever it is, the host is relatable and lives in the culture. That is the difference between a stock game wearing your colors and a channel that belongs to your brand.</p>
+    <div class="btns r d3">
+      <span class="chip proven" data-copy="index.host.tier">Proven capability</span>
     </div>
   </div>
 </section>
 
-<!-- ===================== IT GETS BETTER AT YOUR AUDIENCE ===================== -->
-<section class="obs" id="learn">
-  <div class="wrap">
-    <span class="eyebrow r" data-copy="index.learn.label">The network that learns</span>
-    <h2 class="h2 r d1" style="margin-top:20px;">
-      <span data-copy="index.learn.h2a">A catalog game is the same the day you launch it</span>
-      <span class="y" data-copy="index.learn.h2b">and the day you cancel it.</span>
-    </h2>
-    <p class="sub r d2" data-copy="index.learn.body">Every session records what someone started, finished, abandoned and came back to, and connects it to the exact version, mechanic and moment that produced it. That evidence decides what we build for your audience next. The games on your surfaces in month six are shaped by what your audience did in months one through five.</p>
-
-    <div class="ncards">
-      <div class="ncard r d1">
-        <span class="num">01</span>
-        <h3 data-copy="index.learn.p1.head">We change the game, not just the settings.</h3>
-        <p data-copy="index.learn.p1.body">Most systems choose between options a team prepared in advance. Ours generates new levels and alters the rules themselves, then plays the result before anyone sees it. The thing being optimized is the game, not a dial on the side of it.</p>
-        <span class="pin">The mechanism</span>
-      </div>
-      <div class="ncard r d2">
-        <span class="num">02</span>
-        <h3 data-copy="index.learn.p2.head">Relevance compounds. Novelty does not.</h3>
-        <p data-copy="index.learn.p2.body">A licensed catalog game is at its best on day one. This is the opposite shape. The longer it runs on your surfaces, the more it knows about what your audience finishes, and the harder that is for anyone to start over on.</p>
-        <span class="pin">The shape</span>
-      </div>
-    </div>
-
-    <div class="btns r d3" style="margin-top:30px;">
-      <span class="chip expect" data-copy="index.learn.tier">We expect</span>
-    </div>
-    <p class="foot-note r d3" data-copy="index.learn.note">The loop runs today across our supported game architectures. Whether it produces repeatable, measured improvement against a control is what we are proving now, and it is the same thing a pilot would show you on your own audience.</p>
-  </div>
-</section>
-
-<!-- ===================== 2.4 DOES ANYONE PLAY IT ===================== -->
-<section class="obs" id="proof">
-  <div class="wrap">
-    <span class="eyebrow r" data-flag="namedProof" data-copy="index.proof.label">Live results &middot; Law &amp; Order: Clue Hunter, new cases weekly on Peacock</span>
-    <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.proof.h2">Six minutes, against six seconds.</h2>
-
-    <div class="stats" data-flag="liveFigures">
-      <div class="stat r d1">
-        <span class="fig">60<span class="unit">%+</span></span>
-        <p class="slabel" data-copy="index.proof.stat1">finish a case they start</p>
-      </div>
-      <div class="stat r d2">
-        <span class="fig">20<span class="unit">%+</span></span>
-        <p class="slabel" data-copy="index.proof.stat2">come back and replay a case they have already solved</p>
-      </div>
-      <div class="stat r d3">
-        <span class="fig">6<span class="unit sp">min+</span></span>
-        <p class="slabel" data-copy="index.proof.stat3">average session, against six to ten seconds on a paid social post</p>
-      </div>
-    </div>
-
-    <div class="btns r d3" style="margin-top:30px;">
-      <span class="chip proven" data-copy="index.proof.tier">Proven</span>
-    </div>
-
-    <p class="foot-note r d3" data-copy="index.proof.note">Measured on one of our own live channels, not on a partner&rsquo;s surfaces. These are engagement figures, not a retention lift. Whether it becomes an unprompted return for your audience is the one thing a pilot exists to settle, and we will not publish a number for it until a pilot produces one.</p>
-
-    <p class="r d4" style="margin-top:30px;">
-      <a class="tlink" href="problem.html#ladder" data-copy="index.ladder.cta">See how we value a returning player</a>
-    </p>
-  </div>
-</section>
-
-<!-- ===================== 2.5 WHAT IT EARNS YOU ===================== -->
+<!-- ===================== WHAT IT EARNS YOU ===================== -->
 <section class="obs" id="sponsor">
   <div class="wrap">
-    <div class="spon-grid">
-      <div>
-        <span class="eyebrow r" data-copy="index.spon.label">New inventory, sold by your team</span>
-        <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.spon.h2">The sponsor is part of the game, not a banner around it.</h2>
-        <p class="sub r d2" data-copy="index.spon.body">A sponsor inside the play is inventory that does not exist for you today. Their world becomes the scene, the word in the grid, the board, or the reward at the end. Nothing interrupts, so nothing gets blocked, and nobody sells your audience better than you do. We supply the play surface and the creative.</p>
-        <div class="btns r d2">
-          <span class="chip proven" data-copy="index.spon.tier">Proven capability</span>
+    <span class="eyebrow r" data-copy="index.spon.label">New inventory, sold by your team</span>
+    <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.spon.h2">The brand is part of the game, not a banner around it.</h2>
+    <p class="sub r d2" data-copy="index.spon.body">A sponsor inside the play is inventory that does not exist for you today. Nothing interrupts, so nothing gets blocked, and nobody sells your audience better than you do. We supply the play surface and the creative.</p>
+
+    <div class="spon-grid" style="margin-top:44px;">
+      <div class="ncards" style="margin-top:0;grid-template-columns:1fr;">
+        <div class="ncard r d1">
+          <span class="num" data-copy="index.spon.o1.num">01</span>
+          <h3 data-copy="index.spon.o1.head">The brand goes into the mechanic.</h3>
+          <p data-copy="index.spon.o1.body">Themed drops by vertical, built to fit whatever the sponsor sells. Their world becomes the scene, the evidence, the board, or the reward. It is part of how the game is played rather than something wrapped around it.</p>
+          <span class="pin" data-copy="index.spon.o1.tag">Native by design</span>
+        </div>
+        <div class="ncard r d2">
+          <span class="num" data-copy="index.spon.o2.num">02</span>
+          <h3 data-copy="index.spon.o2.head">Play can end at the buy button.</h3>
+          <p data-copy="index.spon.o2.body">Every game can finish on a shoppable product, routed through the commerce rails you already run. The play is the discovery, the reveal is the want, the link is the sale.</p>
+          <span class="pin" data-copy="index.spon.o2.tag">Commerce</span>
         </div>
       </div>
 
@@ -424,6 +282,50 @@
         </div>
       </div>
     </div>
+
+    <div class="btns r d3">
+      <span class="chip proven" data-copy="index.spon.tier">Proven capability</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== IT GETS BETTER AT YOUR AUDIENCE ===================== -->
+<section class="obs" id="learn">
+  <div class="wrap narrow">
+    <span class="eyebrow r" data-copy="index.learn.label">The network that learns</span>
+    <h2 class="h2 r d1" style="margin-top:20px;">
+      <span data-copy="index.learn.h2a">The longer the games run,</span>
+      <span class="y" data-copy="index.learn.h2b">the better they get.</span>
+    </h2>
+    <p class="sub r d2" data-copy="index.learn.body">Every session learns more about what resonates with your players and informs what we build for them next. The games on your surfaces in month six are shaped by what your audience did in months one through five.</p>
+    <p class="foot-note r d2" data-copy="index.learn.note">The loop runs today across our supported game architectures. Whether it produces repeatable, measured improvement against a control is what we are proving now, and it is the same thing a pilot would show you on your own audience.</p>
+  </div>
+</section>
+
+<!-- ===================== DOES ANYONE PLAY IT ===================== -->
+<section class="obs" id="proof">
+  <div class="wrap">
+    <span class="eyebrow r" data-flag="namedProof" data-copy="index.proof.label">Live results &middot; Law &amp; Order: Clue Hunter, new cases weekly on Peacock</span>
+    <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.proof.h2">Six minutes, against six seconds.</h2>
+
+    <div class="stats" data-flag="liveFigures">
+      <div class="stat r d1">
+        <span class="fig" data-copy="index.proof.stat1.num">60<i class="unit">%+</i></span>
+        <p class="slabel" data-copy="index.proof.stat1.label">finish a case they start</p>
+      </div>
+      <div class="stat r d2">
+        <span class="fig" data-copy="index.proof.stat2.num">20<i class="unit">%+</i></span>
+        <p class="slabel" data-copy="index.proof.stat2.label">come back and replay a case they have already solved</p>
+      </div>
+      <div class="stat r d3">
+        <span class="fig" data-copy="index.proof.stat3.num">6<i class="unit"> min+</i></span>
+        <p class="slabel" data-copy="index.proof.stat3.label">average session, against six to ten seconds on a paid social post</p>
+      </div>
+    </div>
+
+    <p class="r d4" style="margin-top:34px;">
+      <a class="tlink" href="problem.html#ladder" data-copy="index.ladder.cta">See how we value a returning player</a>
+    </p>
   </div>
 </section>
 
