@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "animejs": "^4.5.0"
+  },
+  "name": "wolfgames-net",
+  "private": true,
+  "version": "1.0.0",
+  "description": "wolfgames.net partner site. Static, no build step.",
+  "scripts": {
+    "vendor": "cp node_modules/animejs/dist/bundles/anime.esm.min.js js/vendor/anime.esm.min.js",
+    "postinstall": "npm run vendor"
+  }
+}

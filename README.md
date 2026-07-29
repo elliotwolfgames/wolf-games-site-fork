@@ -106,6 +106,35 @@ vault.html profile.html   player pages, not linked from the partner nav
 deck/                 internal pitch decks (CONFIDENTIAL, keep private)
 ```
 
+## anime.js
+
+The hero reveal uses **anime.js v4** (`animate` + `onScroll`). v4 has **no
+default export**: it is `import { animate, onScroll } from 'animejs'`, never
+`anime()`.
+
+There is no bundler here and `node_modules/` is gitignored, so a bare
+`'animejs'` specifier would neither resolve in the browser nor survive deploy.
+Two things bridge that, and both are deliberate:
+
+1. The ESM bundle is **vendored** to `js/vendor/anime.esm.min.js` and committed.
+   `npm install` re-copies it via the `postinstall` hook, so the served copy
+   cannot drift from the installed one. To upgrade: `npm install animejs@latest`.
+2. An **import map** in `index.html` points `animejs` at that file, so
+   `js/hero-anim.js` uses the documented bare specifier rather than a brittle
+   relative path into `dist/`.
+
+```html
+<script type="importmap">
+{ "imports": { "animejs": "/js/vendor/anime.esm.min.js" } }
+</script>
+```
+
+The hero hands its reveal to anime.js, so it carries `.hero-anim` rather than
+the CSS `.r` classes and its section is not `.obs`. Two systems animating the
+same opacity would fight. The hidden start state is scoped to `.js`, so the
+hero still renders with scripting off, and `prefers-reduced-motion` unhides it
+and skips the animation entirely.
+
 ## Local preview
 
 ```bash

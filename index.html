@@ -8,6 +8,11 @@
 <link rel="canonical" href="https://wolfgames.net/">
 <link rel="stylesheet" href="css/wg.css">
 <script>document.documentElement.className+=' js';</script>
+<!-- No bundler in this project. The import map lets js/hero-anim.js use the
+     documented bare specifier, import { animate } from 'animejs'. -->
+<script type="importmap">
+{ "imports": { "animejs": "/js/vendor/anime.esm.min.js" } }
+</script>
 <style>
   /* cinematic hero, the way the player site opens: full-bleed art
      pushed well back, a warm yellow bloom, and a heavy vignette so
@@ -24,6 +29,13 @@
     background:
       linear-gradient(90deg,var(--bg) 6%,rgba(24,24,24,.55) 42%,transparent 70%),
       linear-gradient(transparent 55%,var(--bg));}
+  /* anime.js owns the hero reveal. The hidden start state is scoped to
+     .js so the hero renders normally with scripting off, and is undone
+     under reduced motion. */
+  .js .hero-anim{opacity:0;}
+  .js .hero.hero-ready .hero-anim{opacity:1;}
+  @media (prefers-reduced-motion:reduce){.js .hero-anim{opacity:1;}}
+
   /* embers sit with the bloom, under the type */
   .hero .particles{z-index:1;}
   .hero .wrap{position:relative;z-index:2;}
@@ -109,7 +121,7 @@
 <main id="main">
 
 <!-- ===================== 2.1 HERO ===================== -->
-<section class="hero obs">
+<section class="hero">
   <div class="bg" aria-hidden="true"><img src="assets/lo-cluehunter-bg.jpg" alt="" loading="eager"></div>
   <div class="bloom" aria-hidden="true"></div>
   <div class="particles" id="pt-hero" aria-hidden="true"></div>
@@ -117,19 +129,19 @@
   <div class="wrap">
     <div class="grid">
       <div>
-        <h1 class="h1 r">
+        <h1 class="h1 hero-anim">
           <span data-copy="index.hero.h1a">You already paid to get them here.</span>
           <span class="y" data-copy="index.hero.h1b">We bring them back tomorrow.</span>
         </h1>
-        <hr class="rule r d1">
-        <p class="lede r d1" data-copy="index.hero.lede">A shelf of daily games, each with its own mechanic, its own host, and its own continuing story, all built out of your world and run by us. One line of code, and the only thing we need from you is a yes.</p>
-        <div class="btns r d2">
+        <hr class="rule hero-anim">
+        <p class="lede hero-anim" data-copy="index.hero.lede">A shelf of daily games, each with its own mechanic, its own host, and its own continuing story, all built out of your world and run by us. One line of code, and the only thing we need from you is a yes.</p>
+        <div class="btns hero-anim">
           <a class="btn" href="demo.html" data-copy="index.hero.cta1">Play today&rsquo;s edition</a>
           <a class="btn ghost" href="problem.html" data-copy="index.hero.cta2">See what a pilot looks like</a>
         </div>
       </div>
 
-      <div class="art r d2">
+      <div class="art hero-anim">
         <!-- three DIFFERENT channels, never one game three times -->
         <div class="fan">
           <figure><div class="scr"><img src="assets/lo-cluehunter-bg.jpg" alt="A hidden object channel" loading="lazy"></div></figure>
@@ -147,7 +159,7 @@
          for that specific logo. Add <img> or <span> children to
          .lrow and flip the flag.
          ============================================================ -->
-    <div class="logos r d3" data-flag="partnerLogos" hidden>
+    <div class="logos hero-anim" data-flag="partnerLogos" hidden>
       <span class="llabel" data-copy="index.hero.logolabel">Live with</span>
       <div class="lrow"></div>
     </div>
@@ -436,6 +448,7 @@
 </footer>
 
 <script src="js/site.js"></script>
+<script type="module" src="js/hero-anim.js"></script>
 <script>
 /* drifting embers, same counts and colour as the player site */
 WGParticles('pt-hero','#FAFF00',24);
