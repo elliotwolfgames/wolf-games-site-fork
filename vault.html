@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Vault — Wolf Games</title>
-<meta name="description" content="The Wolf Games Vault — today's pick and the full shelf of live games. A new edition every day.">
+<title>The Vault · Wolf Games</title>
+<meta name="description" content="The Wolf Games Vault. Today's pick and the full shelf of live games. A new edition every day.">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -116,7 +116,7 @@
   /* ---------- mobile bottom tab bar ---------- */
   /* grid, not flex: the side tabs each get a 1fr track and center within it,
      so they sit in whatever space is actually left after the middle (auto)
-     track — which keeps them clear of the button instead of just splitting
+     track, which keeps them clear of the button instead of just splitting
      the bar 50/50 and letting the wide button overlap into both halves */
   .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:55;
     display:grid;grid-template-columns:1fr auto 1fr;align-items:end;
@@ -235,7 +235,7 @@
   body.playing header{display:none;}
   @media (min-width:900px){.player{left:250px;}}
 
-  /* ambient drifting particles — fixed backdrop behind the shelf, no set direction */
+  /* ambient drifting particles, fixed backdrop behind the shelf, no set direction */
   .particles{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
   .particles i{position:absolute;border-radius:50%;opacity:var(--po,.22);
     background:var(--pc,#FEFEF9);box-shadow:0 0 6px 1px var(--pc,#FEFEF9);
@@ -287,9 +287,9 @@
 </header>
 
 <nav class="menu" id="menu" aria-label="Site menu">
-  <a href="#">Sign In</a>
-  <a href="vault.html">Play Games</a>
-  <a href="about.html">About Us</a>
+  <a href="vault.html">My Vault</a>
+  <a href="profile.html">Profile</a>
+  <a href="index.html">For partners</a>
 </nav>
 
 <!-- desktop sidebar -->
@@ -301,15 +301,15 @@
   </span>
   <button class="btn side-play" id="side-play" type="button"><span class="tri"></span>Challenge Me</button>
   <nav class="snav">
-    <a href="index.html">
-      <svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"/><path d="M5 8.5V21h14V8.5"/><path d="M9 21v-6h6v6"/></svg>
-      Discover</a>
     <a href="vault.html" class="active">
       <svg viewBox="0 0 24 24"><path d="M6 12h4M8 10v4"/><path d="M15.5 11.5h.01M17.5 13.5h.01"/><path d="M7 6h10a5 5 0 0 1 5 5v3a4 4 0 0 1-7 2.6L13.8 15h-3.6L9 16.6A4 4 0 0 1 2 14v-3a5 5 0 0 1 5-5z"/></svg>
       My Vault</a>
     <a href="profile.html">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.6 4.5-5.5 8-5.5s6.5 1.9 8 5.5"/></svg>
       Profile</a>
+    <a href="index.html">
+      <svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-7h6v7"/></svg>
+      For partners</a>
   </nav>
   <div class="sfoot">
     <a href="https://discord.gg/YfG3sTYTxs" target="_blank" rel="noopener">Discord</a>
@@ -426,7 +426,7 @@ var WGPlayer=(function(){
   }
   function open(url,name,opts){
     if(!el.hidden){
-      /* already playing — swipe the current game up and out, next one in from below */
+      /* already playing, so swipe the current game up and out, next one in from below */
       el.classList.add('adv-out');
       setTimeout(function(){
         setSrc(url);
@@ -441,7 +441,7 @@ var WGPlayer=(function(){
     document.dispatchEvent(new CustomEvent('wg:player-open'));
     fit();
     /* returnTo: the page we should land on when "Back" is pressed. Only set when the
-       player was opened by arriving fresh from another page (e.g. the homepage) — in
+       player was opened by arriving fresh from another page (e.g. the homepage), in
        that case skip pushState so a real navigation, not a fake history entry, sends
        the user back to where they actually came from. */
     returnTo=(opts&&opts.returnTo)||null;
@@ -579,7 +579,7 @@ var WGPlayer=(function(){
       launch(g,withChallengeMode(g.url));
     }
 
-    /* arriving from a game link elsewhere on the site (e.g. homepage) — open straight into the
+    /* arriving from a game link elsewhere on the site (e.g. homepage), open straight into the
        player, and remember where we came from so "Back" returns there instead of the shelf */
     var playSlug=new URLSearchParams(location.search).get('play');
     if(playSlug){
