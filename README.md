@@ -112,8 +112,34 @@ deck/                 internal pitch decks (CONFIDENTIAL, keep private)
 python3 -m http.server 8766
 ```
 
+## Design system
+
+Tokens are sampled from the live wolfgames.net so the partner site and the
+player site read as one brand:
+
+| Token | Value | Sampled from |
+|---|---|---|
+| `--bg` | `#181818` | live site canvas |
+| `--panel` | `#111111` | live site cards |
+| `--yellow` | `#FAFF00` | CTAs, eyebrows, rules |
+| `--cyan` | `#45CDFF` | live site secondary accent |
+| `--r` / `--r-lg` / `--r-pill` | `8px` / `16px` / `100px` | live site radii |
+| `--r-arch` | `1000px 1000px 10px 10px` | the arch on portrait imagery |
+
+The arch is the live site's signature portrait treatment. Here it carries the
+host archetypes on the homepage, which is what the "the host comes from who you
+are" pillar is arguing.
+
+Type is Inter Tight + Inter with IBM Plex Mono for eyebrows and tags. The live
+site uses Messina Sans, which is commercially licensed and cannot be embedded
+here; Inter Tight is the closest open neo-grotesque.
+
 ## Deviations from the spec, all deliberate
 
+0. **The canvas is `#181818`, not pure black.** The spec says "Background: pure
+   black," but the live wolfgames.net canvas is `#181818` and the brief was to
+   pull the real site's styling in. Matching the brand won. One token flips it
+   back if that call is wrong.
 1. **Page titles use `·` rather than an em dash.** The spec supplies titles like
    `Wolf Games — a vault of daily games`, but copy rule 1 bans em dashes
    anywhere. The rule won. Middot is already the spec's own separator elsewhere.
