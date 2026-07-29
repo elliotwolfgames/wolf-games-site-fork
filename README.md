@@ -1,86 +1,142 @@
-# wolfgames.net — Partner Site
+# wolfgames.net — partner site
 
-The publisher-facing site for the Wolf Games game vault, built to the
-[wolfgames.net PRD v0.1](#prd-traceability). Plain HTML/CSS/JS — no build step.
+Built to `wolfgames-site-copy-FINAL.md` (canonical copy and build spec).
+Plain HTML, CSS and JS. No build step, no framework, no dependencies.
 
-Its one job: make a publisher ask for a pilot.
+Its one job: get a qualified partner to start a pilot conversation.
+It is not a player destination. Players go to the vault.
 
-> **Split of concerns.** `wolfgames.net` is the **partner** site (this repo's
-> public pages). `wolf.games` is the **player** showroom. Per PRD TR-8 each
-> links to the other exactly once — here that is the "Players — enter the vault"
-> item in the menu and one line in the footer.
+> **Audience rule.** This site addresses every partner type: brands, streamers,
+> media companies, publishers, IP holders, creators. **Nothing here may assume
+> the reader is a news publisher.** If a line only makes sense to a newspaper,
+> it is wrong.
+
+## Routes
+
+| Route | File | Purpose |
+|---|---|---|
+| `/` | `index.html` | The pitch |
+| `/the-case` | `problem.html` | The long argument |
+| `/how-it-works` | `how-it-works.html` | The mechanism |
+| `/demo` | `demo.html` | The playable proof |
+| `/about` | `about.html` | Who we are |
+| `/contact` | `contact.html` | The ask |
+| `/legal` | `legal.html` | Data, privacy, claims |
+
+Pretty routes are served by `vercel.json` rewrites. Links in the markup point at
+the `.html` files so the site also works from a plain static server with no
+rewrite layer.
+
+## Editing copy without touching markup
+
+Every string carries `data-copy="some.key"`. All 245 of them live in one file.
+
+```bash
+node tools/sync-copy.js --extract   # HTML  ->  content/site.json
+node tools/sync-copy.js --apply     # content/site.json  ->  HTML
+node tools/sync-copy.js             # report, no writes
+```
+
+Keys are global: `nav.*` and `foot.*` appear on every page and are edited once.
+
+The HTML stays the served artifact, which is why copy is synced into it rather
+than injected at runtime. That is what keeps the site readable with JavaScript
+disabled.
+
+## Things pending clearance
+
+Everything not yet cleared is switched from one file, `content/config.json`.
+
+```bash
+node tools/apply-config.js          # report what is currently exposed
+node tools/apply-config.js --apply  # write the HTML
+```
+
+| Flag | Default | Owner | What it gates |
+|---|---|---|---|
+| `namedProof` | **ON** | Elliot | Naming Law & Order: Clue Hunter and Peacock. Off swaps in unnamed wording. |
+| `liveFigures` | **ON** | Elliot | The 60%+ / 20%+ / 6 min+ figures. Off withholds them in place. |
+| `partnerLogos` | **OFF** | Elliot / Andrew | The logo strip. Built and deliberately empty. |
+| `demoBundle` | **OFF** | Product | The playable frame on `/demo`. |
+
+Toggling is reversible: the "on" text is captured into `data-on` the first time a
+flag is switched off, so flipping it back restores the original exactly.
+
+**`namedProof` and `liveFigures` ship ON because the spec supplies that copy.
+Neither is cleared yet.** Flip them off before anything goes public if clearance
+has not landed.
+
+## The demo frame
+
+The game bundle does not exist. `/demo` renders a visible placeholder that says
+so, and still demonstrates the thing the page has to prove: change the world,
+and the edition rewrites. To drop the real bundle in:
+
+1. `content/config.json` → `flags.demoBundle.value = true`
+2. `content/config.json` → `demoBundle.src = "<bundle url>"`
+3. `node tools/apply-config.js --apply`
+
+The contract the bundle must satisfy is documented inline in `demo.html`:
+loads in an iframe, accepts `?world=<id>`, repaints within one second.
+
+## Hard constraints, and where they are enforced
+
+| Constraint | Where |
+|---|---|
+| Renders with JavaScript disabled | `.r` reveals default to visible; the `.js` class (set inline in `<head>`) opts *into* animation. The demo picker and side-by-side are written out in HTML and only wired up by script. |
+| No browser storage APIs | Nothing on the partner pages touches `localStorage`, `sessionStorage`, `indexedDB` or `document.cookie`. |
+| Survives print to PDF | Global `@media print` block in `css/wg.css`. Chrome, decoration and CTAs drop out; type goes black on white; cards and table rows avoid breaking. |
+| Three claim chips, equal weight | `.chip.proven` / `.chip.expect` / `.chip.bet` share size, padding, border width, weight and tracking. Only color differs. `Our bet` is never lighter. |
+| No em dashes | None in any page, stylesheet, script or content file. |
+| First-party analytics only, no consent wall | No third-party scripts are loaded. |
 
 ## Structure
 
-### Partner pages (PRD Phase 1)
-| File | PRD § | Job |
-|---|---|---|
-| `index.html` | 8.1 | The lock and the key. Attention ladder, what's proven vs. what's a bet, live proof. |
-| `problem.html` | 8.2 | The eight pains, the ladder with metrics, and the ad-inventory model. |
-| `how-it-works.html` | 8.3 | The pipeline, the channel set, the three axes, the serial cadence. |
-| `demo.html` | 8.4 | The real build in a frame, the town picker, and the side-by-side view. |
-| `contact.html` | 8.10 | Lead capture. Six fields, market count, direct calendar link. |
-| `legal.html` | 8.11 | Terms, privacy and cookies, written to be read in three minutes. |
-| `about.html` | — | Company page, carried over. |
-
-### Player pages (kept in-repo, not linked from the partner nav)
-- `vault.html` — the Vault (loads its catalog from `data/vault.json`)
-- `profile.html` — player profile and streak state
-
-### Shared
-- `css/wg.css` — design tokens, shell, and shared components. **Every partner
-  page links this**; page-specific CSS stays inline in that page's `<style>`.
-- `js/site.js` — cache-busting, scroll reveals, hamburger menu, particles
-- `js/vault-state.js`, `js/track.js` — player state and event instrumentation
-- `api/partner-lead.js`, `api/player-lead.js` — Vercel functions for lead capture
-- `assets/` — images, logos, press logos
-- `deck/` — internal pitch decks (CONFIDENTIAL — keep private)
-
-## Claim rules (PRD §13) — read before editing copy
-
-The site is a procurement document. A publisher's legal team will read it.
-Three tier chips are defined in `css/wg.css` and used throughout:
-
-| Chip | Class | Meaning |
-|---|---|---|
-| Proven | `.tier.proven` | A plain fact. Say it plainly. |
-| We expect | `.tier.expect` | A design target. Must carry "we expect" or "our design target is". |
-| Our bet | `.tier.bet` | Not measured. Stated openly as a bet, never as a benefit. |
-
-Hard rules:
-- **Do not publish a retention lift number** until a pilot measures one.
-- **Do not publish a market size number.**
-- **Every named partner, title, and logo needs written permission**, re-verified
-  each quarter and on the day of publication.
-- **No internal shorthand** on public pages. Write the plain phrase.
-
-## Known gaps before this can ship
-
-- [ ] **Partner and press logos** (`index.html`) — `WOLF ENTERTAINMENT`,
-      `NBCUniversal`, `ADVANCE`, and the seven press logos are inherited from the
-      previous site and are **not yet permission-verified** under PRD §13.6.
-- [ ] **Law & Order: Clue Hunter reference** — PRD §17 Q3 flags this as an open
-      question. Confirm it is live and clear to name publicly.
-- [ ] **Demo town content** (`demo.html`) — the four markets are **sample fill**,
-      marked as such on the page. Replace the `TOWNS` / `INTERESTS` block with the
-      real per-market corpus (PRD §12, items 1 and 2).
-- [ ] **Calendar link** (`contact.html`) — points at a placeholder Calendly URL.
-- [ ] **Phase 2 pages** — proof and references (8.5), reliability and integration
-      (8.6), privacy and data (8.7), commercial models (8.8), FAQ (8.9).
+```
+index.html  problem.html  how-it-works.html  demo.html
+contact.html  legal.html  about.html
+css/wg.css            design system: tokens, components, print
+js/site.js            progressive enhancement only
+content/site.json     all 245 strings
+content/config.json   everything pending clearance
+tools/sync-copy.js    copy <-> HTML
+tools/apply-config.js flags -> HTML
+api/                  Vercel functions for lead capture
+vault.html profile.html   player pages, not linked from the partner nav
+deck/                 internal pitch decks (CONFIDENTIAL, keep private)
+```
 
 ## Local preview
+
 ```bash
-python3 -m http.server 8765
+python3 -m http.server 8766
 ```
-Then open `http://localhost:8765/index.html`.
 
-## Deploy (Vercel)
-No configuration needed — the repo root is the site root. Import the repo
-and deploy as-is (static site, no build command). The two `api/` functions
-deploy as serverless endpoints; each no-ops safely when its webhook env var
-(`PARTNER_LEAD_WEBHOOK` / `PLAYER_LEAD_WEBHOOK`) is unset.
+## Deviations from the spec, all deliberate
 
-## PRD traceability
-Source: `wolfgames-net-prd (1).md` v0.1, July 2026. This repo implements the
-PRD's Phase 1 release plan (§16). Phase 2 and 3 pages are listed under
-"Known gaps" above.
+1. **Page titles use `·` rather than an em dash.** The spec supplies titles like
+   `Wolf Games — a vault of daily games`, but copy rule 1 bans em dashes
+   anywhere. The rule won. Middot is already the spec's own separator elsewhere.
+2. **`legal.c1.head` reads "What runs on your properties"**, not "on your
+   surfaces". Copy rule 3 bans the phrase "on your surface".
+3. **Nana's Bakery has no art.** Its shelf tile is a visible "art pending"
+   placeholder rather than a borrowed screen from another title.
+4. **The "one mechanic, three worlds" section uses three existing scene
+   assets** as a stand-in. Definitive art is open item 5.
+
+## Open items still blocking
+
+| # | Item | Owner |
+|---|---|---|
+| 1 | Clearance to name Law & Order: Clue Hunter publicly | Elliot |
+| 2 | Clearance on 60%+ / 20%+ / 6 min+ | Elliot |
+| 3 | Written permission for every partner logo | Elliot / Andrew |
+| 4 | The demo bundle | Product |
+| 5 | Art for "one mechanic, three worlds" | Leo |
+| 6 | Channel slate confirmation (Nana's Bakery art) | Product |
+| 7 | CMS decision (`tools/sync-copy.js` is the interim answer) | Eng |
+| 8 | Form endpoint (posts to `/api/partner-lead`, fails soft) | Eng |
+
+Two deviations from the PRD carried over from the spec, both still needing
+sign-off: the attention ladder is on `/the-case` only, not the homepage, and
+there is no calculator.

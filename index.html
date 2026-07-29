@@ -3,206 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wolf Games — Turn the click into a reader who comes back.</title>
-<meta name="description" content="Wolf Games builds and runs a daily game vault on your surface, with your brand. No game team required.">
+<title>Wolf Games · a vault of daily games, built for your audience.</title>
+<meta name="description" content="We build, host and run a vault of daily games for your audience, under your brand. One line of code. No game team, no SDK, nothing to maintain on your side.">
 <link rel="canonical" href="https://wolfgames.net/">
 <link rel="stylesheet" href="css/wg.css">
+<script>document.documentElement.className+=' js';</script>
 <style>
-  /* ---------- hero — cinematic, centered, studio-lit ---------- */
-  .hero{position:relative;min-height:92svh;display:flex;align-items:center;justify-content:center;
-    text-align:center;padding:150px 0 100px;overflow:hidden;
+  .hero{padding:clamp(140px,18vh,190px) 0 clamp(50px,7vh,80px);}
+  .hero .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(34px,5vw,70px);align-items:center;}
+  @media (max-width:980px){.hero .grid{grid-template-columns:1fr;}.hero .art{order:-1;max-width:520px;}}
+
+  /* three worlds, one mechanic */
+  .worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.8vw,22px);margin-top:44px;}
+  @media (max-width:760px){.worlds{grid-template-columns:1fr;}}
+  .world figure{margin:0;}
+  .world .scr{position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line-2);
+    background:#0a0a0a;}
+  .world .scr img{width:100%;height:100%;object-fit:cover;}
+  .world .wlabel{display:block;margin-top:14px;font-family:var(--mono);font-weight:500;font-size:10px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--fg-40);}
+  .world .wname{display:block;margin-top:5px;font-family:var(--display);font-weight:600;font-size:16px;}
+  .worlds-note{margin-top:22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--fg-40);}
+
+  /* sponsor frame with callout */
+  .spon-grid{display:grid;grid-template-columns:1fr .9fr;gap:clamp(34px,5vw,70px);align-items:center;}
+  @media (max-width:900px){.spon-grid{grid-template-columns:1fr;}}
+  .sponframe{position:relative;max-width:400px;margin:0 auto;}
+  .sponframe .scr{position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line-2);
+    background:#0a0a0a;}
+  .sponframe .scr img{width:100%;height:100%;object-fit:cover;}
+  .sponframe .callout{position:absolute;left:50%;top:56%;width:46%;height:1px;background:var(--yellow);}
+  .sponframe .callout::before{content:'';position:absolute;left:0;top:-3px;width:7px;height:7px;
+    border-radius:50%;background:var(--yellow);}
+  .sponframe .clabel{position:absolute;left:calc(50% + 46%);top:calc(56% - 26px);
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--yellow);white-space:nowrap;transform:translateX(-100%);padding-right:4px;}
+  @media (max-width:520px){.sponframe .clabel{font-size:8px;}}
+
+  /* closing panel */
+  .closepanel{position:relative;overflow:hidden;border:1px solid var(--line);
+    padding:clamp(46px,8vw,110px) clamp(24px,4vw,60px);text-align:center;margin-top:46px;
     background:
-      radial-gradient(60% 55% at 50% 8%, rgba(255,255,255,.05), transparent 70%),
-      radial-gradient(120% 90% at 50% 115%, rgba(0,0,0,.55), transparent 60%),
-      var(--bg);}
-  .hero .glow{position:absolute;z-index:0;left:50%;top:30%;transform:translate(-50%,-50%);
-    width:min(1000px,130vw);height:min(1000px,130vw);pointer-events:none;
-    background:radial-gradient(closest-side,rgba(250,255,0,.15),rgba(250,255,0,.04) 46%,transparent 72%);}
-  .hero .vig{position:absolute;inset:0;z-index:0;pointer-events:none;
-    box-shadow:inset 0 0 clamp(80px,14vw,220px) rgba(0,0,0,.6);}
-  .hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:clamp(110px,18vh,200px);
-    background:linear-gradient(transparent,var(--bg));pointer-events:none;z-index:1;}
-  .hero .particles{z-index:1;}
-  .hero .wrap{position:relative;z-index:2;min-width:0;width:100%;}
-  .hero h1{font-family:var(--display);font-weight:500;letter-spacing:-.045em;line-height:1.06;
-    font-size:clamp(38px,5.6vw,82px);margin:0 auto;max-width:15em;text-wrap:balance;}
-  .hero h1 .shimmer-y{filter:drop-shadow(0 0 46px rgba(250,255,0,.28));}
-  .hero .lede{margin:30px auto 0;max-width:34em;font-size:clamp(17px,1.5vw,20px);color:var(--fg-2);text-wrap:pretty;}
-  .hero .btns{margin-top:42px;justify-content:center;}
-
-  /* partners — a static single line; stays one line as more logos are added */
-  .partners{margin-top:clamp(56px,9vh,96px);}
-  .partners .plabel{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);font-weight:500;}
-  .partners .lmask{overflow:hidden;margin-top:24px;
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
-    mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
-  .partners .logos{display:flex;align-items:baseline;justify-content:center;flex-wrap:nowrap;
-    gap:clamp(20px,5vw,72px);opacity:.92;}
-  .partners .lg{white-space:nowrap;}
-  .partners .lg.wolf{font-family:Georgia,'Times New Roman',serif;font-size:23px;letter-spacing:.1em;font-weight:700;}
-  .partners .lg.wolf small{display:block;font-family:var(--body);font-size:8.5px;letter-spacing:.42em;font-weight:500;margin-top:2px;text-align:center;}
-  .partners .lg.nbcu{font-family:var(--body);font-weight:700;font-size:22px;letter-spacing:-.01em;}
-  .partners .lg.adv{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:23px;letter-spacing:.12em;}
-  @media (max-width:480px){
-    .partners .logos{gap:14px;}
-    .partners .lg.wolf{font-size:17px;}
-    .partners .lg.wolf small{font-size:6.5px;letter-spacing:.3em;}
-    .partners .lg.nbcu{font-size:16px;}
-    .partners .lg.adv{font-size:17px;letter-spacing:.07em;}
-  }
-
-  /* ---------- ladder section ---------- */
-  .lad-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;}
-  .lad-head .sub{margin-top:18px;}
-
-  /* ---------- proven / expect / bet ---------- */
-  .stance{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px;align-items:start;}
-  .stance .card{height:100%;}
-  .stance .card h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:16px 0 12px;}
-  .stance ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:13px;}
-  .stance li{position:relative;padding-left:19px;color:var(--fg-2);font-size:15.5px;line-height:1.55;}
-  .stance li::before{content:'';position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;
-    background:var(--fg-3);}
-  .stance .bet-card{border-color:rgba(255,184,77,.3);background:rgba(255,184,77,.04);}
-  .stance .bet-card li::before{background:#FFB84D;}
-  .stance .proven-card li::before{background:var(--yellow);}
-  @media (max-width:860px){.stance{grid-template-columns:1fr;}}
-
-  /* ---------- story — the game engine, scroll-driven ---------- */
-  .story{position:relative;height:260svh;padding:0;}
-  .story-pin{position:sticky;top:0;height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .stage{position:relative;z-index:3;width:100%;max-width:1100px;padding:0 clamp(24px,5vw,64px);display:flex;flex-direction:column;
-    align-items:center;text-align:center;gap:clamp(26px,4.5vh,44px);}
-  .story h2{font-family:var(--display);font-weight:500;letter-spacing:-.035em;line-height:1.12;
-    font-size:clamp(26px,3.2vw,44px);margin:0;text-wrap:balance;}
-
-  /* the engine: archive in → core → games out */
-  .eviz{position:relative;width:min(760px,92vw);height:170px;flex:none;}
-  .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:96px;height:96px;border-radius:50%;
-    background:radial-gradient(circle at 50% 45%,rgba(250,255,0,.9) 0%,rgba(250,255,0,.25) 48%,rgba(250,255,0,0) 72%);}
-  .core::after{content:'';position:absolute;inset:30px;border-radius:50%;background:var(--yellow);
-    box-shadow:0 0 46px 12px rgba(250,255,0,.45);animation:pulse 2.6s ease-in-out infinite;}
-  @keyframes pulse{50%{transform:scale(1.14);}}
-  .ripple{position:absolute;left:50%;top:50%;width:130px;height:130px;margin:-65px 0 0 -65px;border-radius:50%;
-    border:1px solid rgba(250,255,0,.35);animation:rip 3.4s ease-out infinite;}
-  .ripple.rp2{animation-delay:1.7s;}
-  @keyframes rip{from{transform:scale(.5);opacity:.8;}to{transform:scale(2);opacity:0;}}
-  .chin,.chout{position:absolute;left:50%;top:50%;margin:-13px 0 0 -42px;white-space:nowrap;opacity:0;
-    font-family:var(--body);text-transform:uppercase;will-change:transform,opacity;}
-  .chin{padding:6px 11px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);
-    font-size:11px;letter-spacing:.09em;color:var(--fg-2);
-    animation:flowin var(--t,4.5s) linear infinite;animation-delay:var(--d,0s);}
-  @keyframes flowin{
-    0%{opacity:0;transform:translate(var(--sx,-340px),var(--sy,0)) scale(1);}
-    14%{opacity:1;}
-    76%{opacity:1;transform:translate(calc(var(--sx,-340px)*.14),calc(var(--sy,0)*.25)) scale(.9);}
-    100%{opacity:0;transform:translate(0,0) scale(.25);}}
-  .chout{padding:6px 10px;border-radius:7px;background:var(--yellow);color:#000;font-weight:700;
-    font-size:10.5px;letter-spacing:.1em;box-shadow:0 0 20px rgba(250,255,0,.4);
-    animation:flowout var(--t,4.5s) linear infinite;animation-delay:var(--d,0s);}
-  @keyframes flowout{
-    0%{opacity:0;transform:translate(0,0) scale(.3);}
-    18%{opacity:1;}
-    80%{opacity:1;transform:translate(calc(var(--ex,300px)*.85),var(--ey,0)) scale(1);}
-    100%{opacity:0;transform:translate(var(--ex,300px),var(--ey,0)) scale(1);}}
-
-  .msgs{position:relative;height:124px;width:min(660px,90vw);}
-  .msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:8px;
-    opacity:0;transform:translateY(18px);transition:opacity .45s var(--ease),transform .45s var(--ease);pointer-events:none;}
-  .msg.on{opacity:1;transform:none;}
-  .msg h3{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,27px);letter-spacing:-.01em;margin:0;color:var(--yellow);}
-  .msg p{margin:0;color:var(--fg-2);font-size:clamp(16px,1.8vw,20px);line-height:1.5;}
-  .rail{display:flex;gap:8px;}
-  .rail i{width:36px;height:3px;border-radius:2px;background:rgba(255,255,255,.16);transition:background .35s;}
-  .rail i.on{background:var(--yellow);}
-
-  @media (max-width:600px){.eviz{transform:scale(.6);height:120px;}}
-  @media (prefers-reduced-motion:reduce){
-    .story{height:auto;padding:clamp(80px,12vh,140px) 0;}
-    .story-pin{position:static;height:auto;}
-    .eviz,.rail{display:none;}
-    .msgs{position:static;height:auto;display:flex;flex-direction:column;gap:20px;}
-    .msg{position:static;opacity:1;transform:none;}
-  }
-
-  /* ---------- Law & Order: Clue Hunter · Peacock ---------- */
-  :root{--lo-red:#FF3B30;}
-  .lo{position:relative;overflow:hidden;padding:clamp(90px,14vh,150px) 0;
-    background:
-      radial-gradient(58% 52% at 28% 18%, rgba(122,22,6,.38), transparent 70%),
-      radial-gradient(52% 60% at 78% 82%, rgba(92,16,5,.3), transparent 72%),
-      #161010;}
-  .lo::before{content:'';position:absolute;left:0;right:0;top:0;height:clamp(110px,18vh,200px);
-    background:linear-gradient(var(--bg),transparent);pointer-events:none;z-index:1;}
-  .lo::after{content:'';position:absolute;left:0;right:0;bottom:0;height:clamp(110px,18vh,200px);
-    background:linear-gradient(transparent,var(--bg));pointer-events:none;z-index:1;}
-  .lo .wrap{position:relative;z-index:3;}
-  .lo .grid{display:grid;grid-template-columns:1.05fr .95fr;grid-template-areas:"intro arch" "feat arch";
-    column-gap:clamp(40px,6vw,90px);row-gap:38px;align-items:center;}
-  .intro-lo{grid-area:intro;align-self:end;}
-  .lo .arch{grid-area:arch;}
-  .lo .feat{grid-area:feat;align-self:start;}
-  .lo .step{display:inline-block;font-family:var(--display);font-weight:400;letter-spacing:-.015em;
-    font-size:clamp(24px,3vw,42px);line-height:1.1;
-    background:linear-gradient(90deg,#FEFEF9 0%,#D9A79A 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent;}
-  .lo .big{font-family:var(--display);font-weight:700;text-transform:uppercase;color:#fff;
-    font-size:clamp(28px,4vw,54px);letter-spacing:.14em;line-height:1.12;margin:10px 0 0;}
-  .lo .big .sub2{display:block;font-size:.6em;letter-spacing:.3em;margin-top:8px;color:#fff;}
-  .lo .lead-lo{margin:24px 0 0;color:var(--fg-2);font-size:clamp(16px,1.5vw,18.5px);max-width:33em;text-wrap:pretty;}
-  .feat{display:flex;flex-direction:column;gap:14px;max-width:560px;}
-  .frow{display:flex;gap:18px;align-items:flex-start;background:rgba(255,255,255,.045);
-    border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:18px 20px;}
-  .frow .fic{flex:none;width:46px;height:46px;border:1.5px solid var(--lo-red);border-radius:10px;
-    display:flex;align-items:center;justify-content:center;}
-  .frow .fic svg{width:22px;height:22px;stroke:var(--lo-red);fill:none;stroke-width:1.7;
-    stroke-linecap:round;stroke-linejoin:round;}
-  .frow h4{margin:0;font-family:var(--display);font-weight:600;font-size:17.5px;color:var(--fg);}
-  .frow p{margin:3px 0 0;font-size:14.5px;line-height:1.5;color:var(--fg-3);}
-  .arch{position:relative;max-width:470px;margin:0 auto;width:100%;}
-  .arch .aimg{position:relative;border-radius:235px 235px 20px 20px;overflow:hidden;aspect-ratio:4/5;
-    border:1px solid rgba(255,255,255,.08);box-shadow:0 50px 100px rgba(0,0,0,.6);background:#0c0a0a;}
-  .arch .aimg img{width:100%;height:100%;object-fit:cover;object-position:36% center;}
-  .playpill{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);
-    display:flex;align-items:center;gap:16px;white-space:nowrap;text-decoration:none;
-    background:rgba(12,9,9,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-    border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:13px 15px 13px 28px;
-    font-family:var(--body);font-weight:600;font-size:clamp(15px,1.7vw,19px);color:#fff;
-    transition:transform .25s var(--ease);}
-  .playpill:hover{transform:translate(-50%,-50%) scale(1.05);}
-  .playpill b{color:var(--lo-red);font-weight:600;margin-left:.35em;}
-  .playpill .pp{width:46px;height:46px;border-radius:50%;background:var(--lo-red);flex:none;
-    display:flex;align-items:center;justify-content:center;}
-  .playpill .pp::after{content:'';width:0;height:0;border-style:solid;border-width:8px 0 8px 13px;
-    border-color:transparent transparent transparent #fff;margin-left:3px;}
-  @media (max-width:900px){
-    .lo .grid{grid-template-columns:1fr;grid-template-areas:"intro" "arch" "feat";row-gap:46px;}
-    .playpill{top:auto;bottom:6%;transform:translateX(-50%);}
-    .playpill:hover{transform:translateX(-50%) scale(1.05);}
-  }
-
-  /* ---------- closing CTA ---------- */
-  .close{text-align:center;padding-bottom:clamp(90px,14vh,160px);}
-  .close::before{content:'';position:absolute;left:50%;bottom:-40%;transform:translateX(-50%);
-    width:900px;height:520px;border-radius:50%;pointer-events:none;
-    background:radial-gradient(closest-side,rgba(249,255,0,.07),transparent);}
-  .close h2{font-family:var(--display);font-weight:500;letter-spacing:-.04em;line-height:1.05;
-    font-size:clamp(34px,5vw,72px);margin:18px 0 0;}
-  .close .side{margin:26px auto 0;font-size:16.5px;color:var(--fg-2);max-width:34em;}
-  .close .btns{margin-top:40px;justify-content:center;}
-
-  /* ---------- press marquee ---------- */
-  .press{border-top:1px solid var(--line);padding:clamp(48px,7vh,76px) 0;}
-  .press .label{display:block;text-align:center;}
-  .marquee{overflow:hidden;margin-top:38px;
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);
-    mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);}
-  .mtrack{display:flex;align-items:center;gap:clamp(52px,7vw,96px);width:max-content;
-    animation:marq 30s linear infinite;}
-  .marquee:hover .mtrack{animation-play-state:paused;}
-  .mtrack img{height:24px;width:auto;flex:none;opacity:.92;}
-  @keyframes marq{to{transform:translateX(-50%);}}
-  @media (prefers-reduced-motion:reduce){.mtrack{animation:none;flex-wrap:wrap;width:auto;justify-content:center;}}
+      linear-gradient(135deg,rgba(250,255,0,.10),transparent 42%),
+      linear-gradient(300deg,rgba(120,90,255,.12),transparent 46%),
+      linear-gradient(200deg,rgba(0,220,190,.08),transparent 50%),
+      #000;}
+  .closepanel img{height:clamp(34px,5vw,64px);width:auto;margin:0 auto;}
+  .closepanel .h2{margin-top:30px;}
 </style>
 </head>
 <body>
@@ -217,252 +65,262 @@
 </header>
 
 <nav class="menu" id="menu" aria-label="Site menu">
-  <a href="problem.html">The Problem</a>
-  <a href="how-it-works.html">How It Works</a>
-  <a href="demo.html">Play the Demo</a>
-  <a href="contact.html">Talk to Us</a>
-  <a href="about.html">About Us</a>
-  <a class="mplay" href="vault.html">Players — enter the vault</a>
+  <a href="problem.html" data-copy="nav.1">The case</a>
+  <a href="how-it-works.html" data-copy="nav.2">How it works</a>
+  <a href="demo.html" data-copy="nav.3">Demo</a>
+  <a href="about.html" data-copy="nav.4">About</a>
+  <a href="contact.html" data-copy="nav.5">Talk to us</a>
+  <a class="mplay" href="vault.html" data-copy="nav.6">Players play here</a>
 </nav>
 
 <main id="main">
 
-<!-- hero -->
+<!-- ===================== 2.1 HERO ===================== -->
 <section class="hero obs">
-  <div class="glow" aria-hidden="true"></div>
-  <div class="particles" id="pt-hero" aria-hidden="true"></div>
-  <div class="vig" aria-hidden="true"></div>
-  <div class="wrap">
-    <h1 class="r">Clickbait buys a click.<br><span class="shimmer-y">We turn the click into a reader who comes back tomorrow.</span></h1>
-    <p class="lede r d1">Your reader arrives from a headline, gives you twenty seconds, and leaves &mdash; and that is the hardest session you own to sell.</p>
-    <div class="btns r d2">
-      <a class="btn" href="demo.html">Play today&rsquo;s edition <span class="arrow">&rarr;</span></a>
-      <a class="btn ghost" href="contact.html">Talk to us</a>
-    </div>
-    <div class="partners r d3">
-      <span class="plabel">Live with</span>
-      <div class="lmask">
-        <div class="logos">
-          <span class="lg wolf">WOLF<small>ENTERTAINMENT</small></span>
-          <span class="lg nbcu">NBCUniversal</span>
-          <span class="lg adv">ADVANCE</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- the attention ladder -->
-<section class="obs" id="ladder">
-  <div class="wrap">
-    <div class="lad-head">
-      <div>
-        <span class="label r">The attention ladder</span>
-        <h2 class="h2 r d1" style="margin-top:16px;"><span class="shimmer">Every rung is worth more<br>than the rung below it.</span></h2>
-      </div>
-      <p class="sub r d2" style="max-width:26em;">A click that never returns has almost no worth. The ladder is how a reader climbs from a page view to a relationship &mdash; and what lifts them at each step.</p>
-    </div>
-
-    <div class="laxis r d2" aria-hidden="true"><span>Lower value</span><span class="bar"></span><span>Higher value</span></div>
-
-    <div class="ladder">
-      <div class="rung r d1" style="--i:0;--lit:.14;">
-        <div class="n">01</div>
-        <div>
-          <div class="rhead">
-            <h3 class="rname">Click</h3>
-            <span class="metric">Page view</span>
-          </div>
-          <p class="does">The reader arrives and leaves.</p>
-          <p class="lift"><b>What lifts them:</b> nothing. Clickbait stops here. This is the rung you are already buying.</p>
-        </div>
-      </div>
-
-      <div class="rung r d2" style="--i:1;--lit:.4;">
-        <div class="n">02</div>
-        <div>
-          <div class="rhead">
-            <h3 class="rname">Play</h3>
-            <span class="metric">Session time · completion</span>
-            <span class="tier expect">We expect</span>
-          </div>
-          <p class="does">The reader gives two to four minutes of active attention.</p>
-          <p class="lift"><b>What lifts them:</b> one short puzzle, low friction, and a fast first win. We expect an active session of this length to be worth more to your inventory than a twenty-second bounce.</p>
-        </div>
-      </div>
-
-      <div class="rung r d3" style="--i:2;--lit:.7;">
-        <div class="n">03</div>
-        <div>
-          <div class="rhead">
-            <h3 class="rname">Return</h3>
-            <span class="metric">Next-day and 7-day return · streak length</span>
-            <span class="tier bet">Our bet</span>
-          </div>
-          <p class="does">The reader comes back the next day without a prompt.</p>
-          <p class="lift"><b>What lifts them:</b> the story stops one beat too soon, and the next edition drops tomorrow. This rung is our bet, not a measured result. No pilot has produced a return number yet. The pilot is how we both find out.</p>
-        </div>
-      </div>
-
-      <div class="rung top r d4" style="--i:3;--lit:1;">
-        <div class="n">04</div>
-        <div>
-          <div class="rhead">
-            <h3 class="rname">Declaration</h3>
-            <span class="metric">Declared profile rate</span>
-            <span class="tier expect">We expect</span>
-          </div>
-          <p class="does">The reader tells you their town and their interest with one tap.</p>
-          <p class="lift"><b>What lifts them:</b> the edition changes in front of them. The change is the receipt &mdash; the reader can see what the answer bought, so the next question is cheaper to ask.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="btns r d5" style="margin-top:40px;">
-      <a class="btn ghost" href="problem.html">See what each rung is worth <span class="arrow">&rarr;</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- what is proven, what we expect, what we are betting -->
-<section class="obs" id="stance" style="padding-top:0;">
-  <div class="wrap">
-    <span class="label r">Straight answers</span>
-    <h2 class="h2 r d1" style="margin-top:16px;">What is proven, and what is a bet.</h2>
-    <p class="sub r d2">A publisher&rsquo;s legal team will read this site. So we separate the three, and we keep the separation on every page.</p>
-
-    <div class="stance">
-      <div class="card proven-card r d1">
-        <span class="tier proven">Proven</span>
-        <h3>These are plain facts.</h3>
-        <ul>
-          <li>Our games ship and run on a national streaming surface today.</li>
-          <li>A publisher needs no game team. We build the vault, run it, and fill it every day.</li>
-          <li>The vault ships as static bundles. There are no player-facing servers for your team to operate.</li>
-          <li>Editions can be set in your own coverage area. The capability is built and running.</li>
-        </ul>
-      </div>
-
-      <div class="card r d2">
-        <span class="tier expect">We expect</span>
-        <h3>These are design targets.</h3>
-        <ul>
-          <li>We expect two to four minutes of active play to be worth more to your inventory than a twenty-second bounce.</li>
-          <li>Our design target is that an edition set in your town pulls harder than a vendor product that is the same in every market.</li>
-          <li>We expect the vault to keep the audience relationship on your property rather than move it to a large platform.</li>
-        </ul>
-      </div>
-
-      <div class="card bet-card r d3">
-        <span class="tier bet">Our bet</span>
-        <h3>This one is not measured yet.</h3>
-        <ul>
-          <li>Our bet is that a serial story with a daily drop brings a reader back the next day without a push notification.</li>
-          <li>No pilot has produced a retention number yet. We will not publish one until a pilot measures it.</li>
-          <li>A pilot is one embed and one page position. You see the same event log we see, per market.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- story -->
-<section class="story obs" id="engine">
-  <div class="story-pin">
-    <div class="particles" id="pt-engine" aria-hidden="true"></div>
-    <div class="stage">
-      <span class="label r">You supply no game team</span>
-      <h2 class="r"><span class="shimmer">Your archive isn&rsquo;t a back catalog.</span><br>It&rsquo;s a <span class="shimmer-y">game engine.</span></h2>
-      <div class="eviz" aria-hidden="true">
-        <span class="chin" style="--sx:-330px;--sy:-54px;--d:0s;--t:4.6s">S01 &middot; E14</span>
-        <span class="chin" style="--sx:-365px;--sy:8px;--d:.9s;--t:4.2s">Case 118</span>
-        <span class="chin" style="--sx:-300px;--sy:56px;--d:1.8s;--t:4.8s">Pilot &middot; 1997</span>
-        <span class="chin" style="--sx:-348px;--sy:-16px;--d:2.7s;--t:4.4s">EP 214</span>
-        <span class="chin" style="--sx:-315px;--sy:36px;--d:3.6s;--t:4.6s">The Archive</span>
-        <div class="ripple"></div><div class="ripple rp2"></div>
-        <div class="core"></div>
-        <span class="chout" style="--ex:305px;--ey:-42px;--d:.5s;--t:4.4s">Play</span>
-        <span class="chout" style="--ex:345px;--ey:6px;--d:2s;--t:4.6s">Daily</span>
-        <span class="chout" style="--ex:312px;--ey:50px;--d:3.4s;--t:4.2s">Live</span>
-      </div>
-      <div class="msgs">
-        <div class="msg on"><h3>A new edition, every day</h3><p>We plan it, compile it, gate it, and drop it. Your team approves.</p></div>
-        <div class="msg"><h3>Your brand, your surface</h3><p>The vault sits on your page and carries your masthead, not ours.</p></div>
-        <div class="msg"><h3>Sold by your team</h3><p>Brands built into the mechanic, in inventory your team already sells.</p></div>
-      </div>
-      <div class="rail" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
-      <div class="btns r" style="justify-content:center;">
-        <a class="btn ghost" href="how-it-works.html">See the pipeline <span class="arrow">&rarr;</span></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Law & Order: Clue Hunter — live proof -->
-<section class="lo obs" id="cluehunter">
-  <div class="particles" id="pt-lo" aria-hidden="true"></div>
   <div class="wrap">
     <div class="grid">
-      <div class="intro-lo">
-        <span class="tier proven r">Proven &middot; live today</span>
-        <h2 class="big r d1">Law &amp; Order<span class="sub2">Clue Hunter</span></h2>
-        <p class="lead-lo r d2">A daily case on a national streaming surface. Search the scene, connect the suspects, and crack a new investigation in the Law &amp; Order universe &mdash; every day. This is the same loading sequence and the same static bundle model your embed would use.</p>
-      </div>
-      <div class="arch r d2">
-        <div class="aimg"><img src="assets/lo-cluehunter-bg.jpg" alt="Law &amp; Order: Clue Hunter case board">
-          <a class="playpill" href="https://www.peacocktv.com/" target="_blank" rel="noopener">Play<b>on Peacock</b><span class="pp"></span></a>
+      <div>
+        <h1 class="h1 r">
+          <span data-copy="index.hero.h1a">You already paid to get them here.</span>
+          <span class="y" data-copy="index.hero.h1b">We bring them back tomorrow.</span>
+        </h1>
+        <hr class="rule r d1">
+        <p class="lede r d1" data-copy="index.hero.lede">A shelf of daily games, each with its own mechanic, its own host, and its own continuing story, all built out of your world and run by us. One line of code, and the only thing we need from you is a yes.</p>
+        <div class="btns r d2">
+          <a class="btn" href="demo.html" data-copy="index.hero.cta1">Play today&rsquo;s edition</a>
+          <a class="btn ghost" href="problem.html" data-copy="index.hero.cta2">See what a pilot looks like</a>
         </div>
       </div>
-      <div class="feat r d3">
-        <div class="frow">
-          <div class="fic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-          <div><h4>A new case every day</h4><p>The drop is a system on a schedule, not a content promise.</p></div>
-        </div>
-        <div class="frow">
-          <div class="fic"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.2"/></svg></div>
-          <div><h4>A hardened start sequence</h4><p>If the daily compile fails, the surface shows a fallback edition. It never shows a broken frame.</p></div>
-        </div>
-        <div class="frow">
-          <div class="fic"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="7" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M7.8 7.4 10.6 16M16.2 8.6l-3 7.4M8.4 6.3l7.2.5"/></svg></div>
-          <div><h4>A defect is our problem</h4><p>A vendor defect on your page is your embarrassment. We build so it does not happen.</p></div>
+
+      <div class="art r d2">
+        <!-- three DIFFERENT channels, never one game three times -->
+        <div class="fan">
+          <figure><div class="scr"><img src="assets/lo-cluehunter-bg.jpg" alt="A hidden object channel" loading="lazy"></div></figure>
+          <figure><div class="scr"><img src="assets/on-the-wire.jpg" alt="A word search channel" loading="lazy"></div></figure>
+          <figure><div class="scr"><img src="assets/linked-2.jpg" alt="A connections puzzle channel" loading="lazy"></div></figure>
         </div>
       </div>
+    </div>
+
+    <!-- ============================================================
+         PARTNER LOGO STRIP
+         Built, and deliberately empty. Controlled by the
+         `partnerLogos` flag in content/config.json, which is OFF.
+         No logo goes in here until written permission is on file
+         for that specific logo. Add <img> or <span> children to
+         .lrow and flip the flag.
+         ============================================================ -->
+    <div class="logos r d3" data-flag="partnerLogos" hidden>
+      <span class="llabel" data-copy="index.hero.logolabel">Live with</span>
+      <div class="lrow"></div>
     </div>
   </div>
 </section>
 
-<!-- closing CTA -->
-<section class="close obs" id="close">
+<!-- ===================== 2.2 WHAT IT IS ===================== -->
+<section class="obs" id="shelf">
   <div class="wrap">
-    <span class="label r">The smallest first step</span>
-    <h2 class="r d1"><span class="shimmer">One embed. One page position.</span></h2>
-    <p class="side r d2">A pilot risks one slot on one page, and it has a defined exit. Tell us how many markets you run and we will come back with the shape of it.</p>
-    <div class="btns r d2">
-      <a class="btn" href="contact.html">Talk to us <span class="arrow">&rarr;</span></a>
-      <a class="btn ghost" href="demo.html">Play the demo first</a>
+    <span class="eyebrow r" data-copy="index.shelf.label">One vault, several channels</span>
+    <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.shelf.h2">Nobody builds a habit across a whole audience with one puzzle.</h2>
+    <p class="sub r d2" data-copy="index.shelf.body">Each channel has its own mechanic, its own host, and a story that keeps going. Someone who bounces off one finds another, and the ones they play tell us what to surface tomorrow.</p>
+
+    <div class="shelf">
+      <div class="tile r d1">
+        <figure>
+          <div class="scr"><img src="assets/lo-cluehunter-bg.jpg" alt="Clue Hunter" loading="lazy"></div>
+          <figcaption>
+            <span class="tmech">Hidden object</span>
+            <span class="tname" data-flag="namedProof" data-copy="shelf.1.name">Clue Hunter</span>
+            <span class="tlive" data-flag="namedProof" data-copy="shelf.1.chip">Live on Peacock</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="tile r d2">
+        <figure>
+          <div class="scr"><img src="assets/on-the-wire.jpg" alt="On the Wire" loading="lazy"></div>
+          <figcaption>
+            <span class="tmech">Word search</span>
+            <span class="tname">On the Wire</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="tile r d3">
+        <figure>
+          <div class="scr"><img src="assets/off-the-record.jpg" alt="Off the Record" loading="lazy"></div>
+          <figcaption>
+            <span class="tmech">Hosted trivia</span>
+            <span class="tname">Off the Record</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="tile r d4">
+        <figure>
+          <!-- No art exists for this channel yet (open item 6). Visible
+               placeholder rather than a silent stub or a borrowed screen. -->
+          <div class="scr pending"><span>Art<br>pending</span></div>
+          <figcaption>
+            <span class="tmech">Match and clear</span>
+            <span class="tname">Nana&rsquo;s Bakery</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="tile r d5">
+        <figure>
+          <div class="scr"><img src="assets/linked-2.jpg" alt="Linked" loading="lazy"></div>
+          <figcaption>
+            <span class="tmech">Connections puzzle</span>
+            <span class="tname">Linked</span>
+          </figcaption>
+        </figure>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- press -->
-<section class="press">
-  <span class="label">As seen in</span>
-  <div class="marquee" aria-label="Press coverage">
-    <div class="mtrack">
-      <img src="assets/press/press-1.png" alt="TechCrunch">
-      <img src="assets/press/press-2.png" alt="Variety">
-      <img src="assets/press/press-3.png" alt="Forbes">
-      <img src="assets/press/press-4.png" alt="The Hollywood Reporter">
-      <img src="assets/press/press-5.png" alt="Deadline">
-      <img src="assets/press/press-6.png" alt="Polygon">
-      <img src="assets/press/press-7.png" alt="Business Wire">
-      <img src="assets/press/press-1.png" alt="" aria-hidden="true">
-      <img src="assets/press/press-2.png" alt="" aria-hidden="true">
-      <img src="assets/press/press-3.png" alt="" aria-hidden="true">
-      <img src="assets/press/press-4.png" alt="" aria-hidden="true">
-      <img src="assets/press/press-5.png" alt="" aria-hidden="true">
-      <img src="assets/press/press-6.png" alt="" aria-hidden="true">
-      <img src="assets/press/press-7.png" alt="" aria-hidden="true">
+<!-- ===================== 2.3 NOT A RESKIN ===================== -->
+<section class="obs" id="mechanic">
+  <div class="wrap">
+    <span class="eyebrow r" data-copy="index.mech.label">Built from you, not painted over</span>
+    <h2 class="h2 r d1" style="margin-top:20px;">
+      <span data-copy="index.mech.h2a">Anyone can put your logo on a puzzle.</span>
+      <span class="y" data-copy="index.mech.h2b">We build the puzzle out of you.</span>
+    </h2>
+    <p class="sub r d2" data-copy="index.mech.body">A reskin is a stock game wearing your colors, and your audience can tell inside ten seconds. We start from the other end. What your audience already does with you becomes the thing they do in the game.</p>
+
+    <!-- one mechanic, three worlds -->
+    <div class="worlds">
+      <div class="world r d1">
+        <figure>
+          <div class="scr"><img src="assets/scene-street.jpg" alt="The same mechanic set on a city street" loading="lazy"></div>
+          <figcaption>
+            <span class="wlabel">World one</span>
+            <span class="wname">The street</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="world r d2">
+        <figure>
+          <div class="scr"><img src="assets/scene-stadium.jpg" alt="The same mechanic set in a stadium" loading="lazy"></div>
+          <figcaption>
+            <span class="wlabel">World two</span>
+            <span class="wname">The stadium</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="world r d3">
+        <figure>
+          <div class="scr"><img src="assets/scene-crate.jpg" alt="The same mechanic set in a storeroom" loading="lazy"></div>
+          <figcaption>
+            <span class="wlabel">World three</span>
+            <span class="wname">The storeroom</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    <p class="worlds-note">One mechanic, three worlds. Definitive art for this section is in production.</p>
+
+    <div class="ncards">
+      <div class="ncard r d1">
+        <span class="num">01</span>
+        <h3 data-copy="index.mech.p1.head">The mechanic comes from what you do.</h3>
+        <p data-copy="index.mech.p1.body">An investigation brand gets a game about searching a scene and assembling the case. A food brand gets a board that fills with the product and pays out in real rewards. A sports brand gets a game played against the clock and the table. The verb of the game is your verb.</p>
+        <span class="pin">The verb</span>
+      </div>
+      <div class="ncard r d2">
+        <span class="num">02</span>
+        <h3 data-copy="index.mech.p2.head">The host comes from who you are.</h3>
+        <p data-copy="index.mech.p2.body">Every channel is fronted by a character written the way we would write a series regular, with a history, an attitude and a way of seeing the world. Your on-air talent, your mascot, or someone new we build for you. People come back for a person, not a mechanic.</p>
+        <span class="pin">The person</span>
+      </div>
+      <div class="ncard r d3">
+        <span class="num">03</span>
+        <h3 data-copy="index.mech.p3.head">The content comes from what you own.</h3>
+        <p data-copy="index.mech.p3.body">Your catalog, your world, your cast, your back issues, your library. It is the one asset in this business nobody can license out from under you, and it was built to do one job. It can carry another.</p>
+        <span class="pin">The material</span>
+      </div>
+      <div class="ncard r d4">
+        <span class="num">04</span>
+        <h3 data-copy="index.mech.p4.head">The art direction is yours.</h3>
+        <p data-copy="index.mech.p4.body">We keep a house of styles to move fast, and we build bespoke ones tuned to a brand when the identity demands it. Nothing ships that would look at home on somebody else&rsquo;s site.</p>
+        <span class="pin">The look</span>
+      </div>
+    </div>
+
+    <div class="btns r d4" style="margin-top:30px;">
+      <span class="chip proven" data-copy="index.mech.tier">Proven capability</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2.4 DOES ANYONE PLAY IT ===================== -->
+<section class="obs" id="proof">
+  <div class="wrap">
+    <span class="eyebrow r" data-flag="namedProof" data-copy="index.proof.label">Live results &middot; Law &amp; Order: Clue Hunter, on Peacock</span>
+    <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.proof.h2">Six minutes, against six seconds.</h2>
+
+    <div class="stats" data-flag="liveFigures">
+      <div class="stat r d1">
+        <span class="fig">60<span class="unit">%+</span></span>
+        <p class="slabel" data-copy="index.proof.stat1">finish a case they start</p>
+      </div>
+      <div class="stat r d2">
+        <span class="fig">20<span class="unit">%+</span></span>
+        <p class="slabel" data-copy="index.proof.stat2">come back and replay a case they have already solved</p>
+      </div>
+      <div class="stat r d3">
+        <span class="fig">6<span class="unit">min+</span></span>
+        <p class="slabel" data-copy="index.proof.stat3">average session, against six to ten seconds on a paid social post</p>
+      </div>
+    </div>
+
+    <div class="btns r d3" style="margin-top:30px;">
+      <span class="chip proven" data-copy="index.proof.tier">Proven</span>
+    </div>
+
+    <p class="foot-note r d3" data-copy="index.proof.note">Measured on one of our own live channels, not on a partner&rsquo;s surfaces. These are engagement figures, not a retention lift. Whether it becomes an unprompted next-day return for your audience is the one thing a pilot exists to settle, and we will not publish a number for it until a pilot produces one.</p>
+
+    <p class="r d4" style="margin-top:30px;">
+      <a class="tlink" href="problem.html#ladder" data-copy="index.ladder.cta">See how we value a returning player</a>
+    </p>
+  </div>
+</section>
+
+<!-- ===================== 2.5 WHAT IT EARNS YOU ===================== -->
+<section class="obs" id="sponsor">
+  <div class="wrap">
+    <div class="spon-grid">
+      <div>
+        <span class="eyebrow r" data-copy="index.spon.label">New inventory, sold by your team</span>
+        <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.spon.h2">The sponsor is part of the game, not a banner around it.</h2>
+        <p class="sub r d2" data-copy="index.spon.body">A sponsor inside the play is inventory that does not exist for you today. Their world becomes the scene, the word in the grid, the board, or the reward at the end. Nothing interrupts, so nothing gets blocked, and nobody sells your audience better than you do. We supply the play surface and the creative.</p>
+        <div class="btns r d2">
+          <span class="chip proven" data-copy="index.spon.tier">Proven capability</span>
+        </div>
+      </div>
+
+      <div class="r d2">
+        <div class="sponframe">
+          <div class="scr"><img src="assets/intercept-board.jpg" alt="A sponsored element inside a live round of play" loading="lazy"></div>
+          <span class="callout" aria-hidden="true"></span>
+          <span class="clabel">Sponsor, inside the mechanic</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2.6 CLOSE ===================== -->
+<section class="obs" id="close">
+  <div class="wrap">
+    <span class="eyebrow r" data-copy="index.close.label">The smallest first step</span>
+    <div class="closepanel r d1">
+      <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
+      <h2 class="h2" data-copy="index.close.h2">One embed. One placement. One quarter.</h2>
+      <p class="sub" style="margin-left:auto;margin-right:auto;" data-copy="index.close.body">Start with one channel and open the rest when it earns it. No engineering lift on your side. We design it, build it, fill it with content, and run live operations every day. You sign off on the placement. The audience data starts compounding the day it goes live.</p>
+      <div class="btns" style="justify-content:center;">
+        <a class="btn" href="contact.html" data-copy="index.close.cta1">Talk to us</a>
+        <a class="btn ghost" href="demo.html" data-copy="index.close.cta2">Play today&rsquo;s edition</a>
+      </div>
     </div>
   </div>
 </section>
@@ -474,18 +332,18 @@
     <div class="ftop">
       <div class="fbrand">
         <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
-        <p>Wolf Games builds and runs a daily game vault on a publisher&rsquo;s own surface, under the publisher&rsquo;s own brand.</p>
+        <p data-copy="foot.blurb">Wolf Games builds and runs a vault of daily games for your audience, under your brand. Games, platform, and team, all from Wolf.</p>
       </div>
       <div>
-        <h4>The case</h4>
+        <h4 data-copy="foot.col1.head">The case</h4>
         <ul>
-          <li><a href="problem.html">The problem</a></li>
+          <li><a href="problem.html">The case</a></li>
           <li><a href="how-it-works.html">How it works</a></li>
-          <li><a href="demo.html">Play the demo</a></li>
+          <li><a href="demo.html">Demo</a></li>
         </ul>
       </div>
       <div>
-        <h4>Company</h4>
+        <h4 data-copy="foot.col2.head">Company</h4>
         <ul>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Talk to us</a></li>
@@ -493,53 +351,21 @@
         </ul>
       </div>
       <div>
-        <h4>Legal</h4>
+        <h4 data-copy="foot.col3.head">Legal</h4>
         <ul>
-          <li><a href="legal.html">Terms, privacy &amp; cookies</a></li>
+          <li><a href="legal.html">Data and claims</a></li>
           <li><a href="mailto:partners@wolfgames.net">partners@wolfgames.net</a></li>
         </ul>
       </div>
     </div>
     <div class="fbottom">
-      <span>&copy; 2026 Wolf Games. All rights reserved.</span>
-      <span>Partners are here. Players play at <a class="lnk" href="vault.html">the vault</a>.</span>
+      <span data-copy="foot.copyright">&copy; Wolf Games. A Wolf Entertainment company.</span>
+      <span data-copy="foot.split">Partners are here. Players play at <a href="vault.html">the vault</a>.</span>
+      <span class="fcount">01</span>
     </div>
   </div>
 </footer>
 
 <script src="js/site.js"></script>
-<script>
-/* ---- game engine: scroll-driven message stages ---- */
-(function(){
-  var sec=document.getElementById('engine'); if(!sec) return;
-  var msgs=[].slice.call(sec.querySelectorAll('.msg'));
-  var ticks=[].slice.call(sec.querySelectorAll('.rail i'));
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    msgs.forEach(function(m){m.classList.add('on');});
-    return;
-  }
-  var cur=0, ticking=false;
-  function update(){
-    var total=sec.offsetHeight-window.innerHeight;
-    var p=Math.max(0,Math.min(1,-sec.getBoundingClientRect().top/total));
-    var idx=Math.min(msgs.length-1,Math.floor(p*msgs.length));
-    if(idx!==cur){
-      cur=idx;
-      msgs.forEach(function(m,i){m.classList.toggle('on',i===idx);});
-      ticks.forEach(function(t,i){t.classList.toggle('on',i<=idx);});
-    }
-    ticking=false;
-  }
-  window.addEventListener('scroll',function(){
-    if(!ticking){ticking=true;requestAnimationFrame(update);}
-  },{passive:true});
-  update();
-})();
-
-/* ---- ember particles ---- */
-WGParticles('pt-hero','#FAFF00',24);
-WGParticles('pt-engine','#FAFF00',20);
-WGParticles('pt-lo','#FF5A3C',28);
-</script>
 </body>
 </html>

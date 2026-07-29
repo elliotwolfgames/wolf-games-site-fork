@@ -3,26 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Talk to Us — Wolf Games</title>
-<meta name="description" content="Tell us how many markets you run and we will come back with the shape of a pilot. Or book a call directly.">
-<link rel="canonical" href="https://wolfgames.net/contact.html">
+<title>Talk to us · Wolf Games</title>
+<meta name="description" content="Six questions. We come back with the shape of a pilot, not a deck.">
+<link rel="canonical" href="https://wolfgames.net/contact">
 <link rel="stylesheet" href="css/wg.css">
+<script>document.documentElement.className+=' js';</script>
 <style>
-  .clay{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(30px,5vw,64px);align-items:start;margin-top:12px;}
-  @media (max-width:960px){.clay{grid-template-columns:1fr;}}
+  .clay{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(34px,5vw,74px);align-items:start;}
+  @media (max-width:940px){.clay{grid-template-columns:1fr;}}
+  .aside .panel{margin-bottom:16px;}
+  .aside .panel:last-child{margin-bottom:0;}
+  .aside h3{font-family:var(--display);font-weight:600;font-size:18px;margin:0 0 12px;letter-spacing:-.01em;}
+  .aside p{margin:0;font-size:14.5px;color:var(--fg-60);line-height:1.65;}
 
-  .aside .card{margin-bottom:16px;}
-  .aside .card:last-child{margin-bottom:0;}
-  .aside h3{font-family:var(--display);font-weight:600;font-size:18.5px;letter-spacing:-.01em;margin:0 0 12px;}
-  .aside p{margin:0;font-size:14.5px;color:var(--fg-2);line-height:1.6;}
-  .aside .cal{text-align:center;}
-  .aside .cal .btn{width:100%;margin-top:18px;}
-  .aside .direct{margin-top:14px;font-size:14px;color:var(--fg-3);}
+  .steps{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .step{background:var(--bg);padding:clamp(22px,2.6vw,28px);}
+  .step .snum{font-family:var(--mono);font-weight:600;font-size:10.5px;letter-spacing:.18em;color:var(--yellow);}
+  .step h4{font-family:var(--display);font-weight:600;font-size:17px;margin:12px 0 9px;letter-spacing:-.01em;}
+  .step p{margin:0;font-size:14.5px;color:var(--fg-60);line-height:1.6;}
+  .step .stag{display:block;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-40);}
 
-  .quals{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:11px;}
-  .quals li{position:relative;padding-left:22px;font-size:14.5px;color:var(--fg-2);line-height:1.5;}
-  .quals li::before{content:'';position:absolute;left:0;top:.45em;width:11px;height:11px;
-    border-radius:3px;border:1.5px solid var(--yellow);}
+  .covers{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:12px;}
+  .covers li{position:relative;padding-left:18px;font-size:14.5px;color:var(--fg-60);line-height:1.6;}
+  .covers li::before{content:'';position:absolute;left:0;top:.6em;width:5px;height:5px;background:var(--yellow);}
 </style>
 </head>
 <body>
@@ -37,99 +41,101 @@
 </header>
 
 <nav class="menu" id="menu" aria-label="Site menu">
-  <a href="problem.html">The Problem</a>
-  <a href="how-it-works.html">How It Works</a>
-  <a href="demo.html">Play the Demo</a>
-  <a href="contact.html" aria-current="page">Talk to Us</a>
-  <a href="about.html">About Us</a>
-  <a class="mplay" href="vault.html">Players — enter the vault</a>
+  <a href="problem.html">The case</a>
+  <a href="how-it-works.html">How it works</a>
+  <a href="demo.html">Demo</a>
+  <a href="about.html">About</a>
+  <a href="contact.html" aria-current="page">Talk to us</a>
+  <a class="mplay" href="vault.html">Players play here</a>
 </nav>
 
 <main id="main">
 
 <section class="phero obs">
-  <div class="glow" aria-hidden="true"></div>
   <div class="wrap">
-    <span class="label r">Talk to us</span>
-    <h1 class="r d1">One embed. One page position. <span class="shimmer-y">A defined exit.</span></h1>
-    <p class="lede r d2">Six questions, and the market count matters most &mdash; it is what sizes the thing. We come back with the shape of a pilot, not a deck.</p>
+    <h1 class="h1 r" data-copy="contact.hero.h1">Tell us what you&rsquo;re working with.</h1>
+    <hr class="rule r d1">
+    <p class="lede r d1" data-copy="contact.hero.lede">Six questions. The scale question matters most, because it sizes the thing. We come back with the shape of a pilot, not a deck.</p>
   </div>
 </section>
 
-<section class="obs" style="padding-top:clamp(24px,4vh,50px);">
+<section class="obs" style="padding-top:clamp(20px,3vh,44px);">
   <div class="wrap">
     <div class="clay">
+
       <div>
         <form class="form" id="contact-form">
           <div>
-            <label for="c-name">Your name</label>
+            <label for="c-name" data-copy="form.f1">Your name</label>
             <input id="c-name" name="name" type="text" required autocomplete="name">
           </div>
           <div>
-            <label for="c-email">Work email</label>
-            <input id="c-email" name="email" type="email" required autocomplete="email" placeholder="you@publisher.com">
-          </div>
-          <div>
-            <label for="c-company">Publisher or group</label>
+            <label for="c-company" data-copy="form.f2">Company</label>
             <input id="c-company" name="company" type="text" required autocomplete="organization">
           </div>
           <div>
-            <label for="c-role">Your side of the house</label>
-            <select id="c-role" name="role" required>
+            <label for="c-email" data-copy="form.f3">Work email</label>
+            <input id="c-email" name="email" type="email" required autocomplete="email">
+          </div>
+          <div>
+            <label for="c-scale" data-copy="form.f4">How many surfaces or properties would this run across?</label>
+            <select id="c-scale" name="scale" required>
               <option value="" disabled selected>Choose one</option>
-              <option>Audience or product</option>
-              <option>Revenue or ad operations</option>
-              <option>Editorial</option>
-              <option>Engineering</option>
-              <option>Executive</option>
+              <option>One</option>
+              <option>Two to five</option>
+              <option>Six to twenty</option>
+              <option>More than twenty</option>
+              <option>Not sure yet</option>
             </select>
           </div>
-          <div class="full">
-            <label for="c-markets">How many markets or mastheads do you run?</label>
-            <select id="c-markets" name="marketCount" required>
-              <option value="" disabled selected>Choose one</option>
-              <option>1</option>
-              <option>2 to 5</option>
-              <option>6 to 20</option>
-              <option>21 to 50</option>
-              <option>More than 50</option>
-            </select>
+          <div>
+            <label for="c-own" data-copy="form.f5">What do you own that people already care about?</label>
+            <input id="c-own" name="owned" type="text" required>
           </div>
-          <div class="full">
-            <label for="c-note">What would you want to put on one page first? (optional)</label>
-            <textarea id="c-note" name="note" placeholder="The surface, the slot, and anything that would have to be true for it to run."></textarea>
+          <div>
+            <label for="c-where" data-copy="form.f6">Where would you want to put it first? (optional)</label>
+            <textarea id="c-where" name="placement"></textarea>
           </div>
-          <button class="btn" type="submit">Send this <span class="arrow">&rarr;</span></button>
+          <button class="btn" type="submit" data-copy="form.submit">Send</button>
         </form>
 
-        <div class="form-done" id="contact-done" hidden>
-          <b>Got it.</b> We read every one of these ourselves. Expect a reply from a person, usually within two working days &mdash; and if the market count says a pilot does not make sense for you yet, we will say that instead of selling you something.
-        </div>
+        <div class="form-done" id="contact-done" hidden data-copy="form.done">We read every one of these ourselves. Expect a reply from a person, usually within two working days. If the answers say a pilot does not make sense for you yet, we will tell you that instead of selling you something.</div>
       </div>
 
       <div class="aside">
-        <div class="card cal r d1">
-          <h3>Rather just talk?</h3>
-          <p>Skip the form and take a slot directly. Thirty minutes, no deck unless you ask for one.</p>
-          <a class="btn" href="https://calendly.com/wolfgames/partner-intro" target="_blank" rel="noopener">Book a call <span class="arrow">&rarr;</span></a>
-          <p class="direct">Or write to <a class="lnk" href="mailto:partners@wolfgames.net">partners@wolfgames.net</a></p>
+        <h3 class="r" style="margin-bottom:16px;" data-copy="contact.next.h2">What happens next</h3>
+        <div class="steps r d1" style="margin-bottom:16px;">
+          <div class="step">
+            <span class="snum">01</span>
+            <h4 data-copy="contact.next.s1.head">Intake.</h4>
+            <p data-copy="contact.next.s1.body">Sixty minutes with our game design and product teams. We learn your audience, your world, and which channels fit them.</p>
+            <span class="stag" data-copy="contact.next.s1.tag">60 min &middot; your calendar</span>
+          </div>
+          <div class="step">
+            <span class="snum">02</span>
+            <h4 data-copy="contact.next.s2.head">We build it. You approve it.</h4>
+            <p data-copy="contact.next.s2.body">Design, build, content, art direction, and live operations. You sign off at each gate. Then the embed is yours to place.</p>
+            <span class="stag" data-copy="contact.next.s2.tag">Built in weeks &middot; fully managed</span>
+          </div>
         </div>
 
-        <div class="card r d2">
-          <h3>What a first call covers</h3>
-          <ul class="quals">
-            <li>The page position you would give it, and what it currently earns.</li>
-            <li>What your newsroom needs to hold at the approval gate.</li>
-            <li>What we can prove today, and what a pilot would have to settle.</li>
-            <li>The exit &mdash; what ends the pilot, and when.</li>
+        <div class="panel r d2">
+          <h3 data-copy="contact.covers.head">What a first call covers</h3>
+          <ul class="covers">
+            <li data-copy="contact.covers.1">The placement you would give it, and what it currently earns.</li>
+            <li data-copy="contact.covers.2">Which channel goes first, and what opens next.</li>
+            <li data-copy="contact.covers.3">What your team needs to hold at the approval gate.</li>
+            <li data-copy="contact.covers.4">What we can prove today, and what a pilot would have to settle.</li>
+            <li data-copy="contact.covers.5">The exit. What ends the pilot, and when.</li>
           </ul>
         </div>
 
-        <div class="card r d3">
-          <h3>What we will not do</h3>
-          <p>We will not quote you a retention lift. No pilot has measured one yet, and a number we invented would not survive your own procurement review &mdash; which would cost us the second conversation as well as the first.</p>
+        <div class="panel r d3">
+          <h3 data-copy="contact.wont.head">What we will not do</h3>
+          <p data-copy="contact.wont.body">We will not quote you a retention lift. No pilot has measured one, and a number we invented would not survive your procurement review, which would cost us the second conversation as well as the first.</p>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -141,18 +147,18 @@
     <div class="ftop">
       <div class="fbrand">
         <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
-        <p>Wolf Games builds and runs a daily game vault on a publisher&rsquo;s own surface, under the publisher&rsquo;s own brand.</p>
+        <p data-copy="foot.blurb">Wolf Games builds and runs a vault of daily games for your audience, under your brand. Games, platform, and team, all from Wolf.</p>
       </div>
       <div>
-        <h4>The case</h4>
+        <h4 data-copy="foot.col1.head">The case</h4>
         <ul>
-          <li><a href="problem.html">The problem</a></li>
+          <li><a href="problem.html">The case</a></li>
           <li><a href="how-it-works.html">How it works</a></li>
-          <li><a href="demo.html">Play the demo</a></li>
+          <li><a href="demo.html">Demo</a></li>
         </ul>
       </div>
       <div>
-        <h4>Company</h4>
+        <h4 data-copy="foot.col2.head">Company</h4>
         <ul>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Talk to us</a></li>
@@ -160,42 +166,22 @@
         </ul>
       </div>
       <div>
-        <h4>Legal</h4>
+        <h4 data-copy="foot.col3.head">Legal</h4>
         <ul>
-          <li><a href="legal.html">Terms, privacy &amp; cookies</a></li>
+          <li><a href="legal.html">Data and claims</a></li>
           <li><a href="mailto:partners@wolfgames.net">partners@wolfgames.net</a></li>
         </ul>
       </div>
     </div>
     <div class="fbottom">
-      <span>&copy; 2026 Wolf Games. All rights reserved.</span>
-      <span>Partners are here. Players play at <a class="lnk" href="vault.html">the vault</a>.</span>
+      <span data-copy="foot.copyright">&copy; Wolf Games. A Wolf Entertainment company.</span>
+      <span data-copy="foot.split">Partners are here. Players play at <a href="vault.html">the vault</a>.</span>
+      <span class="fcount">06</span>
     </div>
   </div>
 </footer>
 
 <script src="js/site.js"></script>
-<script>
-(function(){
-  var form=document.getElementById('contact-form'), done=document.getElementById('contact-done');
-  if(!form) return;
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var data={source:'contact'};
-    new FormData(form).forEach(function(v,k){ data[k]=v; });
-    form.querySelector('button[type="submit"]').disabled=true;
-    fetch('/api/partner-lead',{
-      method:'POST',
-      headers:{'content-type':'application/json'},
-      body:JSON.stringify(data)
-    }).catch(function(err){
-      /* static preview has no serverless runtime; the deployed site does */
-      console.warn('partner-lead endpoint unreachable in this environment',err);
-    }).then(function(){
-      form.hidden=true; done.hidden=false;
-    });
-  });
-})();
-</script>
+<script>WGForm('contact-form','contact-done','contact');</script>
 </body>
 </html>

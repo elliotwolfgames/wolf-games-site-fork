@@ -3,40 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terms, Privacy &amp; Cookies — Wolf Games</title>
-<meta name="description" content="How the vault handles location, declared data, play telemetry, and cookies — written to be read in three minutes.">
-<link rel="canonical" href="https://wolfgames.net/legal.html">
+<title>Data and claims · Wolf Games</title>
+<meta name="description" content="What runs on your surfaces, what we collect, what the play data does, and how we label every claim on this site.">
+<link rel="canonical" href="https://wolfgames.net/legal">
 <link rel="stylesheet" href="css/wg.css">
+<script>document.documentElement.className+=' js';</script>
 <style>
-  .legal .card{margin-bottom:18px;}
-  .legal .card:last-child{margin-bottom:0;}
-  .legal h2.h3{font-family:var(--display);font-weight:600;font-size:clamp(20px,2.1vw,26px);
-    letter-spacing:-.015em;margin:0 0 14px;}
-  .legal p{margin:0 0 14px;color:var(--fg-2);font-size:15.5px;line-height:1.65;}
-  .legal p:last-child{margin-bottom:0;}
-  .legal p strong{color:var(--fg);font-weight:600;}
-
-  .never{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
-  .never li{position:relative;padding-left:30px;font-size:15.5px;color:var(--fg-2);line-height:1.6;}
-  .never li::before{content:'';position:absolute;left:0;top:.34em;width:17px;height:17px;border-radius:50%;
-    border:1.5px solid rgba(255,255,255,.28);}
-  .never li::after{content:'';position:absolute;left:5px;top:calc(.34em + 7px);width:7px;height:1.5px;
-    background:var(--fg-3);border-radius:2px;}
-  .never li strong{color:var(--fg);font-weight:600;}
-
-  .docs{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px;}
-  @media (max-width:700px){.docs{grid-template-columns:1fr;}}
-  .doc{display:flex;align-items:center;gap:16px;background:var(--glass);border:1px solid var(--glass-line);
-    border-radius:14px;padding:20px 22px;text-decoration:none;transition:border-color .25s,transform .25s var(--ease);}
-  .doc:hover{border-color:var(--yellow);transform:translateY(-2px);}
-  .doc .di{flex:none;width:38px;height:38px;border:1px solid var(--yellow);border-radius:9px;
-    display:flex;align-items:center;justify-content:center;}
-  .doc .di svg{width:18px;height:18px;stroke:var(--yellow);fill:none;stroke-width:1.6;
-    stroke-linecap:round;stroke-linejoin:round;}
-  .doc b{display:block;font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:-.01em;}
-  .doc span{display:block;font-size:13px;color:var(--fg-3);margin-top:2px;}
-
-  .updated{margin-top:34px;font-size:13.5px;color:var(--fg-3);}
+  .lcards{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:44px;}
+  .lcard{background:var(--bg);padding:clamp(24px,3vw,38px);display:grid;
+    grid-template-columns:auto 1fr;gap:clamp(18px,2.6vw,34px);align-items:start;}
+  @media (max-width:700px){.lcard{grid-template-columns:1fr;gap:14px;}}
+  .lcard .lnum{font-family:var(--mono);font-weight:600;font-size:10.5px;letter-spacing:.18em;
+    color:var(--yellow);padding-top:6px;}
+  .lcard h2{font-family:var(--display);font-weight:600;font-size:clamp(19px,2.1vw,25px);
+    letter-spacing:-.015em;margin:0 0 12px;}
+  .lcard p{margin:0 0 14px;color:var(--fg-60);font-size:15.5px;line-height:1.7;max-width:44em;}
+  .lcard p:last-child{margin-bottom:0;}
+  .lcard p strong{color:var(--fg);font-weight:600;}
+  .lcard ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+  .lcard li{position:relative;padding-left:18px;color:var(--fg-60);font-size:15.5px;line-height:1.65;}
+  .lcard li::before{content:'';position:absolute;left:0;top:.62em;width:5px;height:5px;background:var(--yellow);}
+  .lcard li strong{color:var(--fg);font-weight:600;}
 </style>
 </head>
 <body>
@@ -51,83 +38,83 @@
 </header>
 
 <nav class="menu" id="menu" aria-label="Site menu">
-  <a href="problem.html">The Problem</a>
-  <a href="how-it-works.html">How It Works</a>
-  <a href="demo.html">Play the Demo</a>
-  <a href="contact.html">Talk to Us</a>
-  <a href="about.html">About Us</a>
-  <a class="mplay" href="vault.html">Players — enter the vault</a>
+  <a href="problem.html">The case</a>
+  <a href="how-it-works.html">How it works</a>
+  <a href="demo.html">Demo</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Talk to us</a>
+  <a class="mplay" href="vault.html">Players play here</a>
 </nav>
 
 <main id="main">
 
 <section class="phero obs">
-  <div class="glow" aria-hidden="true"></div>
   <div class="wrap">
-    <span class="label r">Terms, privacy &amp; cookies</span>
-    <h1 class="r d1">Written to be read in <span class="shimmer-y">three minutes.</span></h1>
-    <p class="lede r d2">You own a sensitive audience relationship, and your legal team will read this before anything else. So here is the whole position in plain words, with the binding documents linked at the bottom.</p>
+    <h1 class="h1 r" data-copy="legal.hero.h1">What we collect, what we claim, <span class="y">and what we will not do.</span></h1>
+    <hr class="rule r d1">
   </div>
 </section>
 
-<section class="obs legal" style="padding-top:clamp(24px,4vh,50px);">
-  <div class="wrap narrow">
+<section class="obs" style="padding-top:clamp(16px,2.5vh,36px);">
+  <div class="wrap">
+    <div class="lcards">
 
-    <div class="card r d1">
-      <h2 class="h3">Location: town grain only</h2>
-      <p>An edition needs to know roughly where a reader is so it can be set somewhere real to them. <strong>It resolves at town or metro grain, and no finer.</strong> Precise location is never requested, never used, and never stored. There is no GPS prompt, and nothing in the vault reads a device&rsquo;s coordinates.</p>
-      <p>On this site we go further: we do not infer your market at all. If you want to see an edition set in your own town, you tell us on the demo page, and that is a request you make rather than a lookup we run.</p>
+      <div class="lcard r d1">
+        <span class="lnum">01</span>
+        <div>
+          <h2 data-copy="legal.c1.head">What runs on your properties</h2>
+          <p data-copy="legal.c1.body">A static bundle. No player-facing servers of ours sit between your audience and the game.</p>
+        </div>
+      </div>
+
+      <div class="lcard r d1">
+        <span class="lnum">02</span>
+        <div>
+          <h2 data-copy="legal.c2.head">What we collect</h2>
+          <p data-copy="legal.c2.body">Play events: what was started, what was finished, how long it took, what was answered. No account is required and none is offered in a pilot.</p>
+        </div>
+      </div>
+
+      <div class="lcard r d2">
+        <span class="lnum">03</span>
+        <div>
+          <h2 data-copy="legal.c3.head">What the play data does for you</h2>
+          <p data-copy="legal.c3.body1">Play events answer one question: is this working, for this audience, this week. That signal is shared between your team and ours, and it compounds. Every edition that runs teaches the next one what your audience actually finishes, so the vault gets sharper for them specifically. <strong>Play telemetry never enriches a third-party profile, is never sold, and is never joined to an advertising identity graph.</strong></p>
+          <p data-copy="legal.c3.body2">The event log is the source of truth for both of us. You read the same events we read, which is the only way a retention number survives your own scrutiny.</p>
+        </div>
+      </div>
+
+      <div class="lcard r d2">
+        <span class="lnum">04</span>
+        <div>
+          <h2 data-copy="legal.c4.head">Children</h2>
+          <p data-copy="legal.c4.body">We do not build for audiences under thirteen and we do not collect from them.</p>
+        </div>
+      </div>
+
+      <div class="lcard r d3">
+        <span class="lnum">05</span>
+        <div>
+          <h2 data-copy="legal.c5.head">Consent</h2>
+          <p data-copy="legal.c5.body">No consent wall, because there is nothing behind one. First-party analytics only.</p>
+        </div>
+      </div>
+
+      <div class="lcard r d3">
+        <span class="lnum">06</span>
+        <div>
+          <h2 data-copy="legal.c6.head">How we label claims</h2>
+          <ul>
+            <li data-copy="legal.c6.1"><strong>Proven.</strong> We have measured it or it is a plain fact about what we operate.</li>
+            <li data-copy="legal.c6.2"><strong>We expect.</strong> A design target. Reasoned, not measured.</li>
+            <li data-copy="legal.c6.3"><strong>Our bet.</strong> Unproven. Stated so you can decide whether to test it with us.</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
 
-    <div class="card r d2">
-      <h2 class="h3">Declared data: one tap, optional, and visibly spent</h2>
-      <p>A reader can tell the vault a town and an interest. <strong>It is one tap, it is always optional, and the game is fully playable without it.</strong> Nothing is inferred from behaviour and quietly filed as if the reader had declared it.</p>
-      <p>When a reader does declare something, the edition changes in front of them. That is deliberate: the reader can see what the answer bought. Data that is collected and never visibly used is data a reader was right not to give you.</p>
-    </div>
-
-    <div class="card r d3">
-      <h2 class="h3">Play telemetry stays on your property</h2>
-      <p>Play events exist to answer one question &mdash; is this working, per market &mdash; and they belong to the deployment they came from. <strong>Play telemetry never enriches a third-party profile, is never sold, and is never joined to an advertising identity graph.</strong></p>
-      <p>The event log is the source of truth for both of us. You see the same events we see for your own markets, which is the only way a retention number survives your own scrutiny.</p>
-    </div>
-
-    <div class="card r d1">
-      <h2 class="h3">The vault inherits your posture</h2>
-      <p>Per deployment, the vault runs under <strong>your</strong> privacy policy, <strong>your</strong> consent posture, and <strong>your</strong> data retention rules &mdash; not ours. If your market requires a stricter setting than another, the stricter setting is what ships there. We adapt to the property; the property does not adapt to us.</p>
-    </div>
-
-    <div class="card r d2">
-      <h2 class="h3">Cookies on this site</h2>
-      <p><strong>Essential cookies only, and first-party analytics only.</strong> There is no advertising cookie, no third-party tracker, no cross-site pixel, and no data broker in the path. That is also why you are not reading this through a consent wall &mdash; we do not set anything that would require one.</p>
-      <p>This site carries no advertising of any kind.</p>
-    </div>
-
-    <div class="card r d3">
-      <h2 class="h3">Four things we do not do</h2>
-      <ul class="never">
-        <li><strong>We do not use precise location.</strong> Town or metro grain is the finest resolution that exists anywhere in the product.</li>
-        <li><strong>We do not sell or share play data.</strong> Not to brokers, not to ad networks, not to other partners.</li>
-        <li><strong>We do not accuse real private individuals.</strong> Real places and public institutions appear in editions; living private people are never named as culprits, and your newsroom holds the approval gate.</li>
-        <li><strong>We do not publish numbers we have not measured.</strong> Including our own retention claims.</li>
-      </ul>
-    </div>
-
-    <h2 class="h2 r" style="margin-top:clamp(50px,7vh,80px);font-size:clamp(24px,2.8vw,36px);">The binding documents</h2>
-    <p class="sub r">The summary above is written for speed, not for signature. Where the wording differs, these govern.</p>
-
-    <div class="docs r">
-      <a class="doc" href="https://www.wolfgames.net/legal/terms-of-service" target="_blank" rel="noopener">
-        <span class="di"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span>
-        <span><b>Terms of Service</b><span>The agreement itself</span></span>
-      </a>
-      <a class="doc" href="https://www.wolfgames.net/legal/privacy-policy" target="_blank" rel="noopener">
-        <span class="di"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.4 3 8.2 7 9 4-.8 7-4.6 7-9V6z"/><path d="m9.2 12 2 2 3.6-3.8"/></svg></span>
-        <span><b>Privacy Policy</b><span>The full notice</span></span>
-      </a>
-    </div>
-
-    <p class="updated r">Questions from a legal or procurement team go straight to <a class="lnk" href="mailto:partners@wolfgames.net">partners@wolfgames.net</a> and reach a person, not a queue.</p>
-
+    <p class="foot-note r" data-copy="legal.footnote">Every named partner and every named title on this site is published with written permission and re-verified quarterly.</p>
   </div>
 </section>
 
@@ -138,18 +125,18 @@
     <div class="ftop">
       <div class="fbrand">
         <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
-        <p>Wolf Games builds and runs a daily game vault on a publisher&rsquo;s own surface, under the publisher&rsquo;s own brand.</p>
+        <p data-copy="foot.blurb">Wolf Games builds and runs a vault of daily games for your audience, under your brand. Games, platform, and team, all from Wolf.</p>
       </div>
       <div>
-        <h4>The case</h4>
+        <h4 data-copy="foot.col1.head">The case</h4>
         <ul>
-          <li><a href="problem.html">The problem</a></li>
+          <li><a href="problem.html">The case</a></li>
           <li><a href="how-it-works.html">How it works</a></li>
-          <li><a href="demo.html">Play the demo</a></li>
+          <li><a href="demo.html">Demo</a></li>
         </ul>
       </div>
       <div>
-        <h4>Company</h4>
+        <h4 data-copy="foot.col2.head">Company</h4>
         <ul>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Talk to us</a></li>
@@ -157,16 +144,17 @@
         </ul>
       </div>
       <div>
-        <h4>Legal</h4>
+        <h4 data-copy="foot.col3.head">Legal</h4>
         <ul>
-          <li><a href="legal.html">Terms, privacy &amp; cookies</a></li>
+          <li><a href="legal.html">Data and claims</a></li>
           <li><a href="mailto:partners@wolfgames.net">partners@wolfgames.net</a></li>
         </ul>
       </div>
     </div>
     <div class="fbottom">
-      <span>&copy; 2026 Wolf Games. All rights reserved.</span>
-      <span>Partners are here. Players play at <a class="lnk" href="vault.html">the vault</a>.</span>
+      <span data-copy="foot.copyright">&copy; Wolf Games. A Wolf Entertainment company.</span>
+      <span data-copy="foot.split">Partners are here. Players play at <a href="vault.html">the vault</a>.</span>
+      <span class="fcount">07</span>
     </div>
   </div>
 </footer>

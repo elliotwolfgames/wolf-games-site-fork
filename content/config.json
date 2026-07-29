@@ -1,0 +1,95 @@
+{
+  "_readme": [
+    "Single source for everything on the site that is pending clearance.",
+    "Flip a flag to false, run `node tools/apply-config.js`, and every element",
+    "carrying that data-flag is blanked across all pages. Because it rewrites the",
+    "HTML rather than acting at runtime, the site still reads with JavaScript off.",
+    "Run `node tools/apply-config.js --check` to see what is currently exposed."
+  ],
+  "flags": {
+    "namedProof": {
+      "value": true,
+      "owner": "Elliot",
+      "blocks": "Shelf tile chip, proof section eyebrow, about page lineage",
+      "note": "Clearance to name Law & Order: Clue Hunter and Peacock publicly. Set false to fall back to the unnamed wording below."
+    },
+    "liveFigures": {
+      "value": true,
+      "owner": "Elliot",
+      "blocks": "Homepage proof section, the-case stance and ladder rung 02/03",
+      "note": "Clearance to publish 60%+ / 20%+ / 6 min+. Set false and the stat figures are withheld in place, not deleted."
+    },
+    "partnerLogos": {
+      "value": false,
+      "owner": "Elliot / Andrew",
+      "blocks": "Homepage logo strip",
+      "note": "OFF by default. No logo may appear until written permission is on file for that specific logo."
+    },
+    "demoBundle": {
+      "value": false,
+      "owner": "Product",
+      "blocks": "/demo playable frame",
+      "note": "OFF until the game team ships a bundle. While off, /demo renders a visible placeholder that states what is missing. It is never an invisible stub."
+    }
+  },
+  "namedProof": {
+    "on": {
+      "title": "Law & Order: Clue Hunter",
+      "platform": "Peacock",
+      "shelfChip": "Live on Peacock",
+      "proofEyebrow": "Live results · Law & Order: Clue Hunter, on Peacock",
+      "lineage": "Wolf Games is the game studio inside Wolf Entertainment, the company behind Law & Order."
+    },
+    "off": {
+      "title": "A live channel",
+      "platform": "a national streaming service",
+      "shelfChip": "Live now",
+      "proofEyebrow": "Live results · one of our own channels",
+      "lineage": "Wolf Games is the game studio inside Wolf Entertainment."
+    }
+  },
+  "liveFigures": {
+    "on": {
+      "stat1": {
+        "fig": "60",
+        "unit": "%+",
+        "label": "finish a case they start"
+      },
+      "stat2": {
+        "fig": "20",
+        "unit": "%+",
+        "label": "come back and replay a case they have already solved"
+      },
+      "stat3": {
+        "fig": "6",
+        "unit": "min+",
+        "label": "average session, against six to ten seconds on a paid social post"
+      }
+    },
+    "off": {
+      "stat1": {
+        "fig": "Pending",
+        "unit": "",
+        "label": "completion rate. Figure held until cleared for public use."
+      },
+      "stat2": {
+        "fig": "Pending",
+        "unit": "",
+        "label": "replay rate. Figure held until cleared for public use."
+      },
+      "stat3": {
+        "fig": "Pending",
+        "unit": "",
+        "label": "average session. Figure held until cleared for public use."
+      }
+    }
+  },
+  "demoBundle": {
+    "src": "",
+    "note": "When the bundle exists, put its URL in `src` and set the demoBundle flag to true. The placeholder component in demo.html reads this one value and nothing else."
+  },
+  "endpoints": {
+    "partnerLead": "/api/partner-lead",
+    "note": "Form endpoint is pending an engineering decision (open item 8). Until it resolves, submissions post here and fail soft with an on-page confirmation."
+  }
+}
