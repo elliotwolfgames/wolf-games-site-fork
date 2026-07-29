@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wolf Games · a vault of daily games, built for your audience.</title>
-<meta name="description" content="We build, host and run a vault of daily games for your audience, under your brand. One line of code. No game team, no SDK, nothing to maintain on your side.">
+<title>Wolf Games · a vault of games that learns your audience.</title>
+<meta name="description" content="We build, host and run a vault of games for your audience, under your brand, on the cadence you choose. The system gets better at your audience every time they play.">
 <link rel="canonical" href="https://wolfgames.net/">
 <link rel="stylesheet" href="css/wg.css">
 <script>document.documentElement.className+=' js';</script>
@@ -45,6 +45,10 @@
     .hero .art{order:-1;max-width:520px;}
     .hero .bg img{opacity:.18;}
   }
+
+  .hero-subline{margin:18px 0 0;max-width:34em;font-size:clamp(15.5px,1.4vw,17.5px);color:var(--fg);}
+  .hero-source{margin:14px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--fg-40);}
 
   /* three worlds, one mechanic */
   .worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.8vw,22px);margin-top:44px;}
@@ -130,11 +134,13 @@
     <div class="grid">
       <div>
         <h1 class="h1 hero-anim">
-          <span data-copy="index.hero.h1a">Daily Games</span>
-          <span class="y" data-copy="index.hero.h1b">built for your audience.</span>
+          <span data-copy="index.hero.h1a">A new reason to show up.</span>
+          <span class="y" data-copy="index.hero.h1b">Every day. Forever.</span>
         </h1>
         <hr class="rule hero-anim">
-        <p class="lede hero-anim" data-copy="index.hero.lede">We build, host and run a vault of daily games for your audience, under your brand. One line of code. No game team, no SDK, nothing to maintain on your side.</p>
+        <p class="lede hero-anim" data-copy="index.hero.lede">Two hundred and twelve million Americans already play games every week. Two-thirds of the country, an hour or more, with nobody asking them to. We build the games that make you part of that habit, out of what you already own, and the system gets better at your audience every time they play.</p>
+        <p class="hero-subline hero-anim" data-copy="index.hero.subline">You set the cadence, up to a new drop every day. We do the rest.</p>
+        <p class="hero-source hero-anim" data-copy="index.hero.source">Entertainment Software Association and YouGov, June 2026</p>
         <div class="btns hero-anim">
           <a class="btn" href="demo.html" data-copy="index.hero.cta1">Play today&rsquo;s edition</a>
           <a class="btn ghost" href="problem.html" data-copy="index.hero.cta2">See what a pilot looks like</a>
@@ -171,7 +177,7 @@
   <div class="wrap">
     <span class="eyebrow r" data-copy="index.shelf.label">One vault, several channels</span>
     <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.shelf.h2">Nobody builds a habit across a whole audience with one puzzle.</h2>
-    <p class="sub r d2" data-copy="index.shelf.body">Each channel has its own mechanic, its own host, and a story that keeps going. Someone who bounces off one finds another, and the ones they play tell us what to surface tomorrow.</p>
+    <p class="sub r d2" data-copy="index.shelf.body">Each channel has its own mechanic, its own host, and a story that keeps going. Someone who bounces off one finds another, and the ones they play tell us what to surface next.</p>
 
     <div class="shelf">
       <div class="tile r d1">
@@ -180,7 +186,7 @@
           <figcaption>
             <span class="tmech">Hidden object</span>
             <span class="tname" data-flag="namedProof" data-copy="shelf.1.name">Clue Hunter</span>
-            <span class="tlive" data-flag="namedProof" data-copy="shelf.1.chip">Live on Peacock</span>
+            <span class="tlive" data-flag="namedProof" data-copy="shelf.1.chip">Live on Peacock, weekly</span>
           </figcaption>
         </figure>
       </div>
@@ -332,10 +338,42 @@
   </div>
 </section>
 
+<!-- ===================== IT GETS BETTER AT YOUR AUDIENCE ===================== -->
+<section class="obs" id="learn">
+  <div class="wrap">
+    <span class="eyebrow r" data-copy="index.learn.label">The network that learns</span>
+    <h2 class="h2 r d1" style="margin-top:20px;">
+      <span data-copy="index.learn.h2a">A catalog game is the same the day you launch it</span>
+      <span class="y" data-copy="index.learn.h2b">and the day you cancel it.</span>
+    </h2>
+    <p class="sub r d2" data-copy="index.learn.body">Every session records what someone started, finished, abandoned and came back to, and connects it to the exact version, mechanic and moment that produced it. That evidence decides what we build for your audience next. The games on your surfaces in month six are shaped by what your audience did in months one through five.</p>
+
+    <div class="ncards">
+      <div class="ncard r d1">
+        <span class="num">01</span>
+        <h3 data-copy="index.learn.p1.head">We change the game, not just the settings.</h3>
+        <p data-copy="index.learn.p1.body">Most systems choose between options a team prepared in advance. Ours generates new levels and alters the rules themselves, then plays the result before anyone sees it. The thing being optimized is the game, not a dial on the side of it.</p>
+        <span class="pin">The mechanism</span>
+      </div>
+      <div class="ncard r d2">
+        <span class="num">02</span>
+        <h3 data-copy="index.learn.p2.head">Relevance compounds. Novelty does not.</h3>
+        <p data-copy="index.learn.p2.body">A licensed catalog game is at its best on day one. This is the opposite shape. The longer it runs on your surfaces, the more it knows about what your audience finishes, and the harder that is for anyone to start over on.</p>
+        <span class="pin">The shape</span>
+      </div>
+    </div>
+
+    <div class="btns r d3" style="margin-top:30px;">
+      <span class="chip expect" data-copy="index.learn.tier">We expect</span>
+    </div>
+    <p class="foot-note r d3" data-copy="index.learn.note">The loop runs today across our supported game architectures. Whether it produces repeatable, measured improvement against a control is what we are proving now, and it is the same thing a pilot would show you on your own audience.</p>
+  </div>
+</section>
+
 <!-- ===================== 2.4 DOES ANYONE PLAY IT ===================== -->
 <section class="obs" id="proof">
   <div class="wrap">
-    <span class="eyebrow r" data-flag="namedProof" data-copy="index.proof.label">Live results &middot; Law &amp; Order: Clue Hunter, on Peacock</span>
+    <span class="eyebrow r" data-flag="namedProof" data-copy="index.proof.label">Live results &middot; Law &amp; Order: Clue Hunter, new cases weekly on Peacock</span>
     <h2 class="h2 r d1" style="margin-top:20px;" data-copy="index.proof.h2">Six minutes, against six seconds.</h2>
 
     <div class="stats" data-flag="liveFigures">
@@ -357,7 +395,7 @@
       <span class="chip proven" data-copy="index.proof.tier">Proven</span>
     </div>
 
-    <p class="foot-note r d3" data-copy="index.proof.note">Measured on one of our own live channels, not on a partner&rsquo;s surfaces. These are engagement figures, not a retention lift. Whether it becomes an unprompted next-day return for your audience is the one thing a pilot exists to settle, and we will not publish a number for it until a pilot produces one.</p>
+    <p class="foot-note r d3" data-copy="index.proof.note">Measured on one of our own live channels, not on a partner&rsquo;s surfaces. These are engagement figures, not a retention lift. Whether it becomes an unprompted return for your audience is the one thing a pilot exists to settle, and we will not publish a number for it until a pilot produces one.</p>
 
     <p class="r d4" style="margin-top:30px;">
       <a class="tlink" href="problem.html#ladder" data-copy="index.ladder.cta">See how we value a returning player</a>
@@ -397,7 +435,7 @@
       <div class="particles" id="pt-close" aria-hidden="true"></div>
       <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
       <h2 class="h2" data-copy="index.close.h2">One embed. One placement. One quarter.</h2>
-      <p class="sub" style="margin-left:auto;margin-right:auto;" data-copy="index.close.body">Start with one channel and open the rest when it earns it. No engineering lift on your side. We design it, build it, fill it with content, and run live operations every day. You sign off on the placement. The audience data starts compounding the day it goes live.</p>
+      <p class="sub" style="margin-left:auto;margin-right:auto;" data-copy="index.close.body">Start with one channel and open the rest when it earns it. No games team required on your side. We design it, build it, fill it with content, and run live operations. You sign off on the placement. The audience data starts compounding the day it goes live.</p>
       <div class="btns" style="justify-content:center;">
         <a class="btn" href="contact.html" data-copy="index.close.cta1">Talk to us</a>
         <a class="btn ghost" href="demo.html" data-copy="index.close.cta2">Play today&rsquo;s edition</a>
@@ -413,7 +451,7 @@
     <div class="ftop">
       <div class="fbrand">
         <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
-        <p data-copy="foot.blurb">Wolf Games builds and runs a vault of daily games for your audience, under your brand. Games, platform, and team, all from Wolf.</p>
+        <p data-copy="foot.blurb">Wolf Games builds and runs a vault of games for your audience, under your brand, and the system gets better at them every time they play.</p>
       </div>
       <div>
         <h4 data-copy="foot.col1.head">The case</h4>
@@ -440,7 +478,7 @@
       </div>
     </div>
     <div class="fbottom">
-      <span data-copy="foot.copyright">&copy; Wolf Games. A Wolf Entertainment company.</span>
+      <span data-copy="foot.copyright">&copy; Wolf Games.</span>
       <span data-copy="foot.split">Partners are here. Players play at <a href="vault.html">the vault</a>.</span>
       <span class="fcount">01</span>
     </div>

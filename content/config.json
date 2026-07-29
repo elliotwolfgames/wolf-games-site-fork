@@ -10,7 +10,7 @@
     "namedProof": {
       "value": true,
       "owner": "Elliot",
-      "blocks": "Shelf tile chip, proof section eyebrow, about page lineage",
+      "blocks": "Shelf tile chip and proof section eyebrow",
       "note": "Clearance to name Law & Order: Clue Hunter and Peacock publicly. Set false to fall back to the unnamed wording below."
     },
     "liveFigures": {
@@ -36,16 +36,14 @@
     "on": {
       "title": "Law & Order: Clue Hunter",
       "platform": "Peacock",
-      "shelfChip": "Live on Peacock",
-      "proofEyebrow": "Live results · Law & Order: Clue Hunter, on Peacock",
-      "lineage": "Wolf Games is the game studio inside Wolf Entertainment, the company behind Law & Order."
+      "shelfChip": "Live on Peacock, weekly",
+      "proofEyebrow": "Live results · Law & Order: Clue Hunter, new cases weekly on Peacock"
     },
     "off": {
       "title": "A live channel",
       "platform": "a national streaming service",
       "shelfChip": "Live now",
-      "proofEyebrow": "Live results · one of our own channels",
-      "lineage": "Wolf Games is the game studio inside Wolf Entertainment."
+      "proofEyebrow": "Live results · one of our own channels"
     }
   },
   "liveFigures": {
