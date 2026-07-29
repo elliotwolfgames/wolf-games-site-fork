@@ -69,4 +69,26 @@
       });
     });
   };
+
+  /* ---- drifting ember particles ----
+     Ported verbatim from the player site so the glow matches. Purely
+     decorative: nothing is lost when this does not run, and it bails
+     out entirely under prefers-reduced-motion. --------------------- */
+  window.WGParticles = function (id, color, count) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    for (var i = 0; i < count; i++) {
+      var p = document.createElement('i');
+      var s = (1.5 + Math.random() * 2.6).toFixed(1);
+      p.style.left = (Math.random() * 100).toFixed(2) + '%';
+      p.style.width = s + 'px'; p.style.height = s + 'px';
+      p.style.setProperty('--pc', color);
+      p.style.setProperty('--pt', (7 + Math.random() * 10).toFixed(1) + 's');
+      p.style.setProperty('--pd', (-Math.random() * 17).toFixed(1) + 's');
+      p.style.setProperty('--px', Math.round(Math.random() * 140 - 70) + 'px');
+      p.style.setProperty('--po', (0.2 + Math.random() * 0.45).toFixed(2));
+      el.appendChild(p);
+    }
+  };
 })();

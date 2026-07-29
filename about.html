@@ -16,6 +16,7 @@
     width:min(680px,80vw);height:auto;pointer-events:none;opacity:.55;
     -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 55%,transparent 72%);
     mask-image:radial-gradient(circle at 50% 50%,#000 55%,transparent 72%);}
+  .ahero .particles{z-index:1;}
   .ahero .wrap{position:relative;z-index:2;}
   @media (max-width:820px){.ahero .orb{right:-30%;opacity:.3;}}
 
@@ -26,7 +27,9 @@
       linear-gradient(300deg,rgba(120,90,255,.12),transparent 46%),
       linear-gradient(200deg,rgba(0,220,190,.08),transparent 50%),
       #000;}
-  .closepanel img{height:clamp(32px,4.6vw,56px);width:auto;margin:0 auto;}
+  .closepanel img{position:relative;z-index:2;height:clamp(32px,4.6vw,56px);width:auto;margin:0 auto;}
+  .closepanel .h2,.closepanel .sub,.closepanel .btns{position:relative;z-index:2;}
+  .closepanel .particles{z-index:1;}
   .closepanel .h2{margin-top:28px;}
 </style>
 </head>
@@ -54,6 +57,7 @@
 
 <section class="ahero obs">
   <img class="orb" src="assets/about-orb.png" alt="" aria-hidden="true">
+  <div class="particles" id="pt-about" aria-hidden="true"></div>
   <div class="wrap">
     <h1 class="h1 r" data-copy="about.hero.h1">We make the thing <span class="y">you can&rsquo;t staff.</span></h1>
     <hr class="rule r d1">
@@ -98,6 +102,7 @@
 <section class="obs" id="join">
   <div class="wrap">
     <div class="closepanel r">
+      <div class="particles" id="pt-join" aria-hidden="true"></div>
       <img src="assets/wordmark-yellow.svg" alt="Wolf Games">
       <h2 class="h2" data-copy="about.join.h2">Work with us</h2>
       <p class="sub" style="margin-left:auto;margin-right:auto;" data-copy="about.join.body">We are hiring writers, designers and engineers, and we are talking to partners about pilots.</p>
@@ -151,5 +156,9 @@
 </footer>
 
 <script src="js/site.js"></script>
+<script>
+WGParticles('pt-about','#FAFF00',20);
+WGParticles('pt-join','#FAFF00',18);
+</script>
 </body>
 </html>

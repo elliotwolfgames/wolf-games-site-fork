@@ -348,6 +348,24 @@ footer{border-top:1px solid var(--yellow);padding-top:clamp(44px,6vh,64px);posit
 .logos .lrow{display:flex;align-items:center;justify-content:center;gap:clamp(24px,5vw,64px);
   margin-top:20px;filter:grayscale(1);opacity:.6;}
 
+
+/* ---------- drifting ember particles ----------
+   Ported verbatim from the player site so the glow behaves
+   identically across both. Decorative only: they are spawned by
+   script, so with JavaScript off nothing is lost, and they are
+   removed entirely under prefers-reduced-motion.
+   ---------------------------------------------------------- */
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2;}
+.particles i{position:absolute;bottom:-10px;border-radius:50%;opacity:0;
+  background:var(--pc,#FAFF00);box-shadow:0 0 6px 1px var(--pc,#FAFF00);
+  animation:rise var(--pt,10s) linear infinite;animation-delay:var(--pd,0s);}
+@keyframes rise{
+  0%{transform:translate(0,0) scale(1);opacity:0;}
+  8%{opacity:var(--po,.4);}
+  82%{opacity:var(--po,.4);}
+  100%{transform:translate(var(--px,0px),-108vh) scale(.55);opacity:0;}}
+@media (prefers-reduced-motion:reduce){.particles{display:none;}}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:.01ms!important;animation:none!important;}
   html{scroll-behavior:auto;}
@@ -360,7 +378,7 @@ footer{border-top:1px solid var(--yellow);padding-top:clamp(44px,6vh,64px);posit
 @media print{
   @page{margin:14mm;}
   html,body{background:#fff!important;color:#000!important;font-size:10.5pt;line-height:1.5;}
-  header,.menu,.skip,.burger,.btns,.btn,.fan,.logos,.noprint{display:none!important;}
+  header,.menu,.skip,.burger,.btns,.btn,.fan,.logos,.particles,.noprint{display:none!important;}
   .wrap{max-width:none;padding:0;}
   section{padding:0 0 16pt!important;}
   .phero{padding:0 0 14pt!important;}
